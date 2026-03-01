@@ -1,4 +1,6 @@
-﻿namespace mobil
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace mobil
 {
     public partial class App : Application
     {
