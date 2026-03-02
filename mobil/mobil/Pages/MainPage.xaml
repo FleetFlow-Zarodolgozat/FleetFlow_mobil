@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobil.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="24" VerticalOptions="Center">
+            <Border WidthRequest="96" HeightRequest="96" BackgroundColor="#E3F2FD" HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.2" Radius="10" Offset="0,2"/>
+                </Border.Shadow>
+                <Label Text="🚚" FontSize="48" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#19A1E6"/>
+            </Border>
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Bejelentkezés" FontSize="28" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="#0F172A"/>
+                <Label Text="Flottakezelő Sofőrportál" FontSize="14" HorizontalTextAlignment="Center" TextColor="#64748B"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Felhasználónév" FontSize="13" TextColor="#475569"/>
+                <Border Padding="0" BackgroundColor="White">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.2" Radius="10" Offset="0,2"/>
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="40,*" Padding="12">
+                        <Label Text="👤" FontSize="18" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#94A3B8"/>
+                        <Entry Grid.Column="1" Placeholder="pl. sofor123" Text="{Binding EmailInput}" BackgroundColor="Transparent"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Jelszó" FontSize="13" TextColor="#475569"/>
+                <Border Padding="0" BackgroundColor="White">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.2" Radius="10" Offset="0,2"/>
+                    </Border.Shadow>
+                    <Grid ColumnDefinitions="40,*" Padding="12">
+                        <Label Text="🔒" FontSize="18" VerticalOptions="Center" HorizontalOptions="Center" TextColor="#94A3B8"/>
+                        <Entry Grid.Column="1" Placeholder="••••••••" IsPassword="True" Text="{Binding PwdInput}" BackgroundColor="Transparent"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+            <Button Text="BEJELENTKEZÉS" Command="{Binding LoginBtn_clickCommand}" BackgroundColor="#19A1E6" TextColor="White" CornerRadius="14" FontAttributes="Bold" HeightRequest="52"/>
+            <VerticalStackLayout Spacing="6" Margin="0,24,0,0" HorizontalOptions="Center">
+                <Label Text="Verzió 1.0.2" FontSize="10" TextColor="#94A3B8"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
