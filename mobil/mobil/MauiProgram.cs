@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using mobil.Handlers;
 using mobil.Services;
 using mobil.ViewModels;
 
@@ -21,9 +22,11 @@ namespace mobil
             builder.Services.AddHttpClient<AuthService>(client =>
             {
                 client.BaseAddress = new Uri("https://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
-            });
+            }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddTransient<LoginViewModel>();
-            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<AuthHttpHandler>();
+            builder.Services.AddSingleton<SessionService>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

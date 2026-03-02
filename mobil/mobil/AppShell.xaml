@@ -7,8 +7,13 @@
     Title="mobil">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Login"
+        ContentTemplate="{DataTemplate pages:LoginPage}"
+        Route="LoginPage" />
+
+    <ShellContent
+        Title="Dashboard"
+        ContentTemplate="{DataTemplate pages:DashboardPage}"
+        Route="DashboardPage" />
 
 </Shell>

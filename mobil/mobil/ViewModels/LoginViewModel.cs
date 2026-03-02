@@ -11,10 +11,12 @@ namespace mobil.ViewModels
     public partial class LoginViewModel : ObservableObject
     {
         private readonly AuthService _authService;
+        private readonly SessionService _session;
 
-        public LoginViewModel(AuthService authService)
+        public LoginViewModel(AuthService authService, SessionService session)
         {
             _authService = authService;
+            _session = session;
         }
 
         [ObservableProperty]
@@ -34,11 +36,12 @@ namespace mobil.ViewModels
             var token = await _authService.Login(loginData);
             if (token != null)
             {
-                await SecureStorage.SetAsync("bearer_token", token);
-                await Shell.Current.DisplayAlert("Siker", "Bejelentkezve", "OK");
+                await _session.SaveToken(token);
+                await Shell.Current.GoToAsync("//DashboardPage");
             }
             else
-                await Shell.Current.DisplayAlert("Hiba", "Sikertelen login", "OK");
+                // Handle login failure (e.g., show an error message from the server)
+                await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
         }
     }
 }
