@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobil.LoginPage" Shell.NavBarIsVisible="False" BackgroundColor="#F3F4F6">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto,*">
+            <!-- Header -->
+            <Grid Grid.Row="0" BackgroundColor="#2563EB" HeightRequest="200" VerticalOptions="Start">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <Label Text="&#xf1b9;" FontFamily="FontAwesomeSolid" FontSize="60" TextColor="White" HorizontalOptions="Center"/>
+                    <Label Text="FleetFlow" FontSize="32" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+                    <Label Text="Driver App" FontSize="16" TextColor="#BFDBFE" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Login Form -->
+            <Frame Grid.Row="1" Margin="20,-50,20,20" Padding="25" CornerRadius="16" BackgroundColor="White" HasShadow="True">
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Welcome Back!" FontSize="24" FontAttributes="Bold" TextColor="#1F2937" HorizontalOptions="Center"/>
+                    <Label Text="Sign in to continue" FontSize="14" TextColor="#6B7280" HorizontalOptions="Center" Margin="0,-10,0,10"/>
+
+                    <!-- Error Message -->
+                    <Frame IsVisible="{Binding HasError}" BackgroundColor="#FEE2E2" BorderColor="#EF4444" Padding="12" CornerRadius="8">
+                        <Label Text="{Binding ErrorMessage}" TextColor="#DC2626" FontSize="13"/>
+                    </Frame>
+
+                    <!-- Email Entry -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Email" FontSize="14" FontAttributes="Bold" TextColor="#374151"/>
+                        <Frame BorderColor="#E5E7EB" Padding="10,5" CornerRadius="8" BackgroundColor="#F9FAFB">
+                            <Grid ColumnDefinitions="Auto,*">
+                                <Label Text="&#xf0e0;" FontFamily="FontAwesomeRegular" FontSize="16" TextColor="#9CA3AF" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1" Text="{Binding Email}" Placeholder="Enter your email" Keyboard="Email" BackgroundColor="Transparent"/>
+                            </Grid>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Password Entry -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Password" FontSize="14" FontAttributes="Bold" TextColor="#374151"/>
+                        <Frame BorderColor="#E5E7EB" Padding="10,5" CornerRadius="8" BackgroundColor="#F9FAFB">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Text="&#xf023;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#9CA3AF" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                <Entry Grid.Column="1" Text="{Binding Password}" Placeholder="Enter your password" IsPassword="{Binding IsPasswordVisible, Converter={StaticResource InverseBooleanConverter}}" BackgroundColor="Transparent"/>
+                                <Button Grid.Column="2" Text="{Binding PasswordVisibilityIcon, Converter={StaticResource PasswordIconConverter}}" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#6B7280" BackgroundColor="Transparent" Padding="5" Command="{Binding TogglePasswordVisibilityCommand}"/>
+                            </Grid>
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Forgot Password -->
+                    <Button Text="Forgot Password?" TextColor="#2563EB" BackgroundColor="Transparent" HorizontalOptions="End" FontSize="13" Padding="0" Command="{Binding ForgotPasswordCommand}"/>
+
+                    <!-- Login Button -->
+                    <Button Text="Sign In" BackgroundColor="#2563EB" TextColor="White" FontAttributes="Bold" FontSize="16" CornerRadius="10" HeightRequest="50" Command="{Binding LoginCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}"/>
+
+                    <!-- Loading Indicator -->
+                    <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#2563EB" HeightRequest="30"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Footer -->
+            <Label Grid.Row="2" Text="&#169; 2025 FleetFlow. All rights reserved." FontSize="12" TextColor="#9CA3AF" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
