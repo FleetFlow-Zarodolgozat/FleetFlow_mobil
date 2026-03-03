@@ -40,10 +40,27 @@ namespace mobil.Services
 
         public async Task<Stats?> MyStats()
         {
-                var response = await _http.GetAsync("statistics/mine");
-                if (!response.IsSuccessStatusCode)
-                    return null;
-                return await response.Content.ReadFromJsonAsync<Stats>();
+            var response = await _http.GetAsync("statistics/mine");
+            if (!response.IsSuccessStatusCode)
+                return null;
+            return await response.Content.ReadFromJsonAsync<Stats>();
+        }
+
+        public async Task<List<Calendarevent>?> MyCalEvent()
+        {
+            var response = await _http.GetAsync("calendar/mine");
+            if (!response.IsSuccessStatusCode)
+                return null;
+            return await response.Content.ReadFromJsonAsync<List<Calendarevent>>();
+        }
+
+        public async Task<ImageSource?> GetDriverThumbnail(int userId)
+        {
+            var response = await _http.GetAsync($"files/thumbnail/{userId}");
+            if (!response.IsSuccessStatusCode)
+                return null;
+            var stream = await response.Content.ReadAsStreamAsync();
+            return ImageSource.FromStream(() => stream);
         }
     }
 }

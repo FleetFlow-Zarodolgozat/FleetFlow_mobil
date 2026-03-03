@@ -18,7 +18,7 @@ namespace mobil.Models
         [JsonPropertyName("licenseExpiryDate")]
         public DateTime LicenseExpiryDate { get; set; }
         [JsonPropertyName("profileImgFileId")]
-        public ulong ProfileImgFileId { get; set; }
+        public ulong? ProfileImgFileId { get; set; }
         [JsonPropertyName("role")]
         public string? Role { get; set; }
     }
