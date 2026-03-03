@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using mobil.Models;
 using mobil.Popups;
 using mobil.Services;
+using Plugin.Maui.Calendar.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,9 @@ namespace mobil.ViewModels
         }
 
         public ObservableCollection<Calendarevent> Events { get; set; } = new();
+
+        [ObservableProperty]
+        EventCollection calendarEvents = new();
 
         [ObservableProperty]
         Driver driver;
@@ -100,6 +104,12 @@ namespace mobil.ViewModels
         }
 
         [RelayCommand]
+        async Task GoToNotifications()
+        {
+            await Shell.Current.GoToAsync("//NotificationPage");
+        }
+
+        [RelayCommand]
         async Task NewTrip()
         {
             // TODO: Navigate to new trip page
@@ -114,7 +124,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task DayTapped(DateTime date)
         {
-            var dayEvents = Events.Where(e => e.StartAt.Date == date.Date).ToList();
+            var dayEvents = Events.Where(e => e.StartAt.ToLocalTime().Date == date.Date).ToList();
             var popupVm = new CalendarDayViewModel(date, dayEvents, _dashboardService);
             await Shell.Current.ShowPopupAsync(new CalendarDayPopup(popupVm));
             await RefreshCalendarEvents();
@@ -124,11 +134,16 @@ namespace mobil.ViewModels
         {
             var apiEvents = await _dashboardService.MyCalEvent();
             Events.Clear();
+            var newCalendarEvents = new EventCollection();
             if (apiEvents is not null)
             {
                 foreach (var e in apiEvents)
                     Events.Add(e);
+                var grouped = apiEvents.GroupBy(e => e.StartAt.ToLocalTime().Date);
+                foreach (var group in grouped)
+                    newCalendarEvents.Add(group.Key, group.ToList());
             }
+            CalendarEvents = newCalendarEvents;
         }
     }
 }

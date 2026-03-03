@@ -48,7 +48,7 @@ namespace mobil.Services
 
         public async Task<List<Calendarevent>?> MyCalEvent()
         {
-            var response = await _http.GetAsync("calendar/mine");
+            var response = await _http.GetAsync("calendarevents");
             if (!response.IsSuccessStatusCode)
                 return null;
             return await response.Content.ReadFromJsonAsync<List<Calendarevent>>();

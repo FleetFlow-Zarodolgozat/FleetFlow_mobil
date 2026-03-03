@@ -22,10 +22,9 @@ namespace mobil.Services
             return (await response.Content.ReadAsStringAsync()).Trim('"');
         }
 
-        public async Task<string?> ForgotPassword(ForgotPassword email)
+        public async Task ForgotPassword(ForgotPassword email)
         {
-            var response = await _http.PostAsJsonAsync("forgot-password", email);
-            return await response.Content.ReadAsStringAsync();
+            var response = await _http.PostAsJsonAsync("profile/forgot-password", email);
         }
     }
 }

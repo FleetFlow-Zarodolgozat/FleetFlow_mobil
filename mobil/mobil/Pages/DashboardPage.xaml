@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="mobil.DashboardPage" Shell.NavBarIsVisible="False" BackgroundColor="#F6F7F8"
-             xmlns:calendar="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar">
+             xmlns:calendar="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar"
+             xmlns:components="clr-namespace:mobil.Pages.Components">
 
     <Grid RowDefinitions="Auto, *, Auto">
         <!-- Top bar -->
@@ -10,6 +11,9 @@
             <Grid ColumnDefinitions="Auto, Auto, *, Auto, Auto">
                 <Label Grid.Column="1" Text="FleetFlow" FontAttributes="Bold" FontSize="18" TextColor="#1173d4" VerticalOptions="Center" Margin="10,0,0,0" />
                 <Grid Grid.Column="3">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToNotificationsCommand}" />
+                    </Grid.GestureRecognizers>
                     <Label Text="&#xf0f3;" FontFamily="FontAwesomeSolid" FontSize="20" VerticalOptions="Center" TextColor="#333" />
                     <Ellipse WidthRequest="8" HeightRequest="8" Fill="#ef4444" HorizontalOptions="End" VerticalOptions="Start" Margin="0,-2,-2,0" IsVisible="{Binding HaveUnreadMessage}" />
                 </Grid>
@@ -151,8 +155,8 @@
                                             <Label Text="&#xf018;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
                                         <VerticalStackLayout VerticalOptions="Center">
-                                            <Label Text="Mileage" FontSize="10" TextColor="Gray" />
-                                            <Label Text="{Binding Vehicle.CurrentMileageKm, StringFormat='{0:N0} km'}" FontSize="14" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                            <Label Text="Mileage (km)" FontSize="10" TextColor="Gray" />
+                                            <Label Text="{Binding Vehicle.CurrentMileageKm, StringFormat='{0:N0}'}" FontSize="14" FontAttributes="Bold" TextColor="#1a1a2e" />
                                         </VerticalStackLayout>
                                     </HorizontalStackLayout>
                                 </Border>
@@ -187,41 +191,19 @@
                             </VerticalStackLayout>
                         </Border>
 
-                        <!-- Total Distance -->
+                        <!-- Total Fuels -->
                         <Border Grid.Row="0" Grid.Column="1" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#ecfdf5" StrokeThickness="0" HorizontalOptions="Center">
-                                    <Label Text="&#xf018;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#059669" HorizontalOptions="Center" VerticalOptions="Center" />
-                                </Border>
-                                <Label Text="{Binding Stats.TotalDistance, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="km" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
-                            </VerticalStackLayout>
-                        </Border>
-
-                        <!-- Total Fuels -->
-                        <Border Grid.Row="0" Grid.Column="2" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
-                            <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
                                 <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#FFF5E5" StrokeThickness="0" HorizontalOptions="Center">
-                                    <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#EA580C" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#ea580c" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <Label Text="{Binding Stats.TotalFuels}" FontSize="20" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
                                 <Label Text="Fuelings" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
 
-                        <!-- Fuel Cost -->
-                        <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
-                            <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#fef2f2" StrokeThickness="0" HorizontalOptions="Center">
-                                    <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
-                                </Border>
-                                <Label Text="{Binding Stats.TotalFuelCost, StringFormat='{0:N0} €'}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Fuel Cost" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
-                            </VerticalStackLayout>
-                        </Border>
-
                         <!-- Total Services -->
-                        <Border Grid.Row="1" Grid.Column="1" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <Border Grid.Row="0" Grid.Column="2" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
                                 <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#f5f3ff" StrokeThickness="0" HorizontalOptions="Center">
                                     <Label Text="&#xf0ad;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#7c3aed" HorizontalOptions="Center" VerticalOptions="Center" />
@@ -231,13 +213,35 @@
                             </VerticalStackLayout>
                         </Border>
 
+                        <!-- Total Distance -->
+                        <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                            <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#ecfdf5" StrokeThickness="0" HorizontalOptions="Center">
+                                    <Label Text="&#xf018;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#059669" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Label Text="{Binding Stats.TotalDistance, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
+                                <Label Text="km" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Fuel Cost -->
+                        <Border Grid.Row="1" Grid.Column="1" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                            <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#fef2f2" StrokeThickness="0" HorizontalOptions="Center">
+                                    <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Label Text="{Binding Stats.TotalFuelCost, StringFormat='{0:N0}'}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
+                                <Label Text="Fuel Cost" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+
                         <!-- Services Cost -->
                         <Border Grid.Row="1" Grid.Column="2" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
                                 <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#fff7ed" StrokeThickness="0" HorizontalOptions="Center">
                                     <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#ea580c" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalServicesCost, StringFormat='{0:N0} €'}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalServicesCost, StringFormat='{0:N0}'}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
                                 <Label Text="Serv. Cost" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
@@ -245,32 +249,9 @@
                 </VerticalStackLayout>
 
                 <!-- Calendar section -->
-                <calendar:Calendar Events="{Binding Events}" EventIndicatorColor="Blue" DayTappedCommand="{Binding DayTappedCommand}" />
+                <calendar:Calendar Events="{Binding CalendarEvents}" EventIndicatorColor="Blue" DayTappedCommand="{Binding DayTappedCommand}" />
             </VerticalStackLayout>
         </ScrollView>
-        <!-- Bottom navigation bar -->
-        <Border Grid.Row="2" BackgroundColor="White" StrokeThickness="0" StrokeShape="Rectangle" Padding="0">
-            <Border.Shadow>
-                <Shadow Brush="#20000000" Offset="0,-2" Radius="8" />
-            </Border.Shadow>
-            <Grid HeightRequest="70" ColumnDefinitions="*,*,*,*">
-                <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
-                    <Label Text="&#xf3fd;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center" TextColor="#1173d4" />
-                    <Label Text="Dashboard" FontSize="10" HorizontalOptions="Center" TextColor="#1173d4" FontAttributes="Bold" />
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
-                    <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center" TextColor="#94a3b8" />
-                    <Label Text="Fuel" FontSize="10" HorizontalOptions="Center" TextColor="#94a3b8" />
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
-                    <Label Text="&#xf14e;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center" TextColor="#94a3b8" />
-                    <Label Text="Trips" FontSize="10" HorizontalOptions="Center" TextColor="#94a3b8" />
-                </VerticalStackLayout>
-                <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
-                    <Label Text="&#xf0ad;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center" TextColor="#94a3b8" />
-                    <Label Text="Service" FontSize="10" HorizontalOptions="Center" TextColor="#94a3b8" />
-                </VerticalStackLayout>
-            </Grid>
-        </Border>
+        <components:BottomNavigation Grid.Row="2" ActiveTab="Dashboard" />
     </Grid>
 </ContentPage>

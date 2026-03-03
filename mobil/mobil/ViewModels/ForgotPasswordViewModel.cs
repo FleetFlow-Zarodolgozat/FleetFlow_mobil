@@ -37,7 +37,7 @@ namespace mobil.ViewModels
                 return;
             }
             IsBusy = true;
-            var result = await _auth.ForgotPassword(new ForgotPassword { Email = Email });
+            await _auth.ForgotPassword(new ForgotPassword { Email = Email });
             if (CloseAction != null) await CloseAction();
         }
 

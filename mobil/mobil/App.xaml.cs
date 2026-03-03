@@ -5,10 +5,12 @@ namespace mobil
 {
     public partial class App : Application
     {
+        private readonly SessionService _sessionService;
+
         public App(SessionService sessionService)
         {
+            _sessionService = sessionService;
             InitializeComponent();
-            CheckLogin(sessionService);
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
@@ -16,9 +18,10 @@ namespace mobil
             return new Window(new AppShell());
         }
 
-        private async void CheckLogin(SessionService session)
+        protected override async void OnStart()
         {
-            var token = await session.GetToken();
+            base.OnStart();
+            var token = await _sessionService.GetToken();
             if (!string.IsNullOrEmpty(token))
                 await Shell.Current.GoToAsync("//DashboardPage");
             else

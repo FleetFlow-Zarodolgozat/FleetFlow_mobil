@@ -16,6 +16,12 @@
             <converters:IsNotZeroConverter x:Key="IsNotZeroConverter" />
             <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
             <converters:BoolToTextColorConverter x:Key="BoolToTextColorConverter" />
+            <converters:NotificationTypeToColorConverter x:Key="NotifTypeToColor" />
+            <converters:NotificationTypeToLightColorConverter x:Key="NotifTypeToLightColor" />
+            <converters:NotificationTypeToIconConverter x:Key="NotifTypeToIcon" />
+            <converters:NotificationTypeToLabelConverter x:Key="NotifTypeToLabel" />
+            <converters:TabColorConverter x:Key="TabColor" />
+            <converters:TabFontAttributesConverter x:Key="TabFont" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

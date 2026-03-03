@@ -4,28 +4,21 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="mobil.Popups.CalendarDayPopup">
 
-    <Border StrokeShape="RoundRectangle 16" Stroke="#e2e8f0" StrokeThickness="1"
-            BackgroundColor="White" Padding="0" WidthRequest="340" MaximumHeightRequest="550">
+    <Border StrokeShape="RoundRectangle 16" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="0" WidthRequest="340" MaximumHeightRequest="550">
         <Grid RowDefinitions="Auto, *, Auto">
 
             <!-- Header -->
-            <Border Grid.Row="0" BackgroundColor="#1173d4" StrokeThickness="0"
-                    StrokeShape="RoundRectangle 16,16,0,0" Padding="20,16">
+            <Border Grid.Row="0" BackgroundColor="#1173d4" StrokeThickness="0" StrokeShape="RoundRectangle 16,16,0,0" Padding="20,16">
                 <Grid ColumnDefinitions="*, Auto">
                     <VerticalStackLayout Grid.Column="0" Spacing="2">
-                        <Label Text="{Binding SelectedDate, StringFormat='{}{0:dddd}'}"
-                               FontSize="13" TextColor="#B3D4FC" />
-                        <Label Text="{Binding SelectedDate, StringFormat='{}{0:yyyy. MMMM dd.}'}"
-                               FontSize="20" FontAttributes="Bold" TextColor="White" />
+                        <Label Text="{Binding SelectedDate, StringFormat='{}{0:dddd}'}" FontSize="13" TextColor="#B3D4FC" />
+                        <Label Text="{Binding SelectedDate, StringFormat='{}{0:yyyy. MMMM dd.}'}" FontSize="20" FontAttributes="Bold" TextColor="White" />
                     </VerticalStackLayout>
-                    <Border Grid.Column="1" WidthRequest="36" HeightRequest="36"
-                            StrokeShape="RoundRectangle 18" BackgroundColor="#ffffff30"
-                            StrokeThickness="0" VerticalOptions="Center">
+                    <Border Grid.Column="1" WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="#ffffff30" StrokeThickness="0" VerticalOptions="Center">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CloseCommand}" />
                         </Border.GestureRecognizers>
-                        <Label Text="&#xf00d;" FontFamily="FontAwesomeSolid" FontSize="16"
-                               TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="&#xf00d;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
                     </Border>
                 </Grid>
             </Border>
@@ -35,54 +28,34 @@
                 <VerticalStackLayout Spacing="12">
 
                     <!-- Events list -->
-                    <Label Text="EVENTS" FontSize="11" FontAttributes="Bold" TextColor="#94a3b8"
-                           IsVisible="{Binding DayEvents.Count, Converter={StaticResource IsNotZeroConverter}}" />
-
+                    <Label Text="EVENTS" FontSize="11" FontAttributes="Bold" TextColor="#94a3b8" IsVisible="{Binding DayEvents.Count, Converter={StaticResource IsNotZeroConverter}}" />
                     <CollectionView ItemsSource="{Binding DayEvents}" SelectionMode="None">
                         <CollectionView.EmptyView>
                             <VerticalStackLayout Spacing="8" Padding="0,10" HorizontalOptions="Center">
-                                <Label Text="&#xf073;" FontFamily="FontAwesomeSolid" FontSize="28"
-                                       TextColor="#cbd5e1" HorizontalOptions="Center" />
-                                <Label Text="No events for this day" FontSize="13"
-                                       TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="&#xf073;" FontFamily="FontAwesomeSolid" FontSize="28" TextColor="#cbd5e1" HorizontalOptions="Center" />
+                                <Label Text="No events for this day" FontSize="13" TextColor="#94a3b8" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </CollectionView.EmptyView>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Border Margin="0,0,0,8" Padding="12" BackgroundColor="#F8FAFC"
-                                        StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1">
+                                <Border Margin="0,0,0,8" Padding="12" BackgroundColor="#F8FAFC" StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1">
                                     <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                         <!-- Time badge -->
-                                        <Border Grid.Column="0" WidthRequest="44" HeightRequest="44"
-                                                StrokeShape="RoundRectangle 10" BackgroundColor="#F0F7FF"
-                                                StrokeThickness="0" VerticalOptions="Center">
-                                            <Label Text="&#xf017;" FontFamily="FontAwesomeSolid"
-                                                   FontSize="18" TextColor="#1173d4"
-                                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                                        <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" StrokeShape="RoundRectangle 10" BackgroundColor="#F0F7FF" StrokeThickness="0" VerticalOptions="Center">
+                                            <Label Text="&#xf017;" FontFamily="FontAwesomeSolid" FontSize="18" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
                                         <!-- Event info -->
                                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                            <Label Text="{Binding Title}" FontSize="14"
-                                                   FontAttributes="Bold" TextColor="#1a1a2e"
-                                                   LineBreakMode="TailTruncation" />
-                                            <Label Text="{Binding StartAt, StringFormat='{}{0:HH:mm}'}"
-                                                   FontSize="11" TextColor="#64748b" />
-                                            <Label Text="{Binding Description}" FontSize="11"
-                                                   TextColor="#94a3b8" LineBreakMode="TailTruncation"
-                                                   MaxLines="1" />
+                                            <Label Text="{Binding Title}" FontSize="14" FontAttributes="Bold" TextColor="#1a1a2e" LineBreakMode="TailTruncation" />
+                                            <Label Text="{Binding StartAt, StringFormat='{}{0:HH:mm}'}" FontSize="11" TextColor="#64748b" />
+                                            <Label Text="{Binding Description}" FontSize="11" TextColor="#94a3b8" LineBreakMode="TailTruncation" MaxLines="1" />
                                         </VerticalStackLayout>
                                         <!-- Delete button -->
-                                        <Border Grid.Column="2" WidthRequest="32" HeightRequest="32"
-                                                StrokeShape="RoundRectangle 16" BackgroundColor="#fef2f2"
-                                                StrokeThickness="0" VerticalOptions="Center">
+                                        <Border Grid.Column="2" WidthRequest="32" HeightRequest="32" StrokeShape="RoundRectangle 16" BackgroundColor="#fef2f2" StrokeThickness="0" VerticalOptions="Center">
                                             <Border.GestureRecognizers>
-                                                <TapGestureRecognizer
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.DeleteEventCommand}"
-                                                    CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.DeleteEventCommand}" CommandParameter="{Binding .}" />
                                             </Border.GestureRecognizers>
-                                            <Label Text="&#xf1f8;" FontFamily="FontAwesomeSolid"
-                                                   FontSize="13" TextColor="#dc2626"
-                                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                                            <Label Text="&#xf1f8;" FontFamily="FontAwesomeSolid" FontSize="13" TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
                                     </Grid>
                                 </Border>
@@ -96,60 +69,44 @@
                         <Label Text="NEW EVENT" FontSize="11" FontAttributes="Bold" TextColor="#94a3b8" />
 
                         <!-- Title -->
-                        <Border StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1"
-                                BackgroundColor="#F8FAFC" Padding="12,0">
-                            <Entry Placeholder="Event title" Text="{Binding TitleInput}"
-                                   FontSize="14" TextColor="#1a1a2e" />
+                        <Border StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="#F8FAFC" Padding="12,0">
+                            <Entry Placeholder="Event title" Text="{Binding TitleInput}" FontSize="14" TextColor="#1a1a2e" />
                         </Border>
 
                         <!-- Description -->
-                        <Border StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1"
-                                BackgroundColor="#F8FAFC" Padding="12,0">
-                            <Entry Placeholder="Description (optional)" Text="{Binding DescriptionInput}"
-                                   FontSize="14" TextColor="#1a1a2e" />
+                        <Border StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="#F8FAFC" Padding="12,0">
+                            <Entry Placeholder="Description (optional)" Text="{Binding DescriptionInput}" FontSize="14" TextColor="#1a1a2e" />
                         </Border>
 
                         <!-- Time pickers -->
                         <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
                             <VerticalStackLayout Grid.Column="0" Spacing="4">
                                 <Label Text="Start" FontSize="11" TextColor="#64748b" />
-                                <Border StrokeShape="RoundRectangle 10" Stroke="#e2e8f0"
-                                        StrokeThickness="1" BackgroundColor="#F8FAFC" Padding="8,0">
+                                <Border StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="#F8FAFC" Padding="8,0">
                                     <TimePicker Time="{Binding StartTime}" FontSize="14" TextColor="#1a1a2e" />
                                 </Border>
                             </VerticalStackLayout>
                             <VerticalStackLayout Grid.Column="1" Spacing="4">
                                 <Label Text="End" FontSize="11" TextColor="#64748b" />
-                                <Border StrokeShape="RoundRectangle 10" Stroke="#e2e8f0"
-                                        StrokeThickness="1" BackgroundColor="#F8FAFC" Padding="8,0">
+                                <Border StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="#F8FAFC" Padding="8,0">
                                     <TimePicker Time="{Binding EndTime}" FontSize="14" TextColor="#1a1a2e" />
                                 </Border>
                             </VerticalStackLayout>
                         </Grid>
 
                         <!-- Error -->
-                        <Label Text="{Binding FormError}" TextColor="#dc2626" FontSize="12"
-                               IsVisible="{Binding FormError, Converter={StaticResource IsNotNullConverter}}" />
+                        <Label Text="{Binding FormError}" TextColor="#dc2626" FontSize="12" IsVisible="{Binding FormError, Converter={StaticResource IsNotNullConverter}}" />
 
                         <!-- Create button -->
-                        <Button Text="Create Event" Command="{Binding CreateEventCommand}"
-                                BackgroundColor="#1173d4" TextColor="White" FontAttributes="Bold"
-                                CornerRadius="10" HeightRequest="44" FontSize="14"
-                                IsEnabled="{Binding IsCreating, Converter={StaticResource InverseBooleanConverter}}" />
-
-                        <ActivityIndicator IsRunning="{Binding IsCreating}" IsVisible="{Binding IsCreating}"
-                                           Color="#1173d4" HeightRequest="20" />
+                        <Button Text="Create Event" Command="{Binding CreateEventCommand}" BackgroundColor="#1173d4" TextColor="White" FontAttributes="Bold" CornerRadius="10" HeightRequest="44" FontSize="14" IsEnabled="{Binding IsCreating, Converter={StaticResource InverseBooleanConverter}}" />
+                        <ActivityIndicator IsRunning="{Binding IsCreating}" IsVisible="{Binding IsCreating}" Color="#1173d4" HeightRequest="20" />
                     </VerticalStackLayout>
                 </VerticalStackLayout>
             </ScrollView>
 
             <!-- Footer: Add event toggle button -->
-            <Border Grid.Row="2" Padding="16,12" BackgroundColor="White" StrokeThickness="0"
-                    StrokeShape="RoundRectangle 0,0,16,16">
-                <Button Command="{Binding ToggleFormCommand}"
-                        BackgroundColor="{Binding ShowForm, Converter={StaticResource BoolToColorConverter}}"
-                        TextColor="{Binding ShowForm, Converter={StaticResource BoolToTextColorConverter}}"
-                        FontAttributes="Bold" CornerRadius="10" HeightRequest="44" FontSize="14">
+            <Border Grid.Row="2" Padding="16,12" BackgroundColor="White" StrokeThickness="0" StrokeShape="RoundRectangle 0,0,16,16">
+                <Button Command="{Binding ToggleFormCommand}" BackgroundColor="{Binding ShowForm, Converter={StaticResource BoolToColorConverter}}" TextColor="{Binding ShowForm, Converter={StaticResource BoolToTextColorConverter}}" FontAttributes="Bold" CornerRadius="10" HeightRequest="44" FontSize="14">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding ShowForm}" Value="True">
                             <Setter Property="Text" Value="Cancel" />

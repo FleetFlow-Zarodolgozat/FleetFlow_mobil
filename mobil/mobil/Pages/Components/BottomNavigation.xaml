@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobil.Pages.Components.BottomNavigation"
+             x:Name="ThisView">
+
+    <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="Rectangle" Padding="0">
+        <Border.Shadow>
+            <Shadow Brush="#20000000" Offset="0,-2" Radius="8" />
+        </Border.Shadow>
+        <Grid HeightRequest="70" ColumnDefinitions="*,*,*,*">
+
+            <!-- Dashboard -->
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToDashboardCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Label Text="&#xf3fd;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center"
+                       TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Dashboard'}" />
+                <Label Text="Dashboard" FontSize="10" HorizontalOptions="Center"
+                       TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Dashboard'}"
+                       FontAttributes="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabFont}, ConverterParameter='Dashboard'}" />
+            </VerticalStackLayout>
+
+            <!-- Fuel -->
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center"
+                       TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Fuel'}" />
+                <Label Text="Fuel" FontSize="10" HorizontalOptions="Center"
+                       TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Fuel'}"
+                       FontAttributes="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabFont}, ConverterParameter='Fuel'}" />
+            </VerticalStackLayout>
+
+            <!-- Trips -->
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                <Label Text="&#xf14e;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center"
+                       TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Trips'}" />
+                <Label Text="Trips" FontSize="10" HorizontalOptions="Center"
+                       TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Trips'}"
+                       FontAttributes="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabFont}, ConverterParameter='Trips'}" />
+            </VerticalStackLayout>
+
+            <!-- Services -->
+            <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                <Label Text="&#xf7d9;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center"
+                       TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Services'}" />
+                <Label Text="Services" FontSize="10" HorizontalOptions="Center"
+                       TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Services'}"
+                       FontAttributes="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabFont}, ConverterParameter='Services'}" />
+            </VerticalStackLayout>
+
+        </Grid>
+    </Border>
+</ContentView>

@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using mobil.Handlers;
+using mobil.Pages;
+using mobil.Pages.Components;
 using mobil.Popups;
 using mobil.Services;
 using mobil.ViewModels;
@@ -30,6 +32,10 @@ namespace mobil
             {
                 client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
             }).AddHttpMessageHandler<AuthHttpHandler>();
+            builder.Services.AddHttpClient<NotificationService>(client =>
+            {
+                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+            }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddTransient<AuthHttpHandler>();
             builder.Services.AddSingleton<SessionService>();
             builder.Services.AddTransient<LoginPage>();
@@ -38,6 +44,9 @@ namespace mobil
             builder.Services.AddTransient<ForgotPasswordViewModel>();
             builder.Services.AddTransient<DashboardPage>();
             builder.Services.AddTransient<DashboardViewModel>();
+            builder.Services.AddTransient<NotificationPage>();
+            builder.Services.AddTransient<NotificationViewModel>();
+            builder.Services.AddSingleton<BottomNavigationViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
