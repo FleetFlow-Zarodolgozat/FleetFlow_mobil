@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobil.DashboardPage" Shell.NavBarIsVisible="False" BackgroundColor="#F6F7F8">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Top bar -->
+        <Border Grid.Row="0" Padding="15" BackgroundColor="White" StrokeShape="Rectangle" StrokeThickness="0">
+            <Grid ColumnDefinitions="Auto, Auto, *, Auto, Auto">
+                <Label Grid.Column="1" Text="FleetFlow" FontAttributes="Bold" FontSize="18" TextColor="#1173d4" VerticalOptions="Center" Margin="10,0,0,0" />
+                <Label Grid.Column="3" Text="&#xf0f3;" FontFamily="FontAwesomeSolid" FontSize="20" VerticalOptions="Center" TextColor="#333" />
+                <Border Grid.Column="4" WidthRequest="35" HeightRequest="35" StrokeShape="RoundRectangle 17.5" StrokeThickness="0" BackgroundColor="#1173d4" Margin="10,0,0,0">
+                    <Label Text="&#xf007;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+            </Grid>
+        </Border>
+        <!-- Scrollable content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="20">
+                <!-- Header -->
+                <VerticalStackLayout>
+                    <Label Text="DASHBOARD" FontSize="12" FontAttributes="Bold" TextColor="#1173d4" />
+                    <Label Text="Welcome back, Alex Morgan" FontSize="24" FontAttributes="Bold" TextColor="#1a1a2e" />
+                </VerticalStackLayout>
+                <!-- Vehicle card -->
+                <Border StrokeShape="RoundRectangle 12" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="0">
+                    <Grid RowDefinitions="Auto, Auto">
+                        <!-- Vehicle info + stats -->
+                        <VerticalStackLayout Grid.Row="1" Padding="15" Spacing="10">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label Text="Volvo FH16" FontSize="20" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                    <Label Text="ID: VK-9928 • Euro 6" FontSize="12" TextColor="Gray" />
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <Grid ColumnDefinitions="*, *" ColumnSpacing="10" Margin="0,5,0,0">
+                                <Border Grid.Column="0" BackgroundColor="#FFF5E5" Padding="12" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="#FEDD8E" StrokeThickness="0">
+                                            <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#EA580C" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </Border>
+                                        <VerticalStackLayout VerticalOptions="Center">
+                                            <Label Text="Fuel Level" FontSize="10" TextColor="Gray" />
+                                            <Label Text="75%" FontSize="16" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                </Border>
+                                <Border Grid.Column="1" BackgroundColor="#F0F7FF" Padding="12" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="#B3D4FC" StrokeThickness="0">
+                                            <Label Text="&#xf7d9;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </Border>
+                                        <VerticalStackLayout VerticalOptions="Center">
+                                            <Label Text="Next Service" FontSize="10" TextColor="Gray" />
+                                            <Label Text="1,200 km" FontSize="16" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                <!-- My Stats section -->
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="MY STATS" FontSize="12" FontAttributes="Bold" TextColor="#64748b" />
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <!-- Fueling stats -->
+                        <Border Grid.Column="0" BackgroundColor="#1173d4" Padding="16" StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                            <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                                <Border WidthRequest="48" HeightRequest="48" StrokeShape="RoundRectangle 12" BackgroundColor="#ffffff30" StrokeThickness="0" HorizontalOptions="Center">
+                                    <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="20" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Label Text="Fueling" FontSize="14" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <!-- Trip stats -->
+                        <Border Grid.Column="1" BackgroundColor="White" Padding="16" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 14">
+                            <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                                <Border WidthRequest="48" HeightRequest="48" StrokeShape="RoundRectangle 12" BackgroundColor="#F0F7FF" StrokeThickness="0" HorizontalOptions="Center">
+                                    <Label Text="&#xf14e;" FontFamily="FontAwesomeSolid" FontSize="20" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Border>
+                                <Label Text="Trip Stats" FontSize="14" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+                <!-- Calendar section -->
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Grid.Column="0" Text="CALENDAR" FontSize="12" FontAttributes="Bold" TextColor="#64748b" />
+                        <Label Grid.Column="1" Text="+ NEW" FontSize="12" FontAttributes="Bold" TextColor="#1173d4" />
+                    </Grid>
+                    <Border BackgroundColor="White" Padding="16" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 14">
+                        <VerticalStackLayout Spacing="14">
+                            <!-- Calendar event item -->
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="14">
+                                <Border Grid.Column="0" WidthRequest="52" HeightRequest="58" StrokeShape="RoundRectangle 10"
+                                        BackgroundColor="#F0F7FF" StrokeThickness="0">
+                                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
+                                        <Label Text="OCT" FontSize="10" FontAttributes="Bold" TextColor="#1173d4" HorizontalOptions="Center" />
+                                        <Label Text="24" FontSize="22" FontAttributes="Bold" TextColor="#1173d4" HorizontalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                                    <HorizontalStackLayout Spacing="6">
+                                        <Ellipse WidthRequest="8" HeightRequest="8" Fill="#1173d4" VerticalOptions="Center" />
+                                        <Label Text="09:00 - 11:30" FontSize="12" TextColor="Gray" />
+                                    </HorizontalStackLayout>
+                                    <Label Text="Pickup at Terminal A" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="&#xf3c5;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#1173d4" VerticalOptions="Center" />
+                                        <Label Text="Port of Hamburg, Pier 4" FontSize="11" TextColor="Gray" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <BoxView HeightRequest="1" Color="#f1f5f9" />
+
+                            <!-- Next event hint -->
+                            <HorizontalStackLayout Spacing="6" HorizontalOptions="Center">
+                                <Label Text="&#xf073;" FontFamily="FontAwesomeSolid" FontSize="12" TextColor="#1173d4" VerticalOptions="Center" />
+                                <Label Text="Next: Delivery to Logistics Hub (14:00)" FontSize="12" TextColor="#1173d4" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+        <!-- Bottom navigation bar -->
+        <Border Grid.Row="2" BackgroundColor="White" StrokeThickness="0" StrokeShape="Rectangle" Padding="0">
+            <Border.Shadow>
+                <Shadow Brush="#20000000" Offset="0,-2" Radius="8" />
+            </Border.Shadow>
+            <Grid HeightRequest="70" ColumnDefinitions="*,*,*,*">
+                <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                    <Label Text="&#xf3fd;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center" TextColor="#1173d4" />
+                    <Label Text="Dashboard" FontSize="10" HorizontalOptions="Center" TextColor="#1173d4" FontAttributes="Bold" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                    <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center" TextColor="#94a3b8" />
+                    <Label Text="Fuel" FontSize="10" HorizontalOptions="Center" TextColor="#94a3b8" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                    <Label Text="&#xf14e;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center" TextColor="#94a3b8" />
+                    <Label Text="Trips" FontSize="10" HorizontalOptions="Center" TextColor="#94a3b8" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                    <Label Text="&#xf0ad;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center" TextColor="#94a3b8" />
+                    <Label Text="Service" FontSize="10" HorizontalOptions="Center" TextColor="#94a3b8" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>
