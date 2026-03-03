@@ -5,10 +5,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:mobil"
     xmlns:pages="clr-namespace:mobil"
-    Title="mobil">
+    xmlns:pagesNs="clr-namespace:mobil.Pages"
+    Title="FleetFlow mobile app">
 
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate pages:LoginPage}"
         Route="LoginPage" />
+
+    <ShellContent
+        Title="Dashboard"
+        ContentTemplate="{DataTemplate pages:DashboardPage}"
+        Route="DashboardPage" />
+
+    <ShellContent
+        Title="Notifications"
+        ContentTemplate="{DataTemplate pagesNs:NotificationPage}"
+        Route="NotificationPage" />
 </Shell>

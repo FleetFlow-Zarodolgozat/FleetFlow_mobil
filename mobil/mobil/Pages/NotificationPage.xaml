@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobil.Pages.NotificationPage"
+             Shell.NavBarIsVisible="False" BackgroundColor="#F6F7F8"
+             xmlns:components="clr-namespace:mobil.Pages.Components">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Top bar -->
+        <Border Grid.Row="0" Padding="15" BackgroundColor="White" StrokeShape="Rectangle" StrokeThickness="0">
+            <Border.Shadow>
+                <Shadow Brush="#15000000" Offset="0,2" Radius="6" />
+            </Border.Shadow>
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <Label Grid.Column="0" Text="FleetFlow" FontAttributes="Bold" FontSize="18" TextColor="#1173d4" VerticalOptions="Center" />
+                <Label Grid.Column="1" Text="Notifications" FontSize="14" TextColor="#64748b" VerticalOptions="Center" HorizontalOptions="Center" />
+                <!-- Mark All Read button -->
+                <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="#F0F7FF" Padding="12,8">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MarkAsReadCommand}" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="&#xf058;" FontFamily="FontAwesomeSolid" FontSize="13" TextColor="#1173d4" VerticalOptions="Center" />
+                        <Label Text="Mark all read" FontSize="12" FontAttributes="Bold" TextColor="#1173d4" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Scrollable content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="16">
+
+                <!-- Loading indicator -->
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#1173d4" HeightRequest="40" />
+
+                <!-- Section header -->
+                <VerticalStackLayout Spacing="2" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
+                    <Label Text="NOTIFICATIONS" FontSize="12" FontAttributes="Bold" TextColor="#1173d4" />
+                    <Label Text="Your latest updates" FontSize="22" FontAttributes="Bold" TextColor="#1a1a2e" />
+                </VerticalStackLayout>
+
+                <!-- Notification list -->
+                <CollectionView ItemsSource="{Binding Notifications}" SelectionMode="None" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout Spacing="12" Padding="0,40" HorizontalOptions="Center">
+                            <Border WidthRequest="72" HeightRequest="72" StrokeShape="RoundRectangle 36" BackgroundColor="#F0F7FF" StrokeThickness="0" HorizontalOptions="Center">
+                                <Label Text="&#xf0f3;" FontFamily="FontAwesomeSolid" FontSize="30" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <Label Text="No notifications" FontSize="16" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
+                            <Label Text="You're all caught up!" FontSize="13" TextColor="#94a3b8" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,0,0,10" StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1" Padding="14" BackgroundColor="White">
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="14">
+
+                                    <!-- Type icon -->
+                                    <Border Grid.Column="0" WidthRequest="48" HeightRequest="48" StrokeShape="RoundRectangle 14" StrokeThickness="0" BackgroundColor="{Binding Type, Converter={StaticResource NotifTypeToLightColor}}" VerticalOptions="Start">
+                                        <Label Text="{Binding Type, Converter={StaticResource NotifTypeToIcon}}" FontFamily="FontAwesomeSolid" FontSize="20" TextColor="{Binding Type, Converter={StaticResource NotifTypeToColor}}" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+
+                                    <!-- Content -->
+                                    <VerticalStackLayout Grid.Column="1" Spacing="5">
+
+                                        <!-- Title row + unread dot -->
+                                        <Grid ColumnDefinitions="*, Auto">
+                                            <Label Grid.Column="0" Text="{Binding Title}" FontSize="14" FontAttributes="Bold" TextColor="#1a1a2e" LineBreakMode="TailTruncation" />
+                                            <Ellipse Grid.Column="1" WidthRequest="9" HeightRequest="9" Fill="#1173d4" VerticalOptions="Center" Margin="6,0,0,0" IsVisible="{Binding IsRead, Converter={StaticResource InverseBooleanConverter}}" />
+                                        </Grid>
+
+                                        <!-- Message -->
+                                        <Label Text="{Binding Message}" FontSize="12" TextColor="#64748b" LineBreakMode="WordWrap" MaxLines="2" />
+
+                                        <!-- Type badge + Date -->
+                                        <Grid ColumnDefinitions="Auto, *" Margin="0,2,0,0">
+                                            <Border Grid.Column="0" StrokeShape="RoundRectangle 6" StrokeThickness="0" BackgroundColor="{Binding Type, Converter={StaticResource NotifTypeToLightColor}}" Padding="8,3">
+                                                <Label Text="{Binding Type, Converter={StaticResource NotifTypeToLabel}}" FontSize="10" FontAttributes="Bold" TextColor="{Binding Type, Converter={StaticResource NotifTypeToColor}}" />
+                                            </Border>
+                                            <Label Grid.Column="1" Text="{Binding CreatedAt, StringFormat='{0:yyyy.MM.dd HH:mm}'}" FontSize="10" TextColor="#94a3b8" HorizontalOptions="End" VerticalOptions="Center" />
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <components:BottomNavigation Grid.Row="2"/>
+    </Grid>
+</ContentPage>
