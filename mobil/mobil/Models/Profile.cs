@@ -7,6 +7,8 @@ namespace mobil.Models
 {
     public class Driver
     {
+        [JsonPropertyName("id")]
+        public ulong? Id { get; set; }
         [JsonPropertyName("fullname")]
         public string? FullName { get; set; }
         [JsonPropertyName("email")]

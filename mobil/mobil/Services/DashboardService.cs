@@ -54,13 +54,25 @@ namespace mobil.Services
             return await response.Content.ReadFromJsonAsync<List<Calendarevent>>();
         }
 
-        public async Task<ImageSource?> GetDriverThumbnail(int userId)
+        public async Task<ImageSource?> GetDriverThumbnail(ulong userId)
         {
             var response = await _http.GetAsync($"files/thumbnail/{userId}");
             if (!response.IsSuccessStatusCode)
                 return null;
             var stream = await response.Content.ReadAsStreamAsync();
             return ImageSource.FromStream(() => stream);
+        }
+
+        public async Task<bool> CreateEvent(Calendarevent ev)
+        {
+            var response = await _http.PostAsJsonAsync("calendarevents", ev);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> DeleteEvent(ulong id)
+        {
+            var response = await _http.DeleteAsync($"calendarevents/{id}");
+            return response.IsSuccessStatusCode;
         }
     }
 }

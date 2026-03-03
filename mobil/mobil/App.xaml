@@ -12,6 +12,10 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <converters:PasswordIconConverter x:Key="PasswordIconConverter" />
+            <converters:IsNotNullConverter x:Key="IsNotNullConverter" />
+            <converters:IsNotZeroConverter x:Key="IsNotZeroConverter" />
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+            <converters:BoolToTextColorConverter x:Key="BoolToTextColorConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

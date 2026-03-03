@@ -14,8 +14,6 @@ public partial class DashboardPage : ContentPage
 	{
 		base.OnAppearing();
 		if (BindingContext is DashboardViewModel vm)
-		{
 			await vm.LoadData();
-		}
 	}
 }

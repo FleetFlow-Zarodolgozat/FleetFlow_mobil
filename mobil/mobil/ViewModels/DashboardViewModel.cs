@@ -1,9 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Extensions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using mobil.Models;
+using mobil.Popups;
 using mobil.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace mobil.ViewModels
@@ -14,14 +17,12 @@ namespace mobil.ViewModels
         public DashboardViewModel(DashboardService dashboardService)
         {
             _dashboardService = dashboardService;
-            //LoadProfileImage();
         }
+
+        public ObservableCollection<Calendarevent> Events { get; set; } = new();
 
         [ObservableProperty]
         Driver driver;
-
-        [ObservableProperty]
-        List<Calendarevent> calendarEvents;
 
         [ObservableProperty]
         Vehicle vehicle;
@@ -52,11 +53,12 @@ namespace mobil.ViewModels
                 Driver = await _dashboardService.MyProfileData();
                 Vehicle = await _dashboardService.MyVehicle();
                 Stats = await _dashboardService.MyStats();
-                CalendarEvents = await _dashboardService.MyCalEvent();
                 var unreadStatus = await _dashboardService.HaveUnreadMessage();
                 if (unreadStatus.HasValue)
                     HaveUnreadMessage = unreadStatus.Value;
-                WelcomeMessage = $"Welcome back, {Driver.FullName}!";
+                WelcomeMessage = Driver is not null ? $"Welcome back, {Driver.FullName}!" : "Welcome back!";
+                LoadProfileImage();
+                await RefreshCalendarEvents();
             }
             catch (Exception ex)
             {
@@ -68,11 +70,28 @@ namespace mobil.ViewModels
             }
         }
 
-        //async void LoadProfileImage()
-        //{
-        //    var image = await _dashboardService.GetDriverThumbnail(Driver.ProfileImgFileId);
-        //    ProfileImage = image ?? ImageSource.FromFile("default_driver.png");
-        //}
+        async void LoadProfileImage()
+        {
+            if (Driver?.Id is null)
+            {
+                ProfileImage = new FontImageSource
+                {
+                    FontFamily = "FontAwesomeSolid",
+                    Glyph = "\uf007",
+                    Color = Colors.White,
+                    Size = 16
+                };
+                return;
+            }
+            var image = await _dashboardService.GetDriverThumbnail(Driver.Id.Value);
+            ProfileImage = image ?? new FontImageSource
+            {
+                FontFamily = "FontAwesomeSolid",
+                Glyph = "\uf007",
+                Color = Colors.White,
+                Size = 16
+            };
+        }
 
         [RelayCommand]
         async Task EditProfile()
@@ -90,6 +109,26 @@ namespace mobil.ViewModels
         async Task NewFuelLog()
         {
             // TODO: Navigate to new fuel log page
+        }
+
+        [RelayCommand]
+        async Task DayTapped(DateTime date)
+        {
+            var dayEvents = Events.Where(e => e.StartAt.Date == date.Date).ToList();
+            var popupVm = new CalendarDayViewModel(date, dayEvents, _dashboardService);
+            await Shell.Current.ShowPopupAsync(new CalendarDayPopup(popupVm));
+            await RefreshCalendarEvents();
+        }
+
+        async Task RefreshCalendarEvents()
+        {
+            var apiEvents = await _dashboardService.MyCalEvent();
+            Events.Clear();
+            if (apiEvents is not null)
+            {
+                foreach (var e in apiEvents)
+                    Events.Add(e);
+            }
         }
     }
 }
