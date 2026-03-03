@@ -1,6 +1,7 @@
 ﻿using mobil.Services;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -19,7 +20,16 @@ namespace mobil.Handlers
             var token = await _session.GetToken();
             if (!string.IsNullOrEmpty(token))
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return await base.SendAsync(request, cancellationToken);
+            var response = await base.SendAsync(request, cancellationToken);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                _session.Logout();
+                await MainThread.InvokeOnMainThreadAsync(async () =>
+                {
+                    await Shell.Current.GoToAsync("//LoginPage");
+                });
+            }
+            return response;
         }
     }
 }

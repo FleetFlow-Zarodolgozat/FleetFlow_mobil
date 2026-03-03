@@ -16,10 +16,16 @@ namespace mobil.Services
 
         public async Task<string?> Login(Login loginData)
         {
-            var response = await _http.PostAsJsonAsync("login", loginData);
+            var response = await _http.PostAsJsonAsync("login-mobile", loginData);
             if (!response.IsSuccessStatusCode)
                 return null;
             return (await response.Content.ReadAsStringAsync()).Trim('"');
+        }
+
+        public async Task<string?> ForgotPassword(ForgotPassword email)
+        {
+            var response = await _http.PostAsJsonAsync("forgot-password", email);
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

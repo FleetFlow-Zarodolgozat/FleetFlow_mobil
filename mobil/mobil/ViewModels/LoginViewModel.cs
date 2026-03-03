@@ -1,6 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Extensions;
+using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using mobil.Models;
+using mobil.Popups;
 using mobil.Services;
 using System;
 using System.Collections.Generic;
@@ -12,36 +15,88 @@ namespace mobil.ViewModels
     {
         private readonly AuthService _authService;
         private readonly SessionService _session;
-
-        public LoginViewModel(AuthService authService, SessionService session)
+        private readonly ForgotPasswordPopup _popup;
+        public LoginViewModel(AuthService authService, SessionService session, ForgotPasswordPopup popup)
         {
             _authService = authService;
             _session = session;
+            _popup = popup;
         }
 
         [ObservableProperty]
-        string? emailInput;
+        private string? email;
 
         [ObservableProperty]
-        string? pwdInput;
+        private string? password;
+
+        [ObservableProperty]
+        private bool isBusy;
+
+        [ObservableProperty]
+        private bool hasError;
+
+        [ObservableProperty]
+        private string? errorMessage;
+
+        [ObservableProperty]
+        private bool isPasswordVisible;
+
+        [ObservableProperty]
+        private bool passwordVisibilityIcon;
+
+        [RelayCommand]
+        void TogglePasswordVisibility()
+        {
+            IsPasswordVisible = !IsPasswordVisible;
+            PasswordVisibilityIcon = IsPasswordVisible;
+        }
+
+        [RelayCommand]
+        async Task ForgotPassword()
+        {
+            await Shell.Current.ShowPopupAsync(_popup);
+        }
 
         [RelayCommand]
         async Task Login()
         {
-            var loginData = new Login
+            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
-                Email = EmailInput,
-                Password = PwdInput
-            };
-            var token = await _authService.Login(loginData);
-            if (token != null)
-            {
-                await _session.SaveToken(token);
-                await Shell.Current.GoToAsync("//DashboardPage");
+                HasError = true;
+                ErrorMessage = "Please enter both email and password.";
+                return;
             }
-            else
-                // Handle login failure (e.g., show an error message from the server)
-                await Shell.Current.DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+            try
+            {
+                IsBusy = true;
+                HasError = false;
+                ErrorMessage = null;
+                var loginData = new Login
+                {
+                    Email = Email,
+                    Password = Password
+                };
+                var token = await _authService.Login(loginData);
+                if (token != null)
+                {
+                    await _session.SaveToken(token);
+                    await Shell.Current.GoToAsync("//DashboardPage");
+                }
+                else
+                {
+                    HasError = true;
+                    ErrorMessage = "Invalid email or password.";
+                }
+            }
+            catch (Exception ex)
+            {
+                HasError = true;
+                ErrorMessage = "An error occurred during login. Please try again.";
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

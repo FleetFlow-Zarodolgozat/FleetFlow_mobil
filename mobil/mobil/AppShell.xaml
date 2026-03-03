@@ -4,16 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:mobil"
+    xmlns:pages="clr-namespace:mobil"
     Title="mobil">
 
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate pages:LoginPage}"
         Route="LoginPage" />
-
-    <ShellContent
-        Title="Dashboard"
-        ContentTemplate="{DataTemplate pages:DashboardPage}"
-        Route="DashboardPage" />
-
 </Shell>
