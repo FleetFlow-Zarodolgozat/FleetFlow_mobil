@@ -18,6 +18,9 @@
                     <Ellipse WidthRequest="8" HeightRequest="8" Fill="#ef4444" HorizontalOptions="End" VerticalOptions="Start" Margin="0,-2,-2,0" IsVisible="{Binding HaveUnreadMessage}" />
                 </Grid>
                 <Border Grid.Column="4" WidthRequest="35" HeightRequest="35" StrokeShape="RoundRectangle 17.5" StrokeThickness="0" BackgroundColor="#1173d4" Margin="10,0,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EditProfileCommand}" />
+                    </Border.GestureRecognizers>
                     <Image Source="{Binding ProfileImage}" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="35" HeightRequest="35" />
                 </Border>
             </Grid>
@@ -219,8 +222,8 @@
                                 <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#ecfdf5" StrokeThickness="0" HorizontalOptions="Center">
                                     <Label Text="&#xf018;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#059669" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalDistance, StringFormat='{0:N0}'}" FontSize="18" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="km" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalDistance}" FontSize="18" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
+                                <Label Text="Distance (km)" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
 
@@ -230,19 +233,19 @@
                                 <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#fef2f2" StrokeThickness="0" HorizontalOptions="Center">
                                     <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalFuelCost, StringFormat='{0:N0}'}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Fuel Cost" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalFuelCost}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
+                                <Label Text="Fuel Cost (Ft)" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Services Cost -->
                         <Border Grid.Row="1" Grid.Column="2" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#fff7ed" StrokeThickness="0" HorizontalOptions="Center">
-                                    <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#ea580c" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#fefce8" StrokeThickness="0" HorizontalOptions="Center">
+                                    <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#ca8a04" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalServicesCost, StringFormat='{0:N0}'}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Serv. Cost" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalServicesCost}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
+                                <Label Text="Serv. Cost (Ft)" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
                     </Grid>

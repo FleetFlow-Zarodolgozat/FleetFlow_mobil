@@ -24,7 +24,7 @@ namespace mobil.Services
 
         public async Task ForgotPassword(ForgotPassword email)
         {
-            var response = await _http.PostAsJsonAsync("profile/forgot-password", email);
+            await _http.PostAsJsonAsync("profile/forgot-password", email);
         }
     }
 }

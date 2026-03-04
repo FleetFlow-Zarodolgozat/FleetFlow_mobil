@@ -24,7 +24,7 @@ namespace mobil.Services
 
         public async Task MarkAsAllRead()
         {
-            var response = await _http.PatchAsync("read", null);
+            await _http.PatchAsync("read", null);
         }
     }
 }

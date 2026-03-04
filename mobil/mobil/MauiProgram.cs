@@ -36,8 +36,13 @@ namespace mobil
             {
                 client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
             }).AddHttpMessageHandler<AuthHttpHandler>();
+            builder.Services.AddHttpClient<ProfileService>(client =>
+            {
+                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+            }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddTransient<AuthHttpHandler>();
             builder.Services.AddSingleton<SessionService>();
+            builder.Services.AddSingleton<BottomNavigationViewModel>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<ForgotPasswordPopup>();
@@ -46,7 +51,8 @@ namespace mobil
             builder.Services.AddTransient<DashboardViewModel>();
             builder.Services.AddTransient<NotificationPage>();
             builder.Services.AddTransient<NotificationViewModel>();
-            builder.Services.AddSingleton<BottomNavigationViewModel>();
+            builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<ProfileViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

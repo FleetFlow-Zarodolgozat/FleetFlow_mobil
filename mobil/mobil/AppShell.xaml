@@ -22,4 +22,9 @@
         Title="Notifications"
         ContentTemplate="{DataTemplate pagesNs:NotificationPage}"
         Route="NotificationPage" />
+
+    <ShellContent
+        Title="Profile"
+        ContentTemplate="{DataTemplate pagesNs:ProfilePage}"
+        Route="ProfilePage" />
 </Shell>

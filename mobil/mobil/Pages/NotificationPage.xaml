@@ -88,6 +88,6 @@
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-        <components:BottomNavigation Grid.Row="2"/>
+        <components:BottomNavigation Grid.Row="2" />
     </Grid>
 </ContentPage>

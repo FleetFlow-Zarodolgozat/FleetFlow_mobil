@@ -100,7 +100,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task EditProfile()
         {
-            // TODO: Navigate to profile edit page
+            await Shell.Current.GoToAsync("//ProfilePage");
         }
 
         [RelayCommand]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -55,5 +56,19 @@ namespace mobil.Models
         public int TotalFuels { get; set; }
         [JsonPropertyName("totalFuelCost")]
         public decimal TotalFuelCost { get; set; }
+    }
+
+    public class EditProfileData
+    {
+        [JsonPropertyName("fullname")]
+        public string? FullName { get; set; }
+        [JsonPropertyName("phone")]
+        public string? Phone { get; set; }
+        [JsonPropertyName("password")]
+        public string? Password { get; set; }
+        [JsonPropertyName("passwordAgain")]
+        public string? PasswordAgain { get; set; }
+        [JsonPropertyName("file")]
+        public FileResult? File { get; set; }
     }
 }
