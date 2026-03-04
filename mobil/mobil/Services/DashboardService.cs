@@ -40,7 +40,7 @@ namespace mobil.Services
 
         public async Task<Stats?> MyStats()
         {
-            var response = await _http.GetAsync("statistics/mine");
+            var response = await _http.GetAsync("statistics/mine?months=12");
             if (!response.IsSuccessStatusCode)
                 return null;
             return await response.Content.ReadFromJsonAsync<Stats>();

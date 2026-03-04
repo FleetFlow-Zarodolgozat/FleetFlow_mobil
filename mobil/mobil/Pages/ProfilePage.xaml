@@ -165,6 +165,16 @@
                                         </HorizontalStackLayout>
                                     </Border>
                                 </Grid>
+                                <!-- Delete photo button – only if driver has an uploaded photo -->
+                                <Border IsVisible="{Binding HasProfileImage}" StrokeShape="RoundRectangle 10" Stroke="#fecaca" StrokeThickness="1" BackgroundColor="#fef2f2" Padding="12">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding DeleteProfileImageCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                                        <Label Text="&#xf1f8;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#dc2626" VerticalOptions="Center" />
+                                        <Label Text="Delete Photo" FontSize="13" FontAttributes="Bold" TextColor="#dc2626" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </Border>
                             </VerticalStackLayout>
 
                             <!-- Full Name -->
@@ -230,8 +240,6 @@
                         <Label Text="Log Out" FontSize="14" FontAttributes="Bold" TextColor="#dc2626" VerticalOptions="Center" />
                     </HorizontalStackLayout>
                 </Border>
-
-                <BoxView HeightRequest="10" Color="Transparent" />
             </VerticalStackLayout>
         </ScrollView>
 

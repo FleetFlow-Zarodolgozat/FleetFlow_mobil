@@ -63,6 +63,14 @@ namespace mobil.ViewModels
         [ObservableProperty]
         bool hasNewPhoto;
 
+        [ObservableProperty]
+        bool hasProfileImage;
+
+        partial void OnDriverChanged(Driver? value)
+        {
+            HasProfileImage = value?.ProfileImgFileId.HasValue == true;
+        }
+
         private FileResult? _selectedPhoto;
 
         public async Task LoadData()
@@ -230,6 +238,31 @@ namespace mobil.ViewModels
             finally
             {
                 IsLoading = false;
+            }
+        }
+
+        [RelayCommand]
+        async Task DeleteProfileImage()
+        {
+            if (Driver?.ProfileImgFileId is null) return;
+            var success = await _profileService.DeleteProfileImg(Driver.ProfileImgFileId.Value);
+            if (success)
+            {
+                ProfileImage = new FontImageSource
+                {
+                    FontFamily = "FontAwesomeSolid",
+                    Glyph = "\uf007",
+                    Color = Colors.White,
+                    Size = 60
+                };
+                await RefreshProfile();
+                HasNewPhoto = false;
+                EditPreviewImage = null;
+            }
+            else
+            {
+                HasError = true;
+                ErrorMessage = "Failed to delete profile image.";
             }
         }
     }

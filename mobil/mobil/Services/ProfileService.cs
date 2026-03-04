@@ -45,5 +45,11 @@ namespace mobil.Services
             }
             return null;
         }
+
+        public async Task<bool> DeleteProfileImg(ulong id)
+        {
+            var response = await _http.DeleteAsync($"files/{id}");
+            return response.IsSuccessStatusCode;
+        }
     }
 }
