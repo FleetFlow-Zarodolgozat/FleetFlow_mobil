@@ -1,6 +1,7 @@
 ﻿using mobil.Models;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 
@@ -16,11 +17,31 @@ namespace mobil.Services
 
         public async Task<string?> UpdateMyData(EditProfileData data)
         {
-            var response = await _http.PatchAsJsonAsync("profile/edit", data);
+            var content = new MultipartFormDataContent();
+            if (!string.IsNullOrWhiteSpace(data.FullName))
+                content.Add(new StringContent(data.FullName), "fullName");
+            if (!string.IsNullOrWhiteSpace(data.Phone))
+                content.Add(new StringContent(data.Phone), "phone");
+            if (!string.IsNullOrWhiteSpace(data.Password))
+                content.Add(new StringContent(data.Password), "password");
+            if (!string.IsNullOrWhiteSpace(data.PasswordAgain))
+                content.Add(new StringContent(data.PasswordAgain), "passwordAgain");
+            if (data.File != null)
+            {
+                var stream = await data.File.OpenReadAsync();
+                var fileContent = new StreamContent(stream);
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                content.Add(
+                    fileContent,
+                    "file",
+                    data.File.FileName
+                );
+            }
+            var response = await _http.PatchAsync("profile/edit", content);
             if (!response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
-                return string.IsNullOrWhiteSpace(body) ? $"Error: {(int)response.StatusCode} {response.ReasonPhrase}" : body;
+                return string.IsNullOrWhiteSpace(body) ? $"Error {(int)response.StatusCode}" : body;
             }
             return null;
         }

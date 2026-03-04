@@ -4,6 +4,7 @@ using mobil.Models;
 using mobil.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace mobil.ViewModels
@@ -39,13 +40,30 @@ namespace mobil.ViewModels
         string successMessage = string.Empty;
 
         [ObservableProperty]
-        EditProfileData editProfileData = new();
+        string? editFullName;
+
+        [ObservableProperty]
+        string? editPhone;
+
+        [ObservableProperty]
+        string? editPassword;
+
+        [ObservableProperty]
+        string? editPasswordAgain;
 
         [ObservableProperty]
         ImageSource? profileImage;
 
         [ObservableProperty]
+        ImageSource? editPreviewImage;
+
+        [ObservableProperty]
         bool isEditing;
+
+        [ObservableProperty]
+        bool hasNewPhoto;
+
+        private FileResult? _selectedPhoto;
 
         public async Task LoadData()
         {
@@ -95,11 +113,13 @@ namespace mobil.ViewModels
         void PopulateEditData()
         {
             if (Driver == null) return;
-            EditProfileData = new EditProfileData
-            {
-                FullName = Driver.FullName,
-                Phone = Driver.Phone,
-            };
+            EditFullName = Driver.FullName;
+            EditPhone = Driver.Phone;
+            EditPassword = null;
+            EditPasswordAgain = null;
+            _selectedPhoto = null;
+            HasNewPhoto = false;
+            EditPreviewImage = null;
         }
 
         [RelayCommand]
@@ -107,11 +127,62 @@ namespace mobil.ViewModels
         {
             IsEditing = !IsEditing;
             if (IsEditing)
-            {
                 PopulateEditData();
-            }
             HasError = false;
             HasSuccess = false;
+        }
+
+        [RelayCommand]
+        async Task PickPhoto()
+        {
+            try
+            {
+                var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+                {
+                    Title = "Select profile photo"
+                });
+                if (result is not null)
+                    await SetSelectedPhoto(result);
+            }
+            catch (Exception ex)
+            {
+                HasError = true;
+                ErrorMessage = $"Failed to pick photo: {ex.Message}";
+            }
+        }
+
+        [RelayCommand]
+        async Task TakePhoto()
+        {
+            if (!MediaPicker.Default.IsCaptureSupported)
+            {
+                HasError = true;
+                ErrorMessage = "Camera is not available on this device.";
+                return;
+            }
+            try
+            {
+                var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
+                {
+                    Title = "Take profile photo"
+                });
+                if (result is not null)
+                    await SetSelectedPhoto(result);
+            }
+            catch (Exception ex)
+            {
+                HasError = true;
+                ErrorMessage = $"Failed to capture photo: {ex.Message}";
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        async Task SetSelectedPhoto(FileResult result)
+        {
+            _selectedPhoto = result;
+            HasNewPhoto = true;
+            var stream = await result.OpenReadAsync();
+            EditPreviewImage = ImageSource.FromStream(() => stream);
         }
 
         [RelayCommand]
@@ -131,10 +202,11 @@ namespace mobil.ViewModels
                 HasSuccess = false;
                 var data = new EditProfileData
                 {
-                    FullName = EditProfileData.FullName,
-                    Phone = EditProfileData.Phone,
-                    Password = EditProfileData.Password,
-                    PasswordAgain = EditProfileData.PasswordAgain,
+                    FullName = EditFullName,
+                    Phone = EditPhone,
+                    Password = EditPassword,
+                    PasswordAgain = EditPasswordAgain,
+                    File = _selectedPhoto
                 };
                 var error = await _profileService.UpdateMyData(data);
                 if (error != null)
@@ -144,6 +216,7 @@ namespace mobil.ViewModels
                     return;
                 }
                 await RefreshProfile();
+                await LoadProfileImage();
                 PopulateEditData();
                 IsEditing = false;
                 HasSuccess = true;

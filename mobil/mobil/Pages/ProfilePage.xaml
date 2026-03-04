@@ -45,9 +45,21 @@
                 <!-- Profile Header Card -->
                 <Border StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="20">
                     <VerticalStackLayout Spacing="14" HorizontalOptions="Center">
-                        <Border WidthRequest="80" HeightRequest="80" StrokeShape="RoundRectangle 40" StrokeThickness="0" BackgroundColor="#1173d4" HorizontalOptions="Center">
-                            <Image Source="{Binding ProfileImage}" Aspect="AspectFill" WidthRequest="80" HeightRequest="80" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Grid WidthRequest="80" HeightRequest="80" HorizontalOptions="Center">
+                            <Border WidthRequest="80" HeightRequest="80" StrokeShape="RoundRectangle 40" StrokeThickness="0" BackgroundColor="#1173d4">
+                                <Image Source="{Binding ProfileImage}" Aspect="AspectFill" WidthRequest="80" HeightRequest="80" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                            <!-- Photo edit overlay (visible in edit mode) -->
+                            <Border IsVisible="{Binding IsEditing}" WidthRequest="28" HeightRequest="28" StrokeShape="RoundRectangle 14"
+                                    StrokeThickness="0" BackgroundColor="#1173d4" HorizontalOptions="End" VerticalOptions="End">
+                                <Label Text="&#xf030;" FontFamily="FontAwesomeSolid" FontSize="12" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                        <!-- Preview of new photo -->
+                        <Border IsVisible="{Binding HasNewPhoto}" WidthRequest="80" HeightRequest="80" StrokeShape="RoundRectangle 40" StrokeThickness="2" Stroke="#22c55e" BackgroundColor="#f0fdf4" HorizontalOptions="Center">
+                            <Image Source="{Binding EditPreviewImage}" Aspect="AspectFill" WidthRequest="80" HeightRequest="80" />
                         </Border>
+                        <Label IsVisible="{Binding HasNewPhoto}" Text="New photo selected" FontSize="11" TextColor="#22c55e" HorizontalOptions="Center" />
                         <Label Text="{Binding Driver.FullName}" FontSize="22" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
                         <Border StrokeShape="RoundRectangle 8" StrokeThickness="0" BackgroundColor="#F0F7FF" Padding="10,4" HorizontalOptions="Center">
                             <Label Text="{Binding Driver.Role}" FontSize="12" FontAttributes="Bold" TextColor="#1173d4" />
@@ -130,13 +142,38 @@
 
                     <Border IsVisible="{Binding IsEditing}" StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="16">
                         <VerticalStackLayout Spacing="16">
+                            <!-- Profile Photo -->
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Profile Photo" FontSize="12" FontAttributes="Bold" TextColor="#374151" />
+                                <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                    <Border Grid.Column="0" StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="#F0F7FF" Padding="12">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PickPhotoCommand}" />
+                                        </Border.GestureRecognizers>
+                                        <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                                            <Label Text="&#xf03e;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#1173d4" VerticalOptions="Center" />
+                                            <Label Text="Gallery" FontSize="13" FontAttributes="Bold" TextColor="#1173d4" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                    <Border Grid.Column="1" StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="#F0F7FF" Padding="12">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
+                                        </Border.GestureRecognizers>
+                                        <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                                            <Label Text="&#xf030;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#1173d4" VerticalOptions="Center" />
+                                            <Label Text="Camera" FontSize="13" FontAttributes="Bold" TextColor="#1173d4" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                </Grid>
+                            </VerticalStackLayout>
+
                             <!-- Full Name -->
                             <VerticalStackLayout Spacing="5">
                                 <Label Text="Full Name" FontSize="12" FontAttributes="Bold" TextColor="#374151" />
                                 <Border StrokeShape="RoundRectangle 8" Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="#F9FAFB" Padding="12,8">
                                     <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
                                         <Label Text="&#xf007;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#9CA3AF" VerticalOptions="Center" />
-                                        <Entry Grid.Column="1" Text="{Binding EditProfileData.FullName}" Placeholder="Enter full name" BackgroundColor="Transparent" />
+                                        <Entry Grid.Column="1" Text="{Binding EditFullName}" Placeholder="Enter full name" BackgroundColor="Transparent" />
                                     </Grid>
                                 </Border>
                             </VerticalStackLayout>
@@ -147,7 +184,7 @@
                                 <Border StrokeShape="RoundRectangle 8" Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="#F9FAFB" Padding="12,8">
                                     <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
                                         <Label Text="&#xf095;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#9CA3AF" VerticalOptions="Center" />
-                                        <Entry Grid.Column="1" Text="{Binding EditProfileData.Phone}" Placeholder="Enter phone number" Keyboard="Telephone" BackgroundColor="Transparent" />
+                                        <Entry Grid.Column="1" Text="{Binding EditPhone}" Placeholder="Enter phone number" Keyboard="Telephone" BackgroundColor="Transparent" />
                                     </Grid>
                                 </Border>
                             </VerticalStackLayout>
@@ -158,7 +195,7 @@
                                 <Border StrokeShape="RoundRectangle 8" Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="#F9FAFB" Padding="12,8">
                                     <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
                                         <Label Text="&#xf023;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#9CA3AF" VerticalOptions="Center" />
-                                        <Entry Grid.Column="1" Text="{Binding EditProfileData.Password}" Placeholder="Leave empty to keep current" IsPassword="True" BackgroundColor="Transparent" />
+                                        <Entry Grid.Column="1" Text="{Binding EditPassword}" Placeholder="Leave empty to keep current" IsPassword="True" BackgroundColor="Transparent" />
                                     </Grid>
                                 </Border>
                             </VerticalStackLayout>
@@ -169,7 +206,7 @@
                                 <Border StrokeShape="RoundRectangle 8" Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="#F9FAFB" Padding="12,8">
                                     <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
                                         <Label Text="&#xf023;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#9CA3AF" VerticalOptions="Center" />
-                                        <Entry Grid.Column="1" Text="{Binding EditProfileData.PasswordAgain}" Placeholder="Repeat new password" IsPassword="True" BackgroundColor="Transparent" />
+                                        <Entry Grid.Column="1" Text="{Binding EditPasswordAgain}" Placeholder="Repeat new password" IsPassword="True" BackgroundColor="Transparent" />
                                     </Grid>
                                 </Border>
                             </VerticalStackLayout>

@@ -68,5 +68,7 @@ namespace mobil.Models
         public string? Password { get; set; }
         [JsonPropertyName("passwordAgain")]
         public string? PasswordAgain { get; set; }
+        [JsonPropertyName("file")]
+        public FileResult? File { get; set; }
     }
 }
