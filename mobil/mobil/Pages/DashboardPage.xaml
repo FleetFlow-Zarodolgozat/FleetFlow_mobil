@@ -18,6 +18,9 @@
                     <Ellipse WidthRequest="8" HeightRequest="8" Fill="#ef4444" HorizontalOptions="End" VerticalOptions="Start" Margin="0,-2,-2,0" IsVisible="{Binding HaveUnreadMessage}" />
                 </Grid>
                 <Border Grid.Column="4" WidthRequest="35" HeightRequest="35" StrokeShape="RoundRectangle 17.5" StrokeThickness="0" BackgroundColor="#1173d4" Margin="10,0,0,0">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EditProfileCommand}" />
+                    </Border.GestureRecognizers>
                     <Image Source="{Binding ProfileImage}" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="35" HeightRequest="35" />
                 </Border>
             </Grid>
