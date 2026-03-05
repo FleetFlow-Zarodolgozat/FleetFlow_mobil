@@ -50,5 +50,12 @@ namespace mobil.ViewModels
             await _notificationService.MarkAsAllRead();
             await RefreshNots();
         }
+
+        [RelayCommand]
+        async Task Delete(ulong id)
+        {
+            await _notificationService.Delete(id);
+            await RefreshNots();
+        }
     }
 }

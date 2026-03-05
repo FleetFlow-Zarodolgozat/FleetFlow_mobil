@@ -111,7 +111,6 @@ namespace mobil.ViewModels
                 HasError = false;
                 HasSuccess = false;
                 HasLoaded = false;
-
                 var result = await _tripService.MyTrips(CurrentPage, PageSize);
                 if (result is not null)
                 {
@@ -125,7 +124,6 @@ namespace mobil.ViewModels
                     TotalPages = 1;
                     TotalCount = 0;
                 }
-
                 HasLoaded = true;
                 NotifyPagination();
             }
@@ -133,7 +131,6 @@ namespace mobil.ViewModels
             {
                 HasError = true;
                 ErrorMessage = $"Error: {ex.Message}";
-                Debug.WriteLine(ex.Message);
             }
             finally
             {
@@ -220,10 +217,8 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task DeleteTrip(Trip trip)
         {
-            bool confirm = await Application.Current!.Windows[0].Page!
-                .DisplayAlert("Delete Trip", $"Delete trip from {trip.StartLocation} to {trip.EndLocation}?", "Delete", "Cancel");
+            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Trip", $"Delete trip from {trip.StartLocation} to {trip.EndLocation}?", "Delete", "Cancel");
             if (!confirm) return;
-
             try
             {
                 IsBusy = true;

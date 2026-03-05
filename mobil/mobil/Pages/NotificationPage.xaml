@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="mobil.Pages.NotificationPage"
              Shell.NavBarIsVisible="False" BackgroundColor="#F6F7F8"
-             xmlns:components="clr-namespace:mobil.Pages.Components">
+             xmlns:components="clr-namespace:mobil.Pages.Components"
+             xmlns:models="clr-namespace:mobil.Models"
+             xmlns:vm="clr-namespace:mobil.ViewModels"
+             x:DataType="vm:NotificationViewModel">
 
     <Grid RowDefinitions="Auto, *, Auto">
         <!-- Top bar -->
@@ -52,9 +55,9 @@
                         </VerticalStackLayout>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:Notification">
                             <Border Margin="0,0,0,10" StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1" Padding="14" BackgroundColor="White">
-                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="14">
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="14">
 
                                     <!-- Type icon -->
                                     <Border Grid.Column="0" WidthRequest="48" HeightRequest="48" StrokeShape="RoundRectangle 14" StrokeThickness="0" BackgroundColor="{Binding Type, Converter={StaticResource NotifTypeToLightColor}}" VerticalOptions="Start">
@@ -81,6 +84,16 @@
                                             <Label Grid.Column="1" Text="{Binding CreatedAt, StringFormat='{0:yyyy.MM.dd HH:mm}'}" FontSize="10" TextColor="#94a3b8" HorizontalOptions="End" VerticalOptions="Center" />
                                         </Grid>
                                     </VerticalStackLayout>
+
+                                    <!-- Delete button -->
+                                    <Border Grid.Column="2" WidthRequest="34" HeightRequest="34" StrokeShape="RoundRectangle 17" BackgroundColor="#fef2f2" StrokeThickness="0" VerticalOptions="Start">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.DeleteCommand}"
+                                                CommandParameter="{Binding Id}" />
+                                        </Border.GestureRecognizers>
+                                        <Label Text="&#xf1f8;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
                                 </Grid>
                             </Border>
                         </DataTemplate>

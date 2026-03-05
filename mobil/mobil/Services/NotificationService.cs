@@ -26,5 +26,10 @@ namespace mobil.Services
         {
             await _http.PatchAsync("notifications/read", null);
         }
+
+        public async Task Delete(ulong id)
+        {
+            await _http.DeleteAsync($"notifications/{id}");
+        }
     }
 }
