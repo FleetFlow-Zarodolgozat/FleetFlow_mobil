@@ -181,7 +181,6 @@ namespace mobil.ViewModels
             {
                 HasError = true;
                 ErrorMessage = $"Failed to capture photo: {ex.Message}";
-                Debug.WriteLine(ex.Message);
             }
         }
 
@@ -245,7 +244,7 @@ namespace mobil.ViewModels
         async Task DeleteProfileImage()
         {
             if (Driver?.ProfileImgFileId is null) return;
-            var success = await _profileService.DeleteProfileImg(Driver.ProfileImgFileId.Value);
+            var success = await _profileService.DeleteProfileImg();
             if (success)
             {
                 ProfileImage = new FontImageSource

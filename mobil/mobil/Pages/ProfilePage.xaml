@@ -28,10 +28,10 @@
 
                 <!-- Error Message -->
                 <Border IsVisible="{Binding HasError}" BackgroundColor="#FEE2E2" Stroke="#EF4444" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12">
-                    <HorizontalStackLayout Spacing="8">
-                        <Label Text="&#xf06a;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#DC2626" VerticalOptions="Center" />
-                        <Label Text="{Binding ErrorMessage}" TextColor="#DC2626" FontSize="13" VerticalOptions="Center" />
-                    </HorizontalStackLayout>
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8">
+                        <Label Grid.Column="0" Text="&#xf06a;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#DC2626" VerticalOptions="Start" />
+                        <Label Grid.Column="1" Text="{Binding ErrorMessage}" TextColor="#DC2626" FontSize="13" LineBreakMode="WordWrap" />
+                    </Grid>
                 </Border>
 
                 <!-- Success Message -->
