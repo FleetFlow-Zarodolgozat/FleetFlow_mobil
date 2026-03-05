@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 
 namespace mobil.Services
 {
@@ -63,10 +64,27 @@ namespace mobil.Services
             return ImageSource.FromStream(() => stream);
         }
 
-        public async Task<bool> CreateEvent(Calendarevent ev)
+        public async Task<string?> CreateEvent(Calendarevent ev)
         {
             var response = await _http.PostAsJsonAsync("calendarevents", ev);
-            return response.IsSuccessStatusCode;
+            if (!response.IsSuccessStatusCode)
+            {
+                var body = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrWhiteSpace(body))
+                    return $"Error {(int)response.StatusCode}";
+                try
+                {
+                    var json = JsonDocument.Parse(body);
+                    if (json.RootElement.TryGetProperty("message", out var message))
+                        return message.GetString();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                return body.Trim('"');
+            }
+            return null;
         }
 
         public async Task<bool> DeleteEvent(ulong id)

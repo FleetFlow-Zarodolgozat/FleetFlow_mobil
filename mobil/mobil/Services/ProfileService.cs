@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 
 namespace mobil.Services
 {
@@ -41,14 +42,26 @@ namespace mobil.Services
             if (!response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
-                return string.IsNullOrWhiteSpace(body) ? $"Error {(int)response.StatusCode}" : body;
+                if (string.IsNullOrWhiteSpace(body))
+                    return $"Error {(int)response.StatusCode}";
+                try
+                {
+                    var json = JsonDocument.Parse(body);
+                    if (json.RootElement.TryGetProperty("message", out var message))
+                        return message.GetString();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                return body.Trim('"');
             }
             return null;
         }
 
-        public async Task<bool> DeleteProfileImg(ulong id)
+        public async Task<bool> DeleteProfileImg()
         {
-            var response = await _http.DeleteAsync($"files/{id}");
+            var response = await _http.PatchAsync($"delete-profile-image", null);
             return response.IsSuccessStatusCode;
         }
     }

@@ -74,18 +74,18 @@ namespace mobil.ViewModels
                 StartAt = SelectedDate.Date + StartTime,
                 EndAt = SelectedDate.Date + EndTime
             };
-            var success = await _service.CreateEvent(newEvent);
+            var error = await _service.CreateEvent(newEvent);
             IsCreating = false;
-            if (success)
+            if (error != null)
             {
-                DayEvents.Add(newEvent);
-                HasChanges = true;
-                TitleInput = null;
-                DescriptionInput = null;
-                ShowForm = false;
+                FormError = error;
+                return;
             }
-            else
-                FormError = "Failed to create event.";
+            DayEvents.Add(newEvent);
+            HasChanges = true;
+            TitleInput = null;
+            DescriptionInput = null;
+            ShowForm = false;
         }
 
         [RelayCommand]

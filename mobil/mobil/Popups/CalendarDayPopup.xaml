@@ -95,7 +95,7 @@
                         </Grid>
 
                         <!-- Error -->
-                        <Label Text="{Binding FormError}" TextColor="#dc2626" FontSize="12" IsVisible="{Binding FormError, Converter={StaticResource IsNotNullConverter}}" />
+                        <Label Text="{Binding FormError}" TextColor="#dc2626" FontSize="12" LineBreakMode="WordWrap" IsVisible="{Binding FormError, Converter={StaticResource IsNotNullConverter}}" />
 
                         <!-- Create button -->
                         <Button Text="Create Event" Command="{Binding CreateEventCommand}" BackgroundColor="#1173d4" TextColor="White" FontAttributes="Bold" CornerRadius="10" HeightRequest="44" FontSize="14" IsEnabled="{Binding IsCreating, Converter={StaticResource InverseBooleanConverter}}" />

@@ -27,4 +27,9 @@
         Title="Profile"
         ContentTemplate="{DataTemplate pagesNs:ProfilePage}"
         Route="ProfilePage" />
+
+    <ShellContent
+        Title="Trip"
+        ContentTemplate="{DataTemplate pagesNs:TripPage}"
+        Route="TripPage" />
 </Shell>

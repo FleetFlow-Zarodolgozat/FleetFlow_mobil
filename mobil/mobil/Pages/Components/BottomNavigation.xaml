@@ -33,6 +33,9 @@
 
             <!-- Trips -->
             <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToTripPageCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
                 <Label Text="&#xf14e;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center"
                        TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Trips'}" />
                 <Label Text="Trips" FontSize="10" HorizontalOptions="Center"

@@ -112,7 +112,10 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task NewTrip()
         {
-            // TODO: Navigate to new trip page
+            await Shell.Current.GoToAsync("//TripPage", new Dictionary<string, object>
+            {
+                { "IsNewTrip", true }
+            });
         }
 
         [RelayCommand]
