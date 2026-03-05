@@ -177,13 +177,10 @@
                 <CollectionView ItemsSource="{Binding Trips}" SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Trip">
-                            <Border Margin="0,0,0,12" BackgroundColor="White" Padding="0"
-                                    StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1">
+                            <Border Margin="0,0,0,12" BackgroundColor="White" Padding="0" StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1">
                                 <Grid RowDefinitions="Auto, Auto">
                                     <!-- Colored top strip based on route -->
-                                    <BoxView Grid.Row="0" HeightRequest="4" BackgroundColor="#1173d4"
-                                             HorizontalOptions="Fill" />
-
+                                    <BoxView Grid.Row="0" HeightRequest="4" BackgroundColor="#1173d4" HorizontalOptions="Fill" />
                                     <VerticalStackLayout Grid.Row="1" Padding="16" Spacing="12">
                                         <!-- Route row -->
                                         <Grid ColumnDefinitions="*, Auto">
@@ -194,21 +191,16 @@
                                                 <Label Text="{Binding EndLocation}" FontSize="14" FontAttributes="Bold" TextColor="#1a1a2e" VerticalOptions="Center" />
                                             </HorizontalStackLayout>
                                             <!-- Delete button -->
-                                            <Border Grid.Column="1" WidthRequest="34" HeightRequest="34"
-                                                    StrokeShape="RoundRectangle 17" BackgroundColor="#fef2f2"
-                                                    StrokeThickness="0" VerticalOptions="Center">
+                                            <Border Grid.Column="1" WidthRequest="34" HeightRequest="34" StrokeShape="RoundRectangle 17" BackgroundColor="#fef2f2" StrokeThickness="0" VerticalOptions="Center">
                                                 <Border.GestureRecognizers>
                                                     <TapGestureRecognizer
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.DeleteTripCommand}"
                                                         CommandParameter="{Binding .}" />
                                                 </Border.GestureRecognizers>
-                                                <Label Text="&#xf1f8;" FontFamily="FontAwesomeSolid" FontSize="14"
-                                                       TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
+                                                <Label Text="&#xf1f8;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
                                             </Border>
                                         </Grid>
-
                                         <BoxView HeightRequest="1" Color="#f1f5f9" />
-
                                         <!-- Stats row -->
                                         <Grid ColumnDefinitions="*, *, *" ColumnSpacing="8">
                                             <!-- Date -->
@@ -240,8 +232,7 @@
                                         </Grid>
 
                                         <!-- Notes (only if present) -->
-                                        <Border IsVisible="{Binding Notes, Converter={StaticResource IsNotNullConverter}}"
-                                                BackgroundColor="#F8FAFC" Padding="10,8" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                                        <Border IsVisible="{Binding Notes, Converter={StaticResource IsNotNullConverter}}" BackgroundColor="#F8FAFC" Padding="10,8" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                                             <HorizontalStackLayout Spacing="8">
                                                 <Label Text="&#xf249;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#64748b" VerticalOptions="Start" />
                                                 <Label Text="{Binding Notes}" FontSize="12" TextColor="#64748b" LineBreakMode="WordWrap" />
@@ -255,20 +246,16 @@
                 </CollectionView>
 
                 <!-- Pagination -->
-                <Border IsVisible="{Binding HasLoaded}" BackgroundColor="White" Padding="10,8"
-                        StrokeShape="RoundRectangle 12" Stroke="#e2e8f0" StrokeThickness="1">
+                <Border IsVisible="{Binding HasLoaded}" BackgroundColor="White" Padding="10,8" StrokeShape="RoundRectangle 12" Stroke="#e2e8f0" StrokeThickness="1">
                     <Grid ColumnDefinitions="Auto, *, Auto">
                         <!-- Previous -->
-                        <Border Grid.Column="0" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="12,8"
-                                BackgroundColor="{Binding CanGoBack, Converter={StaticResource BoolToColorConverter}}">
+                        <Border Grid.Column="0" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="12,8" BackgroundColor="{Binding CanGoBack, Converter={StaticResource BoolToColorConverter}}">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="6">
-                                <Label Text="&#xf053;" FontFamily="FontAwesomeSolid" FontSize="12"
-                                       TextColor="{Binding CanGoBack, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
-                                <Label Text="Prev" FontSize="13" FontAttributes="Bold"
-                                       TextColor="{Binding CanGoBack, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
+                                <Label Text="&#xf053;" FontFamily="FontAwesomeSolid" FontSize="12" TextColor="{Binding CanGoBack, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
+                                <Label Text="Prev" FontSize="13" FontAttributes="Bold" TextColor="{Binding CanGoBack, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
 
@@ -279,16 +266,13 @@
                         </VerticalStackLayout>
 
                         <!-- Next -->
-                        <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="12,8"
-                                BackgroundColor="{Binding CanGoForward, Converter={StaticResource BoolToColorConverter}}">
+                        <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="12,8" BackgroundColor="{Binding CanGoForward, Converter={StaticResource BoolToColorConverter}}">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding NextPageCommand}" />
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="6">
-                                <Label Text="Next" FontSize="13" FontAttributes="Bold"
-                                       TextColor="{Binding CanGoForward, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
-                                <Label Text="&#xf054;" FontFamily="FontAwesomeSolid" FontSize="12"
-                                       TextColor="{Binding CanGoForward, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
+                                <Label Text="Next" FontSize="13" FontAttributes="Bold" TextColor="{Binding CanGoForward, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
+                                <Label Text="&#xf054;" FontFamily="FontAwesomeSolid" FontSize="12" TextColor="{Binding CanGoForward, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
                     </Grid>
@@ -297,6 +281,6 @@
         </ScrollView>
 
         <!-- Bottom Navigation -->
-        <components:BottomNavigation Grid.Row="2" />
+        <components:BottomNavigation Grid.Row="2" ActiveTab="Trips" />
     </Grid>
 </ContentPage>

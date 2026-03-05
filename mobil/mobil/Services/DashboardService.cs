@@ -79,9 +79,7 @@ namespace mobil.Services
                         return message.GetString();
                 }
                 catch (Exception ex)
-                {
-
-                }
+                { }
                 return body.Trim('"');
             }
             return null;

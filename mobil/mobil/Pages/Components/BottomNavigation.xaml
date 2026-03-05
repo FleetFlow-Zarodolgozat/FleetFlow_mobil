@@ -24,6 +24,9 @@
 
             <!-- Fuel -->
             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToFuelPageCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
                 <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center"
                        TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Fuel'}" />
                 <Label Text="Fuel" FontSize="10" HorizontalOptions="Center"

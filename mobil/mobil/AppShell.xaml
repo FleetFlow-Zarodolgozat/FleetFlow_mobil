@@ -32,4 +32,9 @@
         Title="Trip"
         ContentTemplate="{DataTemplate pagesNs:TripPage}"
         Route="TripPage" />
+
+    <ShellContent
+        Title="Fuel"
+        ContentTemplate="{DataTemplate pagesNs:FuelPage}"
+        Route="FuelPage" />
 </Shell>

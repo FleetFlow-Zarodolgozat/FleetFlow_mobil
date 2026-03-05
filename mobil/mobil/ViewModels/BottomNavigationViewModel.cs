@@ -19,5 +19,11 @@ namespace mobil.ViewModels
         {
             await Shell.Current.GoToAsync("//TripPage");
         }
+
+        [RelayCommand]
+        async Task GoToFuelPage()
+        {
+            await Shell.Current.GoToAsync("//FuelPage");
+        }
     }
 }

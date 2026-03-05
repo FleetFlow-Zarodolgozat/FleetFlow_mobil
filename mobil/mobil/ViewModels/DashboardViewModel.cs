@@ -121,7 +121,10 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task NewFuelLog()
         {
-            // TODO: Navigate to new fuel log page
+            await Shell.Current.GoToAsync("//FuelPage", new Dictionary<string, object>
+            {
+                { "IsNewFuel", true }
+            });
         }
 
         [RelayCommand]

@@ -1,25 +1,24 @@
 ﻿using mobil.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 
 namespace mobil.Services
 {
-    public class TripService
+    public class FuelService
     {
         private readonly HttpClient _httpClient;
         private static readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
-        public TripService(HttpClient httpClient)
+        public FuelService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<PagedResponse<Trip>?> MyTrips(int page = 1, int pageSize = 25)
+        public async Task<PagedResponse<Fuel>?> MyFuels(int page = 1, int pageSize = 25)
         {
-            var response = await _httpClient.GetAsync($"trips/mine?page={page}&pageSize={pageSize}");
+            var response = await _httpClient.GetAsync($"fuellogs/mine?page={page}&pageSize={pageSize}");
             if (!response.IsSuccessStatusCode)
                 return null;
             var body = await response.Content.ReadAsStringAsync();
@@ -29,8 +28,8 @@ namespace mobil.Services
                 var root = doc.RootElement;
                 if (root.ValueKind == JsonValueKind.Array)
                 {
-                    var items = JsonSerializer.Deserialize<List<Trip>>(body, _jsonOptions) ?? [];
-                    return new PagedResponse<Trip>
+                    var items = JsonSerializer.Deserialize<List<Fuel>>(body, _jsonOptions) ?? [];
+                    return new PagedResponse<Fuel>
                     {
                         Items = items,
                         Page = page,
@@ -39,21 +38,21 @@ namespace mobil.Services
                         TotalPages = 1
                     };
                 }
-                var paged = JsonSerializer.Deserialize<PagedResponse<Trip>>(body, _jsonOptions);
+                var paged = JsonSerializer.Deserialize<PagedResponse<Fuel>>(body, _jsonOptions);
                 if (paged?.Items is not null && paged.Items.Count > 0)
                     return paged;
                 foreach (var prop in root.EnumerateObject())
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Array)
                     {
-                        var items = JsonSerializer.Deserialize<List<Trip>>(prop.Value.GetRawText(), _jsonOptions) ?? [];
+                        var items = JsonSerializer.Deserialize<List<Fuel>>(prop.Value.GetRawText(), _jsonOptions) ?? [];
                         int totalCount = items.Count;
                         if (root.TryGetProperty("totalCount", out var tc)) totalCount = tc.GetInt32();
                         else if (root.TryGetProperty("total", out var t)) totalCount = t.GetInt32();
                         int totalPages = 1;
                         if (root.TryGetProperty("totalPages", out var tp)) totalPages = tp.GetInt32();
                         else if (totalCount > 0 && pageSize > 0) totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-                        return new PagedResponse<Trip>
+                        return new PagedResponse<Fuel>
                         {
                             Items = items,
                             Page = page,
@@ -63,7 +62,7 @@ namespace mobil.Services
                         };
                     }
                 }
-                return new PagedResponse<Trip> { Page = page, PageSize = pageSize };
+                return new PagedResponse<Fuel> { Page = page, PageSize = pageSize };
             }
             catch (Exception ex)
             {
@@ -71,9 +70,25 @@ namespace mobil.Services
             }
         }
 
-        public async Task<string?> CreateTrip(TripCreate trip)
+        public async Task<string?> CreateFuel(FuelCreate fuel, Stream? fileStream = null, string? fileName = null)
         {
-            var response = await _httpClient.PostAsJsonAsync("trips", trip);
+            using var content = new MultipartFormDataContent();
+            content.Add(new StringContent(fuel.Date.ToString("o")), "date");
+            content.Add(new StringContent(fuel.OdometerKm.ToString()), "odometerKm");
+            content.Add(new StringContent(fuel.Liters.ToString(System.Globalization.CultureInfo.InvariantCulture)), "liters");
+            content.Add(new StringContent(fuel.TotalCost.ToString(System.Globalization.CultureInfo.InvariantCulture)), "totalCost");
+            if (!string.IsNullOrWhiteSpace(fuel.StationName))
+                content.Add(new StringContent(fuel.StationName), "stationName");
+            if (!string.IsNullOrWhiteSpace(fuel.LocationText))
+                content.Add(new StringContent(fuel.LocationText), "locationText");
+            if (fileStream is not null && fileName is not null)
+            {
+                var sc = new StreamContent(fileStream);
+                sc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+                content.Add(sc, "file", fileName);
+            }
+
+            var response = await _httpClient.PostAsync("fuellogs", content);
             if (!response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
@@ -85,16 +100,15 @@ namespace mobil.Services
                     if (json.RootElement.TryGetProperty("message", out var message))
                         return message.GetString();
                 }
-                catch (Exception ex)
-                { }
+                catch { }
                 return body.Trim('"');
             }
             return null;
         }
 
-        public async Task<string?> DeleteTrip(ulong tripId)
+        public async Task<string?> DeleteFuel(ulong fuelId)
         {
-            var response = await _httpClient.PatchAsync($"trips/delete/{tripId}", null);
+            var response = await _httpClient.PatchAsync($"fuellogs/delete/{fuelId}", null);
             if (!response.IsSuccessStatusCode)
             {
                 var body = await response.Content.ReadAsStringAsync();
