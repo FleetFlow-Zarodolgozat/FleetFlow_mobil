@@ -62,6 +62,8 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+                    <!-- Error -->
+                    <Label Text="{Binding FormError}" TextColor="#dc2626" FontSize="12" LineBreakMode="WordWrap" IsVisible="{Binding FormError, Converter={StaticResource IsNotNullConverter}}" />
 
                     <!-- New event form (toggleable) -->
                     <VerticalStackLayout Spacing="10" IsVisible="{Binding ShowForm}">

@@ -20,9 +20,7 @@ namespace mobil.ViewModels
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             if (query.ContainsKey("IsNewFuel"))
-            {
                 IsNewFuel = (bool)query["IsNewFuel"];
-            }
         }
 
         [ObservableProperty]
@@ -255,15 +253,8 @@ namespace mobil.ViewModels
                 IsBusy = true;
                 HasError = false;
                 HasSuccess = false;
-                Stream? imageStream = null;
-                string? imageFileName = null;
-                if (_selectedPhoto is not null)
-                {
-                    imageStream = await _selectedPhoto.OpenReadAsync();
-                    imageFileName = _selectedPhoto.FileName;
-                }
-                var error = await _fuelService.CreateFuel(NewFuel, imageStream, imageFileName);
-                imageStream?.Dispose();
+                NewFuel.File = _selectedPhoto;
+                var error = await _fuelService.CreateFuel(NewFuel);
                 if (error != null)
                 {
                     HasError = true;

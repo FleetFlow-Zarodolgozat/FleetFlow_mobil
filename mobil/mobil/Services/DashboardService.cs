@@ -85,10 +85,25 @@ namespace mobil.Services
             return null;
         }
 
-        public async Task<bool> DeleteEvent(ulong id)
+        public async Task<string?> DeleteEvent(ulong id)
         {
             var response = await _http.DeleteAsync($"calendarevents/{id}");
-            return response.IsSuccessStatusCode;
+            if (!response.IsSuccessStatusCode)
+            {
+                var body = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrWhiteSpace(body))
+                    return "Error: You are not the creator of this calendar event";
+                try
+                {
+                    var json = JsonDocument.Parse(body);
+                    if (json.RootElement.TryGetProperty("message", out var message))
+                        return message.GetString();
+                }
+                catch (Exception ex)
+                { }
+                return body.Trim('"');
+            }
+            return null;
         }
     }
 }

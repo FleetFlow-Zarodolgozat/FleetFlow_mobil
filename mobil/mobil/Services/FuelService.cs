@@ -1,6 +1,7 @@
 ﻿using mobil.Models;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -70,7 +71,7 @@ namespace mobil.Services
             }
         }
 
-        public async Task<string?> CreateFuel(FuelCreate fuel, Stream? fileStream = null, string? fileName = null)
+        public async Task<string?> CreateFuel(FuelCreate fuel)
         {
             using var content = new MultipartFormDataContent();
             content.Add(new StringContent(fuel.Date.ToString("o")), "date");
@@ -81,13 +82,17 @@ namespace mobil.Services
                 content.Add(new StringContent(fuel.StationName), "stationName");
             if (!string.IsNullOrWhiteSpace(fuel.LocationText))
                 content.Add(new StringContent(fuel.LocationText), "locationText");
-            if (fileStream is not null && fileName is not null)
+            if (fuel.File != null)
             {
-                var sc = new StreamContent(fileStream);
-                sc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-                content.Add(sc, "file", fileName);
+                var stream = await fuel.File.OpenReadAsync();
+                var fileContent = new StreamContent(stream);
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                content.Add(
+                    fileContent,
+                    "file",
+                    fuel.File.FileName
+                );
             }
-
             var response = await _httpClient.PostAsync("fuellogs", content);
             if (!response.IsSuccessStatusCode)
             {
