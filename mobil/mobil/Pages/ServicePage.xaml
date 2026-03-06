@@ -76,7 +76,7 @@
 
                         <!-- Description -->
                         <VerticalStackLayout Spacing="5">
-                            <Label Text="Description" FontSize="12" FontAttributes="Bold" TextColor="#374151" />
+                            <Label Text="Description (optional)" FontSize="12" FontAttributes="Bold" TextColor="#374151" />
                             <Border StrokeShape="RoundRectangle 8" Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="#F9FAFB" Padding="12,8">
                                 <Editor Text="{Binding NewService.Description}" Placeholder="Describe the issue..." AutoSize="TextChanges" BackgroundColor="Transparent" MaxLength="500" MinimumHeightRequest="80" />
                             </Border>
@@ -153,10 +153,8 @@
 
                                         <!-- Action buttons -->
                                         <Grid ColumnDefinitions="*, Auto, Auto" ColumnSpacing="8">
-                                            <BoxView Grid.Column="0" Color="Transparent" />
-                                            <!-- Edit button (only for APPROVED / DRIVER_COST) -->
-                                            <Border Grid.Column="1" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="#f5f3ff" Padding="12,8"
-                                                    IsVisible="{Binding Status, Converter={StaticResource ServiceCanEdit}}">
+                                            <!-- Edit button -->
+                                            <Border Grid.Column="1" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="#f5f3ff" Padding="12,8">
                                                 <Border.GestureRecognizers>
                                                     <TapGestureRecognizer
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.EditServiceDetailsCommand}"
@@ -185,8 +183,7 @@
                 </CollectionView>
 
                 <!-- Pagination -->
-                <Border IsVisible="{Binding HasLoaded}" BackgroundColor="White" Padding="10,8"
-                        StrokeShape="RoundRectangle 12" Stroke="#e2e8f0" StrokeThickness="1">
+                <Border IsVisible="{Binding HasLoaded}" BackgroundColor="White" Padding="10,8" StrokeShape="RoundRectangle 12" Stroke="#e2e8f0" StrokeThickness="1">
                     <Grid ColumnDefinitions="Auto, *, Auto">
                         <Border Grid.Column="0" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="12,8" BackgroundColor="{Binding CanGoBack, Converter={StaticResource BoolToColorConverter}}">
                             <Border.GestureRecognizers>

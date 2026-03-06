@@ -183,5 +183,16 @@ namespace mobil.Services
             }
             return null;
         }
+
+        public async Task<(Stream? Stream, string? FileName, string? ContentType)> GetInvoiceFile(ulong fileId)
+        {
+            var response = await _httpClient.GetAsync($"files/{fileId}");
+            if (!response.IsSuccessStatusCode)
+                return (null, null, null);
+            var stream = await response.Content.ReadAsStreamAsync();
+            var fileName = response.Content.Headers.ContentDisposition?.FileName?.Trim('"');
+            var contentType = response.Content.Headers.ContentType?.MediaType;
+            return (stream, fileName, contentType);
+        }
     }
 }

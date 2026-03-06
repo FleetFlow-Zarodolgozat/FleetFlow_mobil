@@ -143,7 +143,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task DeleteService(Service service)
         {
-            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Service Request", $"Delete service?", "Delete", "Cancel");
+            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Service Request", $"Delete: '{service.Title}'?", "Delete", "Cancel");
             if (!confirm) return;
             try
             {

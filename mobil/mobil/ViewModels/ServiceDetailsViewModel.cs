@@ -56,7 +56,7 @@ namespace mobil.ViewModels
 
         public Func<Task>? CloseAction { get; set; }
 
-        public void Load(Service svc)
+        public async void Load(Service svc)
         {
             service = svc;
             OnPropertyChanged(nameof(Service));
@@ -76,16 +76,21 @@ namespace mobil.ViewModels
             OnPropertyChanged(nameof(PopupTitle));
             OnPropertyChanged(nameof(DriverReportCost));
             OnPropertyChanged(nameof(DriverCloseNote));
-            // TODO: Load existing invoice image when service endpoint is available
-            // if (svc.InvoiceFileId is not null)
-            // {
-            //     PreviewImage = ...;
-            // }
             hasNewPhoto = false;
             previewImage = null;
             _selectedPhoto = null;
             hasError = false;
             hasSuccess = false;
+            if (svc.InvoiceFileId is not null)
+            {
+                var file = await _serviceService.GetInvoiceFile(svc.InvoiceFileId!.Value);
+                if (file.Stream != null)
+                {
+                    hasNewPhoto = true;
+                    var image = ImageSource.FromStream(() => file.Stream);
+                    previewImage = image;
+                }
+            }
             OnPropertyChanged(nameof(HasNewPhoto));
             OnPropertyChanged(nameof(PreviewImage));
             OnPropertyChanged(nameof(HasError));
@@ -160,33 +165,28 @@ namespace mobil.ViewModels
                 ErrorMessage = "Please enter a valid cost amount.";
                 return;
             }
-
             try
             {
                 IsBusy = true;
                 HasError = false;
                 HasSuccess = false;
-
                 var upload = new ServiceDetailUpload
                 {
                     DriverReportCost = driverReportCost,
                     DriverCloseNote = driverCloseNote,
                     File = _selectedPhoto
                 };
-
                 string? error;
                 if (isEdit)
                     error = await _serviceService.EditUploadedDetails(service.Id, upload);
                 else
                     error = await _serviceService.UploadServiceDetails(service.Id, upload);
-
                 if (error is not null)
                 {
                     HasError = true;
                     ErrorMessage = error;
                     return;
                 }
-
                 HasSuccess = true;
                 SuccessMessage = isEdit ? "Details updated!" : "Details uploaded!";
                 await Task.Delay(1000);

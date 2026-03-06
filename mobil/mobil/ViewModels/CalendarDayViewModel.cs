@@ -93,12 +93,14 @@ namespace mobil.ViewModels
         {
             bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Event", $"Delete '{ev.Title}'?", "Delete", "Cancel");
             if (!confirm) return;
-            var success = await _service.DeleteEvent(ev.Id);
-            if (success)
+            var error = await _service.DeleteEvent(ev.Id);
+            if (error != null)
             {
-                DayEvents.Remove(ev);
-                HasChanges = true;
+                FormError = error;
+                return;
             }
+            DayEvents.Remove(ev);
+            HasChanges = true;
         }
 
         [RelayCommand]

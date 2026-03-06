@@ -48,6 +48,9 @@
 
             <!-- Services -->
             <VerticalStackLayout Grid.Column="3" VerticalOptions="Center" Spacing="4" HorizontalOptions="Center">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToServicePageCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
                 <Label Text="&#xf7d9;" FontFamily="FontAwesomeSolid" FontSize="20" HorizontalOptions="Center"
                        TextColor="{Binding ActiveTab, Source={x:Reference ThisView}, Converter={StaticResource TabColor}, ConverterParameter='Services'}" />
                 <Label Text="Services" FontSize="10" HorizontalOptions="Center"
