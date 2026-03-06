@@ -19,7 +19,7 @@
                 </Grid>
                 <Border Grid.Column="4" WidthRequest="35" HeightRequest="35" StrokeShape="RoundRectangle 17.5" StrokeThickness="0" BackgroundColor="#1173d4" Margin="10,0,0,0">
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding EditProfileCommand}" />
+                        <TapGestureRecognizer Command="{Binding GoToProfileCommand}" />
                     </Border.GestureRecognizers>
                     <Image Source="{Binding ProfileImage}" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="35" HeightRequest="35" />
                 </Border>

@@ -15,7 +15,7 @@
             </Grid>
 
             <!-- Login Form -->
-            <Border Grid.Row="1" Margin="20,-50,20,20" Padding="25" StrokeShape="RoundRectangle 16" BackgroundColor="White" StrokeThickness="0">
+            <Border Grid.Row="1" Margin="20,10,20,20" Padding="25" StrokeShape="RoundRectangle 16" BackgroundColor="White" StrokeThickness="0">
                 <Border.Shadow>
                     <Shadow Brush="#25000000" Offset="0,4" Radius="12" />
                 </Border.Shadow>

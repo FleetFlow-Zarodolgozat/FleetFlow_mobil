@@ -98,9 +98,15 @@ namespace mobil.ViewModels
         }
 
         [RelayCommand]
+        async Task GoToProfile()
+        {
+            await Shell.Current.GoToAsync("ProfilePage");
+        }
+
+        [RelayCommand]
         async Task EditProfile()
         {
-            await Shell.Current.GoToAsync("//ProfilePage", new Dictionary<string, object>
+            await Shell.Current.GoToAsync("ProfilePage", new Dictionary<string, object>
             {
                 { "IsEditing", true }
             });
@@ -109,13 +115,13 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task GoToNotifications()
         {
-            await Shell.Current.GoToAsync("//NotificationPage");
+            await Shell.Current.GoToAsync("NotificationPage");
         }
 
         [RelayCommand]
         async Task NewTrip()
         {
-            await Shell.Current.GoToAsync("//TripPage", new Dictionary<string, object>
+            await Shell.Current.GoToAsync("TripPage", new Dictionary<string, object>
             {
                 { "IsNewTrip", true }
             });
@@ -124,7 +130,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task NewFuelLog()
         {
-            await Shell.Current.GoToAsync("//FuelPage", new Dictionary<string, object>
+            await Shell.Current.GoToAsync("FuelPage", new Dictionary<string, object>
             {
                 { "IsNewFuel", true }
             });
