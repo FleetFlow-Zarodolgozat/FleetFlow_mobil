@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:mobil.ViewModels"
+             x:Class="mobil.Popups.ServiceDetailsPopup"
+             x:DataType="vm:ServiceDetailsViewModel">
+
+    <Border StrokeShape="RoundRectangle 16" StrokeThickness="0" BackgroundColor="White" WidthRequest="360" MaximumWidthRequest="400">
+        <Border.Shadow>
+            <Shadow Brush="#30000000" Offset="0,4" Radius="16" />
+        </Border.Shadow>
+        <ScrollView MaximumHeightRequest="600">
+            <VerticalStackLayout Padding="20" Spacing="16">
+                <!-- Header -->
+                <HorizontalStackLayout Spacing="10">
+                    <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#f5f3ff" StrokeThickness="0">
+                        <Label Text="&#xf0ad;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#7c3aed" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                    <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                        <Label Text="{Binding PopupTitle}" FontSize="18" FontAttributes="Bold" TextColor="#1a1a2e" />
+                        <Label Text="{Binding Service.Title}" FontSize="12" TextColor="#64748b" LineBreakMode="TailTruncation" MaximumWidthRequest="250" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <BoxView HeightRequest="1" Color="#f1f5f9" />
+
+                <!-- Error -->
+                <Border IsVisible="{Binding HasError}" BackgroundColor="#FEE2E2" Stroke="#EF4444" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10">
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="&#xf06a;" FontFamily="FontAwesomeSolid" FontSize="12" TextColor="#DC2626" VerticalOptions="Center" />
+                        <Label Text="{Binding ErrorMessage}" TextColor="#DC2626" FontSize="12" LineBreakMode="WordWrap" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Success -->
+                <Border IsVisible="{Binding HasSuccess}" BackgroundColor="#D1FAE5" Stroke="#10B981" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10">
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="&#xf058;" FontFamily="FontAwesomeSolid" FontSize="12" TextColor="#059669" VerticalOptions="Center" />
+                        <Label Text="{Binding SuccessMessage}" TextColor="#059669" FontSize="12" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Service info -->
+                <Border BackgroundColor="#f5f3ff" StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="12">
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="8">
+                        <VerticalStackLayout Grid.Column="0" Spacing="2">
+                            <Label Text="Status" FontSize="10" TextColor="#94a3b8" />
+                            <Label Text="{Binding Service.Status, Converter={StaticResource ServiceStatusToLabel}}" FontSize="12" FontAttributes="Bold" TextColor="#7c3aed" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="License Plate" FontSize="10" TextColor="#94a3b8" />
+                            <Label Text="{Binding Service.LicensePlate}" FontSize="12" FontAttributes="Bold" TextColor="#1a1a2e" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Driver Report Cost -->
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Driver Report Cost (Ft)" FontSize="12" FontAttributes="Bold" TextColor="#374151" />
+                    <Border StrokeShape="RoundRectangle 8" Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="#F9FAFB" Padding="12,8">
+                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                            <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#9CA3AF" VerticalOptions="Center" />
+                            <Entry Grid.Column="1" Text="{Binding DriverReportCost}" Keyboard="Numeric" Placeholder="0" BackgroundColor="Transparent" FontSize="13" />
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Close Note -->
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Close Note (optional)" FontSize="12" FontAttributes="Bold" TextColor="#374151" />
+                    <Border StrokeShape="RoundRectangle 8" Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="#F9FAFB" Padding="12,8">
+                        <Editor Text="{Binding DriverCloseNote}" Placeholder="Any notes about the service..." AutoSize="TextChanges" BackgroundColor="Transparent" MaxLength="500" MinimumHeightRequest="60" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Invoice Photo -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Invoice Photo" FontSize="12" FontAttributes="Bold" TextColor="#374151" />
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                        <Border Grid.Column="0" StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="#f5f3ff" Padding="12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PickPhotoCommand}" />
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                                <Label Text="&#xf03e;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#7c3aed" VerticalOptions="Center" />
+                                <Label Text="Gallery" FontSize="13" FontAttributes="Bold" TextColor="#7c3aed" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Border>
+                        <Border Grid.Column="1" StrokeShape="RoundRectangle 10" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="#f5f3ff" Padding="12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                                <Label Text="&#xf030;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#7c3aed" VerticalOptions="Center" />
+                                <Label Text="Camera" FontSize="13" FontAttributes="Bold" TextColor="#7c3aed" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <!-- Photo preview -->
+                    <Border IsVisible="{Binding HasNewPhoto}" StrokeShape="RoundRectangle 10" Stroke="#22c55e" StrokeThickness="2" BackgroundColor="#f0fdf4" Padding="6">
+                        <VerticalStackLayout Spacing="6">
+                            <Image Source="{Binding PreviewImage}" HeightRequest="140" Aspect="AspectFit" />
+                            <Label Text="&#xf058; Photo selected" FontFamily="FontAwesomeSolid" TextColor="#22c55e" FontSize="12" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Loading -->
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#7c3aed" HeightRequest="25" />
+
+                <!-- Buttons -->
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                    <Button Grid.Column="0" Text="Cancel" BackgroundColor="#E5E7EB" TextColor="#374151" FontAttributes="Bold" FontSize="14" CornerRadius="10" HeightRequest="45" Command="{Binding CloseCommand}" />
+                    <Button Grid.Column="1" Text="Save" BackgroundColor="#7c3aed" TextColor="White" FontAttributes="Bold" FontSize="14" CornerRadius="10" HeightRequest="45"
+                            Command="{Binding SaveCommand}"
+                            IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}" />
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Border>
+</toolkit:Popup>

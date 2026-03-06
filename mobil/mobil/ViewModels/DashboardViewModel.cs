@@ -100,7 +100,10 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task EditProfile()
         {
-            await Shell.Current.GoToAsync("//ProfilePage");
+            await Shell.Current.GoToAsync("//ProfilePage", new Dictionary<string, object>
+            {
+                { "IsEditing", true }
+            });
         }
 
         [RelayCommand]

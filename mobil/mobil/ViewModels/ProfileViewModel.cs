@@ -9,16 +9,24 @@ using System.Text;
 
 namespace mobil.ViewModels
 {
-    public partial class ProfileViewModel : ObservableObject
+    public partial class ProfileViewModel : ObservableObject, IQueryAttributable
     {
         private readonly DashboardService _dashboardService;
         private readonly ProfileService _profileService;
         private readonly SessionService _sessionService;
+        private FileResult? _selectedPhoto;
+
         public ProfileViewModel(DashboardService dashboardService, ProfileService profileService, SessionService sessionService)
         {
             _dashboardService = dashboardService;
             _profileService = profileService;
             _sessionService = sessionService;
+        }
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            if (query.ContainsKey("IsEditing"))
+                IsEditing = (bool)query["IsEditing"];
         }
 
         [ObservableProperty]
@@ -70,8 +78,6 @@ namespace mobil.ViewModels
         {
             HasProfileImage = value?.ProfileImgFileId.HasValue == true;
         }
-
-        private FileResult? _selectedPhoto;
 
         public async Task LoadData()
         {

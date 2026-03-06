@@ -37,4 +37,9 @@
         Title="Fuel"
         ContentTemplate="{DataTemplate pagesNs:FuelPage}"
         Route="FuelPage" />
+
+    <ShellContent
+        Title="Service"
+        ContentTemplate="{DataTemplate pagesNs:ServicePage}"
+        Route="ServicePage" />
 </Shell>

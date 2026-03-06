@@ -149,4 +149,76 @@ namespace mobil.Converters
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
             => throw new NotImplementedException();
     }
+
+    public class ServiceStatusToColorConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => (value as string) switch
+            {
+                "REQUESTED"   => Color.FromArgb("#1173d4"),
+                "REJECTED"    => Color.FromArgb("#dc2626"),
+                "APPROVED"    => Color.FromArgb("#059669"),
+                "DRIVER_COST" => Color.FromArgb("#EA580C"),
+                "CLOSED"      => Color.FromArgb("#64748b"),
+                _             => Color.FromArgb("#94a3b8"),
+            };
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+
+    public class ServiceStatusToLightColorConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => (value as string) switch
+            {
+                "REQUESTED"   => Color.FromArgb("#F0F7FF"),
+                "REJECTED"    => Color.FromArgb("#fef2f2"),
+                "APPROVED"    => Color.FromArgb("#ecfdf5"),
+                "DRIVER_COST" => Color.FromArgb("#FFF5E5"),
+                "CLOSED"      => Color.FromArgb("#f1f5f9"),
+                _             => Color.FromArgb("#f1f5f9"),
+            };
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+
+    public class ServiceStatusToLabelConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => (value as string) switch
+            {
+                "REQUESTED"   => "Requested",
+                "REJECTED"    => "Rejected",
+                "APPROVED"    => "Approved",
+                "DRIVER_COST" => "Awaiting Cost",
+                "CLOSED"      => "Closed",
+                _             => "Unknown",
+            };
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+
+    public class ServiceStatusToIconConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => (value as string) switch
+            {
+                "REQUESTED"   => "\uf017",
+                "REJECTED"    => "\uf00d",
+                "APPROVED"    => "\uf00c",
+                "DRIVER_COST" => "\uf155",
+                "CLOSED"      => "\uf023",
+                _             => "\uf128",
+            };
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+
+    public class ServiceCanEditConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => value is string s && (s == "APPROVED" || s == "DRIVER_COST");
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
 }
