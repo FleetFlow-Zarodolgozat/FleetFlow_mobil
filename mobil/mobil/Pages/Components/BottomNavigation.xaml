@@ -4,7 +4,7 @@
              x:Class="mobil.Pages.Components.BottomNavigation"
              x:Name="ThisView">
 
-    <Border BackgroundColor="White" StrokeThickness="0" StrokeShape="Rectangle" Padding="0">
+    <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" StrokeThickness="0" StrokeShape="Rectangle" Padding="0">
         <Border.Shadow>
             <Shadow Brush="#20000000" Offset="0,-2" Radius="8" />
         </Border.Shadow>

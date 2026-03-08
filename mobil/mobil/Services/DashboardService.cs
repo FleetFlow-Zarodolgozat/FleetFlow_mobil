@@ -60,8 +60,8 @@ namespace mobil.Services
             var response = await _http.GetAsync($"files/thumbnail/{userId}");
             if (!response.IsSuccessStatusCode)
                 return null;
-            var stream = await response.Content.ReadAsStreamAsync();
-            return ImageSource.FromStream(() => stream);
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            return ImageSource.FromStream(() => new MemoryStream(bytes));
         }
 
         public async Task<string?> CreateEvent(Calendarevent ev)

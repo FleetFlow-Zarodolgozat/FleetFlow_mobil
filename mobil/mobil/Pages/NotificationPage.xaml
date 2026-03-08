@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="mobil.Pages.NotificationPage"
-             Shell.NavBarIsVisible="False" BackgroundColor="#F6F7F8"
+             Shell.NavBarIsVisible="False" BackgroundColor="{AppThemeBinding Light=#F6F7F8, Dark=#121212}"
              xmlns:components="clr-namespace:mobil.Pages.Components"
              xmlns:models="clr-namespace:mobil.Models"
              xmlns:vm="clr-namespace:mobil.ViewModels"
@@ -10,15 +10,15 @@
 
     <Grid RowDefinitions="Auto, *, Auto">
         <!-- Top bar -->
-        <Border Grid.Row="0" Padding="15" BackgroundColor="White" StrokeShape="Rectangle" StrokeThickness="0">
+        <Border Grid.Row="0" Padding="15" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" StrokeShape="Rectangle" StrokeThickness="0">
             <Border.Shadow>
                 <Shadow Brush="#15000000" Offset="0,2" Radius="6" />
             </Border.Shadow>
             <Grid ColumnDefinitions="Auto, *, Auto">
                 <Label Grid.Column="0" Text="FleetFlow" FontAttributes="Bold" FontSize="18" TextColor="#1173d4" VerticalOptions="Center" />
-                <Label Grid.Column="1" Text="Notifications" FontSize="14" TextColor="#64748b" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Label Grid.Column="1" Text="Notifications" FontSize="14" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" VerticalOptions="Center" HorizontalOptions="Center" />
                 <!-- Mark All Read button -->
-                <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="#F0F7FF" Padding="12,8">
+                <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#F0F7FF, Dark=#0D2440}" Padding="12,8">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding MarkAsReadCommand}" />
                     </Border.GestureRecognizers>
@@ -40,23 +40,23 @@
                 <!-- Section header -->
                 <VerticalStackLayout Spacing="2" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
                     <Label Text="NOTIFICATIONS" FontSize="12" FontAttributes="Bold" TextColor="#1173d4" />
-                    <Label Text="Your latest updates" FontSize="22" FontAttributes="Bold" TextColor="#1a1a2e" />
+                    <Label Text="Your latest updates" FontSize="22" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
                 </VerticalStackLayout>
 
                 <!-- Notification list -->
                 <CollectionView ItemsSource="{Binding Notifications}" SelectionMode="None" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
                     <CollectionView.EmptyView>
                         <VerticalStackLayout Spacing="12" Padding="0,40" HorizontalOptions="Center">
-                            <Border WidthRequest="72" HeightRequest="72" StrokeShape="RoundRectangle 36" BackgroundColor="#F0F7FF" StrokeThickness="0" HorizontalOptions="Center">
+                            <Border WidthRequest="72" HeightRequest="72" StrokeShape="RoundRectangle 36" BackgroundColor="{AppThemeBinding Light=#F0F7FF, Dark=#0D2440}" StrokeThickness="0" HorizontalOptions="Center">
                                 <Label Text="&#xf0f3;" FontFamily="FontAwesomeSolid" FontSize="30" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
                             </Border>
-                            <Label Text="No notifications" FontSize="16" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                            <Label Text="You're all caught up!" FontSize="13" TextColor="#94a3b8" HorizontalOptions="Center" />
+                            <Label Text="No notifications" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" HorizontalOptions="Center" />
+                            <Label Text="You're all caught up!" FontSize="13" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="Center" />
                         </VerticalStackLayout>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Notification">
-                            <Border Margin="0,0,0,10" StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1" Padding="14" BackgroundColor="White">
+                            <Border Margin="0,0,0,10" StrokeShape="RoundRectangle 14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" Padding="14" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}">
                                 <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="14">
 
                                     <!-- Type icon -->
@@ -69,30 +69,30 @@
 
                                         <!-- Title row + unread dot -->
                                         <Grid ColumnDefinitions="*, Auto">
-                                            <Label Grid.Column="0" Text="{Binding Title}" FontSize="14" FontAttributes="Bold" TextColor="#1a1a2e" LineBreakMode="TailTruncation" />
+                                            <Label Grid.Column="0" Text="{Binding Title}" FontSize="14" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" LineBreakMode="TailTruncation" />
                                             <Ellipse Grid.Column="1" WidthRequest="9" HeightRequest="9" Fill="#1173d4" VerticalOptions="Center" Margin="6,0,0,0" IsVisible="{Binding IsRead, Converter={StaticResource InverseBooleanConverter}}" />
                                         </Grid>
 
                                         <!-- Message -->
-                                        <Label Text="{Binding Message}" FontSize="12" TextColor="#64748b" LineBreakMode="WordWrap" MaxLines="2" />
+                                        <Label Text="{Binding Message}" FontSize="12" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" LineBreakMode="WordWrap" MaxLines="2" />
 
                                         <!-- Type badge + Date -->
                                         <Grid ColumnDefinitions="Auto, *" Margin="0,2,0,0">
                                             <Border Grid.Column="0" StrokeShape="RoundRectangle 6" StrokeThickness="0" BackgroundColor="{Binding Type, Converter={StaticResource NotifTypeToLightColor}}" Padding="8,3">
                                                 <Label Text="{Binding Type, Converter={StaticResource NotifTypeToLabel}}" FontSize="10" FontAttributes="Bold" TextColor="{Binding Type, Converter={StaticResource NotifTypeToColor}}" />
                                             </Border>
-                                            <Label Grid.Column="1" Text="{Binding CreatedAt, StringFormat='{0:yyyy.MM.dd HH:mm}'}" FontSize="10" TextColor="#94a3b8" HorizontalOptions="End" VerticalOptions="Center" />
+                                            <Label Grid.Column="1" Text="{Binding CreatedAt, StringFormat='{0:yyyy.MM.dd HH:mm}'}" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="End" VerticalOptions="Center" />
                                         </Grid>
                                     </VerticalStackLayout>
 
                                     <!-- Delete button -->
-                                    <Border Grid.Column="2" WidthRequest="34" HeightRequest="34" StrokeShape="RoundRectangle 17" BackgroundColor="#fef2f2" StrokeThickness="0" VerticalOptions="Start">
+                                    <Border Grid.Column="2" WidthRequest="34" HeightRequest="34" StrokeShape="RoundRectangle 17" BackgroundColor="{AppThemeBinding Light=#fef2f2, Dark=#2A1A1A}" StrokeThickness="0" VerticalOptions="Start">
                                         <Border.GestureRecognizers>
                                             <TapGestureRecognizer
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.DeleteCommand}"
                                                 CommandParameter="{Binding Id}" />
                                         </Border.GestureRecognizers>
-                                        <Label Text="&#xf1f8;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        <Label Text="&#xf1f8;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="{AppThemeBinding Light=#DC2626, Dark=#FF6B6B}" HorizontalOptions="Center" VerticalOptions="Center" />
                                     </Border>
                                 </Grid>
                             </Border>

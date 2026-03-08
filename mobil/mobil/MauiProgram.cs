@@ -54,6 +54,7 @@ namespace mobil
             }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddTransient<AuthHttpHandler>();
             builder.Services.AddSingleton<SessionService>();
+            builder.Services.AddSingleton<ThemeService>();
             builder.Services.AddSingleton<BottomNavigationViewModel>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoginViewModel>();

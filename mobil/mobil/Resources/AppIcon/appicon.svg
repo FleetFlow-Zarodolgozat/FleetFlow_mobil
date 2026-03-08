@@ -1,4 +1,107 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="456" height="456" viewBox="0 0 456 456" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="0" width="456" height="456" fill="#512BD4" />
+<svg
+   viewBox="0 0 200 200"
+   width="400"
+   height="400"
+   version="1.1"
+   id="svg9"
+   sodipodi:docname="fleetflow_logo.svg"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+	<sodipodi:namedview
+	   id="namedview9"
+	   pagecolor="#ffffff"
+	   bordercolor="#000000"
+	   borderopacity="0.25"
+	   inkscape:showpageshadow="2"
+	   inkscape:pageopacity="0.0"
+	   inkscape:pagecheckerboard="0"
+	   inkscape:deskcolor="#d1d1d1"
+	   showguides="true"
+	   inkscape:zoom="2.0375"
+	   inkscape:cx="200.4908"
+	   inkscape:cy="200"
+	   inkscape:window-width="1920"
+	   inkscape:window-height="1017"
+	   inkscape:window-x="-8"
+	   inkscape:window-y="-8"
+	   inkscape:window-maximized="1"
+	   inkscape:current-layer="svg9"
+	   showgrid="false" />
+	<defs
+	   id="defs2">
+		<rect
+		   x="223.31288"
+		   y="292.51534"
+		   width="84.417178"
+		   height="49.079754"
+		   id="rect10" />
+		<rect
+		   x="107.97546"
+		   y="293.49693"
+		   width="81.47239"
+		   height="52.515338"
+		   id="rect9" />
+		<linearGradient
+		   id="g"
+		   x1="10"
+		   y1="10"
+		   x2="190"
+		   y2="190"
+		   gradientUnits="userSpaceOnUse"
+		   gradientTransform="matrix(0.91820041,0,0,0.91820041,8.1799609,8.1799646)">
+			<stop
+			   offset="0%"
+			   stop-color="#0EA5E9"
+			   id="stop1" />
+			<stop
+			   offset="100%"
+			   stop-color="#2563EB"
+			   id="stop2" />
+		</linearGradient>
+	</defs>
+	<!-- háttér kör -->
+	<circle
+	   cx="100"
+	   cy="100"
+	   r="82.638039"
+	   fill="url(#g)"
+	   id="circle2"
+	   style="fill:url(#g);stroke-width:0.9182" />
+	<!-- flotta pontok -->
+	<!-- flotta összekötő vonalak -->
+	<!-- központ: modern autó ikon -->
+	<g
+	   transform="matrix(1.3315717,0,0,1.354762,40.079273,34.003567)"
+	   fill="none"
+	   stroke="#ffffff"
+	   stroke-width="6"
+	   stroke-linecap="round"
+	   stroke-linejoin="round"
+	   id="g9">
+		<!-- autó tető + szélvédő -->
+		<path
+		   d="M 10,40 Q 20,20 45,20 70,20 80,40"
+		   id="path7" />
+		<!-- autó teste -->
+		<path
+		   d="m 10,40 h 70 q 8,0 10,10 V 65 H 0 V 50 Q 2,40 10,40"
+		   id="path8" />
+		<!-- kerekek -->
+		<circle
+		   cx="25"
+		   cy="65"
+		   r="8"
+		   fill="#ffffff"
+		   id="circle8" />
+		<circle
+		   cx="65"
+		   cy="65"
+		   r="8"
+		   fill="#ffffff"
+		   id="circle9" />
+	</g>
 </svg>
