@@ -59,7 +59,7 @@ namespace mobil.Services
 
         public async Task<bool> DeleteProfileImg()
         {
-            var response = await _http.PatchAsync($"delete-profile-image", null);
+            var response = await _http.PatchAsync($"profile/delete-profile-image", null);
             return response.IsSuccessStatusCode;
         }
     }

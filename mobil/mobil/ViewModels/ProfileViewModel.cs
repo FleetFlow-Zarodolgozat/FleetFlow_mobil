@@ -14,13 +14,22 @@ namespace mobil.ViewModels
         private readonly DashboardService _dashboardService;
         private readonly ProfileService _profileService;
         private readonly SessionService _sessionService;
+        private readonly ThemeService _themeService;
         private FileResult? _selectedPhoto;
+        private string _selectedThemeValue = "System";
 
-        public ProfileViewModel(DashboardService dashboardService, ProfileService profileService, SessionService sessionService)
+        public ProfileViewModel(DashboardService dashboardService, ProfileService profileService, SessionService sessionService, ThemeService themeService)
         {
             _dashboardService = dashboardService;
             _profileService = profileService;
             _sessionService = sessionService;
+            _themeService = themeService;
+            _selectedThemeValue = _themeService.CurrentTheme switch
+            {
+                ThemePreference.Light => "Light",
+                ThemePreference.Dark => "Dark",
+                _ => "System"
+            };
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -73,6 +82,37 @@ namespace mobil.ViewModels
 
         [ObservableProperty]
         bool hasProfileImage;
+
+        public string SelectedTheme
+        {
+            get => _selectedThemeValue;
+            set
+            {
+                if (SetProperty(ref _selectedThemeValue, value))
+                {
+                    OnPropertyChanged(nameof(IsLightTheme));
+                    OnPropertyChanged(nameof(IsDarkTheme));
+                    OnPropertyChanged(nameof(IsSystemTheme));
+                }
+            }
+        }
+
+        public bool IsLightTheme => SelectedTheme == "Light";
+        public bool IsDarkTheme => SelectedTheme == "Dark";
+        public bool IsSystemTheme => SelectedTheme == "System";
+
+
+        [RelayCommand]
+        void SetTheme(string theme)
+        {
+            SelectedTheme = theme;
+            _themeService.CurrentTheme = theme switch
+            {
+                "Light" => ThemePreference.Light,
+                "Dark" => ThemePreference.Dark,
+                _ => ThemePreference.System
+            };
+        }
 
         partial void OnDriverChanged(Driver? value)
         {

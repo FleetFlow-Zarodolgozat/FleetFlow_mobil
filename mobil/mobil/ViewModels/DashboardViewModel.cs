@@ -49,6 +49,9 @@ namespace mobil.ViewModels
         [ObservableProperty]
         ImageSource? profileImage;
 
+        [ObservableProperty]
+        bool hasProfileImage;
+
         public async Task LoadData()
         {
             try
@@ -76,25 +79,30 @@ namespace mobil.ViewModels
 
         async void LoadProfileImage()
         {
-            if (Driver?.Id is null)
-            {
-                ProfileImage = new FontImageSource
-                {
-                    FontFamily = "FontAwesomeSolid",
-                    Glyph = "\uf007",
-                    Color = Colors.White,
-                    Size = 16
-                };
-                return;
-            }
-            var image = await _dashboardService.GetDriverThumbnail(Driver.Id.Value);
-            ProfileImage = image ?? new FontImageSource
+            var fallback = new FontImageSource
             {
                 FontFamily = "FontAwesomeSolid",
                 Glyph = "\uf007",
                 Color = Colors.White,
                 Size = 16
             };
+            if (Driver?.Id is null)
+            {
+                HasProfileImage = false;
+                ProfileImage = fallback;
+                return;
+            }
+            var image = await _dashboardService.GetDriverThumbnail(Driver.Id.Value);
+            if (image is not null)
+            {
+                HasProfileImage = true;
+                ProfileImage = image;
+            }
+            else
+            {
+                HasProfileImage = false;
+                ProfileImage = fallback;
+            }
         }
 
         [RelayCommand]

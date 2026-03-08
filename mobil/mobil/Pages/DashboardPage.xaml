@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="mobil.DashboardPage" Shell.NavBarIsVisible="False" BackgroundColor="#F6F7F8"
+             x:Class="mobil.DashboardPage" Shell.NavBarIsVisible="False" BackgroundColor="{AppThemeBinding Light=#F6F7F8, Dark=#121212}"
              xmlns:calendar="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar"
              xmlns:components="clr-namespace:mobil.Pages.Components">
 
     <Grid RowDefinitions="Auto, *, Auto">
         <!-- Top bar -->
-        <Border Grid.Row="0" Padding="15" BackgroundColor="White" StrokeShape="Rectangle" StrokeThickness="0">
+        <Border Grid.Row="0" Padding="15" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" StrokeShape="Rectangle" StrokeThickness="0">
             <Grid ColumnDefinitions="Auto, Auto, *, Auto, Auto">
                 <Label Grid.Column="1" Text="FleetFlow" FontAttributes="Bold" FontSize="18" TextColor="#1173d4" VerticalOptions="Center" Margin="10,0,0,0" />
                 <Grid Grid.Column="3">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoToNotificationsCommand}" />
                     </Grid.GestureRecognizers>
-                    <Label Text="&#xf0f3;" FontFamily="FontAwesomeSolid" FontSize="20" VerticalOptions="Center" TextColor="#333" />
+                    <Label Text="&#xf0f3;" FontFamily="FontAwesomeSolid" FontSize="20" VerticalOptions="Center" TextColor="{AppThemeBinding Light=#333333, Dark=#E8E8E8}" />
                     <Ellipse WidthRequest="8" HeightRequest="8" Fill="#ef4444" HorizontalOptions="End" VerticalOptions="Start" Margin="0,-2,-2,0" IsVisible="{Binding HaveUnreadMessage}" />
                 </Grid>
                 <Border Grid.Column="4" WidthRequest="35" HeightRequest="35" StrokeShape="RoundRectangle 17.5" StrokeThickness="0" BackgroundColor="#1173d4" Margin="10,0,0,0">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoToProfileCommand}" />
                     </Border.GestureRecognizers>
-                    <Image Source="{Binding ProfileImage}" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="35" HeightRequest="35" />
+                    <Grid>
+                        <Label IsVisible="{Binding HasProfileImage, Converter={StaticResource InverseBooleanConverter}}" Text="&#xf007;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Image IsVisible="{Binding HasProfileImage}" Source="{Binding ProfileImage}" Aspect="AspectFill" WidthRequest="35" HeightRequest="35" />
+                    </Grid>
                 </Border>
             </Grid>
         </Border>
@@ -34,24 +37,27 @@
                 <!-- Header -->
                 <VerticalStackLayout>
                     <Label Text="DASHBOARD" FontSize="12" FontAttributes="Bold" TextColor="#1173d4" />
-                    <Label Text="{Binding WelcomeMessage}" FontSize="24" FontAttributes="Bold" TextColor="#1a1a2e" />
+                    <Label Text="{Binding WelcomeMessage}" FontSize="24" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
                 </VerticalStackLayout>
 
                 <!-- Driver Profile Card -->
-                <Border StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="16">
+                <Border StrokeShape="RoundRectangle 14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="16">
                     <VerticalStackLayout Spacing="14">
                         <!-- Driver header row -->
                         <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="14">
                             <Border Grid.Column="0" WidthRequest="52" HeightRequest="52" StrokeShape="RoundRectangle 26" StrokeThickness="0" BackgroundColor="#1173d4">
-                                <Label Text="&#xf007;" FontFamily="FontAwesomeSolid" FontSize="22" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <Grid>
+                                    <Label IsVisible="{Binding HasProfileImage, Converter={StaticResource InverseBooleanConverter}}" Text="&#xf007;" FontFamily="FontAwesomeSolid" FontSize="22" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    <Image IsVisible="{Binding HasProfileImage}" Source="{Binding ProfileImage}" Aspect="AspectFill" WidthRequest="52" HeightRequest="52" />
+                                </Grid>
                             </Border>
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="{Binding Driver.FullName}" FontSize="18" FontAttributes="Bold" TextColor="#1a1a2e" />
-                                <Border StrokeShape="RoundRectangle 8" StrokeThickness="0" BackgroundColor="#F0F7FF" Padding="8,3" HorizontalOptions="Start">
+                                <Label Text="{Binding Driver.FullName}" FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
+                                <Border StrokeShape="RoundRectangle 8" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#F0F7FF, Dark=#0D2440}" Padding="8,3" HorizontalOptions="Start">
                                     <Label Text="{Binding Driver.Role}" FontSize="11" FontAttributes="Bold" TextColor="#1173d4" />
                                 </Border>
                             </VerticalStackLayout>
-                            <Border Grid.Column="2" WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" StrokeThickness="0" BackgroundColor="#F0F7FF">
+                            <Border Grid.Column="2" WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#F0F7FF, Dark=#0D2440}">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding EditProfileCommand}" />
                                 </Border.GestureRecognizers>
@@ -59,39 +65,39 @@
                             </Border>
                         </Grid>
 
-                        <BoxView HeightRequest="1" Color="#f1f5f9" />
+                        <BoxView HeightRequest="1" Color="{AppThemeBinding Light=#f1f5f9, Dark=#2E2E2E}" />
 
                         <!-- Contact &amp; License info -->
                         <Grid ColumnDefinitions="*, *" RowDefinitions="Auto, Auto" ColumnSpacing="10" RowSpacing="12">
                             <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="8">
                                 <Label Text="&#xf0e0;" FontFamily="FontAwesomeSolid" FontSize="13" TextColor="#1173d4" VerticalOptions="Center" />
                                 <VerticalStackLayout>
-                                    <Label Text="Email" FontSize="10" TextColor="#94a3b8" />
-                                    <Label Text="{Binding Driver.Email}" FontSize="12" FontAttributes="Bold" TextColor="#1a1a2e" LineBreakMode="TailTruncation" />
+                                    <Label Text="Email" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" />
+                                    <Label Text="{Binding Driver.Email}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" LineBreakMode="TailTruncation" />
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
 
                             <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Spacing="8">
                                 <Label Text="&#xf095;" FontFamily="FontAwesomeSolid" FontSize="13" TextColor="#1173d4" VerticalOptions="Center" />
                                 <VerticalStackLayout>
-                                    <Label Text="Phone" FontSize="10" TextColor="#94a3b8" />
-                                    <Label Text="{Binding Driver.Phone}" FontSize="12" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                    <Label Text="Phone" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" />
+                                    <Label Text="{Binding Driver.Phone}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
 
                             <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Spacing="8">
                                 <Label Text="&#xf2c2;" FontFamily="FontAwesomeSolid" FontSize="13" TextColor="#1173d4" VerticalOptions="Center" />
                                 <VerticalStackLayout>
-                                    <Label Text="License #" FontSize="10" TextColor="#94a3b8" />
-                                    <Label Text="{Binding Driver.LicenseNumber}" FontSize="12" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                    <Label Text="License #" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" />
+                                    <Label Text="{Binding Driver.LicenseNumber}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
 
                             <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="8">
                                 <Label Text="&#xf073;" FontFamily="FontAwesomeSolid" FontSize="13" TextColor="#1173d4" VerticalOptions="Center" />
                                 <VerticalStackLayout>
-                                    <Label Text="Expires" FontSize="10" TextColor="#94a3b8" />
-                                    <Label Text="{Binding Driver.LicenseExpiryDate, StringFormat='{0:yyyy.MM.dd}'}" FontSize="12" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                    <Label Text="Expires" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" />
+                                    <Label Text="{Binding Driver.LicenseExpiryDate, StringFormat='{0:yyyy.MM.dd}'}" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
                         </Grid>
@@ -105,8 +111,8 @@
                             <TapGestureRecognizer Command="{Binding NewTripCommand}" />
                         </Border.GestureRecognizers>
                         <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                            <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="#ffffff30" StrokeThickness="0">
-                                <Label Text="&#xf14e;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                            <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="{AppThemeBinding Light=#fefce8, Dark=#2A2A0D}" StrokeThickness="0">
+                                <Label Text="&#xf14e;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#a16207" HorizontalOptions="Center" VerticalOptions="Center" />
                             </Border>
                             <Label Text="New Trip" FontSize="14" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
                         </HorizontalStackLayout>
@@ -117,8 +123,8 @@
                             <TapGestureRecognizer Command="{Binding NewFuelLogCommand}" />
                         </Border.GestureRecognizers>
                         <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                            <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="#ffffff30" StrokeThickness="0">
-                                <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" />
+                            <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="{AppThemeBinding Light=#fefce8, Dark=#2A2A0D}" StrokeThickness="0">
+                                <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#a16207" HorizontalOptions="Center" VerticalOptions="Center" />
                             </Border>
                             <Label Text="New Fuel Log" FontSize="14" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" />
                         </HorizontalStackLayout>
@@ -127,50 +133,50 @@
 
                 <!-- Vehicle Card -->
                 <VerticalStackLayout Spacing="12">
-                    <Label Text="MY VEHICLE" FontSize="12" FontAttributes="Bold" TextColor="#64748b" />
-                    <Border StrokeShape="RoundRectangle 14" Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="16">
+                    <Label Text="MY VEHICLE" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" />
+                    <Border StrokeShape="RoundRectangle 14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="16">
                         <VerticalStackLayout Spacing="14">
                             <!-- Vehicle header -->
                             <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
-                                <Border Grid.Column="0" WidthRequest="48" HeightRequest="48" StrokeShape="RoundRectangle 12" BackgroundColor="#F0F7FF" StrokeThickness="0">
+                                <Border Grid.Column="0" WidthRequest="48" HeightRequest="48" StrokeShape="RoundRectangle 12" BackgroundColor="{AppThemeBinding Light=#F0F7FF, Dark=#0D2440}" StrokeThickness="0">
                                     <Label Text="&#xf0d1;" FontFamily="FontAwesomeSolid" FontSize="20" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
                                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                    <Label Text="{Binding Vehicle.BrandModel}" FontSize="17" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                    <Label Text="{Binding Vehicle.BrandModel}" FontSize="17" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
                                     <HorizontalStackLayout Spacing="6">
-                                        <Label Text="{Binding Vehicle.LicensePlate}" FontSize="12" TextColor="#64748b" FontAttributes="Bold" />
-                                        <Label Text="•" FontSize="12" TextColor="#94a3b8" />
-                                        <Label Text="{Binding Vehicle.Year}" FontSize="12" TextColor="#64748b" />
+                                        <Label Text="{Binding Vehicle.LicensePlate}" FontSize="12" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" FontAttributes="Bold" />
+                                        <Label Text="•" FontSize="12" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" />
+                                        <Label Text="{Binding Vehicle.Year}" FontSize="12" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" />
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>
-                                <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="#ecfdf5" Padding="10,5" VerticalOptions="Center">
-                                    <Label Text="{Binding Vehicle.Status}" FontSize="11" FontAttributes="Bold" TextColor="#059669" />
+                                <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#ecfdf5, Dark=#1A2A1E}" Padding="10,5" VerticalOptions="Center">
+                                    <Label Text="{Binding Vehicle.Status}" FontSize="11" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#059669, Dark=#4ADE80}" />
                                 </Border>
                             </Grid>
 
-                            <BoxView HeightRequest="1" Color="#f1f5f9" />
+                            <BoxView HeightRequest="1" Color="{AppThemeBinding Light=#f1f5f9, Dark=#2E2E2E}" />
 
                             <!-- Vehicle details -->
                             <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
-                                <Border Grid.Column="0" BackgroundColor="#F0F7FF" Padding="12" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                                <Border Grid.Column="0" BackgroundColor="{AppThemeBinding Light=#F0F7FF, Dark=#0D2440}" Padding="12" StrokeThickness="0" StrokeShape="RoundRectangle 10">
                                     <HorizontalStackLayout Spacing="10">
-                                        <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="#B3D4FC" StrokeThickness="0">
+                                        <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="{AppThemeBinding Light=#B3D4FC, Dark=#1A3460}" StrokeThickness="0">
                                             <Label Text="&#xf018;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
                                         <VerticalStackLayout VerticalOptions="Center">
-                                            <Label Text="Mileage (km)" FontSize="10" TextColor="Gray" />
-                                            <Label Text="{Binding Vehicle.CurrentMileageKm, StringFormat='{0:N0}'}" FontSize="14" FontAttributes="Bold" TextColor="#1a1a2e" />
+                                            <Label Text="Mileage (km)" FontSize="10" TextColor="{AppThemeBinding Light=Gray, Dark=#8E8E8E}" />
+                                            <Label Text="{Binding Vehicle.CurrentMileageKm, StringFormat='{0:N0}'}" FontSize="14" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
                                         </VerticalStackLayout>
                                     </HorizontalStackLayout>
                                 </Border>
-                                <Border Grid.Column="1" BackgroundColor="#FFF5E5" Padding="12" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                                <Border Grid.Column="1" BackgroundColor="{AppThemeBinding Light=#FFF5E5, Dark=#2A1E0D}" Padding="12" StrokeThickness="0" StrokeShape="RoundRectangle 10">
                                     <HorizontalStackLayout Spacing="10">
-                                        <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="#FEDD8E" StrokeThickness="0">
+                                        <Border WidthRequest="36" HeightRequest="36" StrokeShape="RoundRectangle 18" BackgroundColor="{AppThemeBinding Light=#FEDD8E, Dark=#4A3A0D}" StrokeThickness="0">
                                             <Label Text="&#xf1b9;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="#EA580C" HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
                                         <VerticalStackLayout VerticalOptions="Center">
-                                            <Label Text="VIN" FontSize="10" TextColor="Gray" />
-                                            <Label Text="{Binding Vehicle.Vin}" FontSize="11" FontAttributes="Bold" TextColor="#1a1a2e" LineBreakMode="TailTruncation" MaximumWidthRequest="100" />
+                                            <Label Text="VIN" FontSize="10" TextColor="{AppThemeBinding Light=Gray, Dark=#8E8E8E}" />
+                                            <Label Text="{Binding Vehicle.Vin}" FontSize="11" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" LineBreakMode="TailTruncation" MaximumWidthRequest="100" />
                                         </VerticalStackLayout>
                                     </HorizontalStackLayout>
                                 </Border>
@@ -181,71 +187,71 @@
 
                 <!-- My Stats section -->
                 <VerticalStackLayout Spacing="12">
-                    <Label Text="MY STATISTICS" FontSize="12" FontAttributes="Bold" TextColor="#64748b" />
+                    <Label Text="MY STATISTICS" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" />
                     <Grid ColumnDefinitions="*, *, *" RowDefinitions="Auto, Auto" ColumnSpacing="10" RowSpacing="10">
                         <!-- Total Trips -->
-                        <Border Grid.Row="0" Grid.Column="0" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <Border Grid.Row="0" Grid.Column="0" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#F0F7FF" StrokeThickness="0" HorizontalOptions="Center">
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="{AppThemeBinding Light=#F0F7FF, Dark=#0D2440}" StrokeThickness="0" HorizontalOptions="Center">
                                     <Label Text="&#xf14e;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#1173d4" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalTrips}" FontSize="20" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Trips" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalTrips}" FontSize="20" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" HorizontalOptions="Center" />
+                                <Label Text="Trips" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Total Fuels -->
-                        <Border Grid.Row="0" Grid.Column="1" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <Border Grid.Row="0" Grid.Column="1" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#FFF5E5" StrokeThickness="0" HorizontalOptions="Center">
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="{AppThemeBinding Light=#FFF5E5, Dark=#2A1E0D}" StrokeThickness="0" HorizontalOptions="Center">
                                     <Label Text="&#xf52f;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#ea580c" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalFuels}" FontSize="20" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Fuelings" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalFuels}" FontSize="20" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" HorizontalOptions="Center" />
+                                <Label Text="Fuelings" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Total Services -->
-                        <Border Grid.Row="0" Grid.Column="2" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <Border Grid.Row="0" Grid.Column="2" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#f5f3ff" StrokeThickness="0" HorizontalOptions="Center">
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="{AppThemeBinding Light=#f5f3ff, Dark=#1E1A2E}" StrokeThickness="0" HorizontalOptions="Center">
                                     <Label Text="&#xf0ad;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#7c3aed" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalServices}" FontSize="20" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Services" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalServices}" FontSize="20" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" HorizontalOptions="Center" />
+                                <Label Text="Services" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Total Distance -->
-                        <Border Grid.Row="1" Grid.Column="0" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <Border Grid.Row="1" Grid.Column="0" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#ecfdf5" StrokeThickness="0" HorizontalOptions="Center">
-                                    <Label Text="&#xf018;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#059669" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="{AppThemeBinding Light=#ecfdf5, Dark=#1A2A1E}" StrokeThickness="0" HorizontalOptions="Center">
+                                    <Label Text="&#xf018;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="{AppThemeBinding Light=#059669, Dark=#4ADE80}" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalDistance}" FontSize="18" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Distance (km)" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalDistance}" FontSize="18" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" HorizontalOptions="Center" />
+                                <Label Text="Distance (km)" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Fuel Cost -->
-                        <Border Grid.Row="1" Grid.Column="1" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <Border Grid.Row="1" Grid.Column="1" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#fef2f2" StrokeThickness="0" HorizontalOptions="Center">
-                                    <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#dc2626" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="{AppThemeBinding Light=#fef2f2, Dark=#2A1A1A}" StrokeThickness="0" HorizontalOptions="Center">
+                                    <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="{AppThemeBinding Light=#DC2626, Dark=#FF6B6B}" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalFuelCost}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Fuel Cost (Ft)" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalFuelCost}" FontSize="15" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" HorizontalOptions="Center" />
+                                <Label Text="Fuel Cost (Ft)" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
 
                         <!-- Services Cost -->
-                        <Border Grid.Row="1" Grid.Column="2" BackgroundColor="White" Padding="14" Stroke="#e2e8f0" StrokeThickness="1" StrokeShape="RoundRectangle 12">
+                        <Border Grid.Row="1" Grid.Column="2" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" StrokeShape="RoundRectangle 12">
                             <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
-                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="#fefce8" StrokeThickness="0" HorizontalOptions="Center">
+                                <Border WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" BackgroundColor="{AppThemeBinding Light=#fefce8, Dark=#2A2A0D}" StrokeThickness="0" HorizontalOptions="Center">
                                     <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="#ca8a04" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Border>
-                                <Label Text="{Binding Stats.TotalServicesCost}" FontSize="15" FontAttributes="Bold" TextColor="#1a1a2e" HorizontalOptions="Center" />
-                                <Label Text="Serv. Cost (Ft)" FontSize="10" TextColor="#94a3b8" HorizontalOptions="Center" />
+                                <Label Text="{Binding Stats.TotalServicesCost}" FontSize="15" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" HorizontalOptions="Center" />
+                                <Label Text="Serv. Cost (Ft)" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
                     </Grid>
