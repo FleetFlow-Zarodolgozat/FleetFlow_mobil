@@ -13,7 +13,7 @@ Egy többplatformos mobilalkalmazás, amely **.NET MAUI**-val készült flottake
 ## Tartalomjegyzék
 
 - [Technológiai stack](#technológiai-stack)
-- [Projektstruktúra](#projektstruktúra)
+- [Projektstruktúra](#-projektstruktúra)
 - [Architektúra](#architektúra)
 - [Alkalmazás oldalak](#alkalmazás-oldalak)
   - [Bejelentkezés oldal](#1-bejelentkezés-oldal)
