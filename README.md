@@ -2,6 +2,8 @@
 
 A cross-platform mobile application built with **.NET MAUI** for fleet management. The app is designed for **drivers** and connects to the FleetFlow REST API backend. It allows drivers to manage trips, log fuel, submit service requests, view notifications, and keep their profiles up to date — all from a single, polished mobile app.
 
+[![.NET CI](https://github.com/FleetFlow-Zarodolgozat/FleetFlow_mobil/actions/workflows/dotnet.yml/badge.svg)](https://github.com/FleetFlow-Zarodolgozat/FleetFlow_mobil/actions/workflows/dotnet.yml)
+
 ---
 
 ## Table of Contents
