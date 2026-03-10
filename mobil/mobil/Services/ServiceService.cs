@@ -1,4 +1,5 @@
 ﻿using mobil.Models;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
@@ -121,8 +122,9 @@ namespace mobil.Services
                 content.Add(new StringContent(service.DriverCloseNote), "driverCloseNote");
             if (service.File != null)
             {
-                var stream = await service.File.OpenReadAsync();
-                var fileContent = new StreamContent(stream);
+                var originalStream = await service.File.OpenReadAsync();
+                var compressedStream = await CompressImage(originalStream);
+                var fileContent = new StreamContent(compressedStream);
                 fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
                 content.Add(
                     fileContent,
@@ -157,8 +159,9 @@ namespace mobil.Services
                 content.Add(new StringContent(service.DriverCloseNote), "driverCloseNote");
             if (service.File != null)
             {
-                var stream = await service.File.OpenReadAsync();
-                var fileContent = new StreamContent(stream);
+                var originalStream = await service.File.OpenReadAsync();
+                var compressedStream = await CompressImage(originalStream);
+                var fileContent = new StreamContent(compressedStream);
                 fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
                 content.Add(
                     fileContent,
@@ -193,6 +196,20 @@ namespace mobil.Services
             var fileName = response.Content.Headers.ContentDisposition?.FileName?.Trim('"');
             var contentType = response.Content.Headers.ContentType?.MediaType;
             return (stream, fileName, contentType);
+        }
+
+        private async Task<Stream> CompressImage(Stream originalStream)
+        {
+            using var bitmap = SKBitmap.Decode(originalStream);
+            int maxWidth = 1920;
+            int newWidth = maxWidth;
+            int newHeight = bitmap.Height * maxWidth / bitmap.Width;
+            var resizedBitmap = bitmap.Resize(
+                new SKImageInfo(newWidth, newHeight),
+                SKFilterQuality.Medium);
+            using var image = SKImage.FromBitmap(resizedBitmap);
+            using var data = image.Encode(SKEncodedImageFormat.Jpeg, 80);
+            return new MemoryStream(data.ToArray());
         }
     }
 }

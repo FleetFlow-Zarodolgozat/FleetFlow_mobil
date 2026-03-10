@@ -12,7 +12,6 @@
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
-		<AndroidPackageFormat>apk</AndroidPackageFormat>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>mobil</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -69,10 +68,11 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="14.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.4" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.41" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.4" />
 		<PackageReference Include="Plugin.Maui.Calendar" Version="3.0.1" />
+		<PackageReference Include="SkiaSharp" Version="3.119.2" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -5,6 +5,15 @@
              xmlns:calendar="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar"
              xmlns:components="clr-namespace:mobil.Pages.Components">
 
+    <ContentPage.Resources>
+        <Style x:Key="CalendarDaysTitleStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}" />
+        </Style>
+        <Style x:Key="CalendarWeekendTitleStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#ef4444, Dark=#FF8080}" />
+        </Style>
+    </ContentPage.Resources>
+
     <Grid RowDefinitions="Auto, *, Auto">
         <!-- Top bar -->
         <Border Grid.Row="0" Padding="15" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" StrokeShape="Rectangle" StrokeThickness="0">
@@ -258,7 +267,20 @@
                 </VerticalStackLayout>
 
                 <!-- Calendar section -->
-                <calendar:Calendar Events="{Binding CalendarEvents}" EventIndicatorColor="Blue" DayTappedCommand="{Binding DayTappedCommand}" />
+                <calendar:Calendar Events="{Binding CalendarEvents}"
+                                   DayTappedCommand="{Binding DayTappedCommand}"
+                                   DeselectedDayTextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                   WeekendDayColor="{AppThemeBinding Light=#ef4444, Dark=#FF8080}"
+                                   TodayFillColor="#1173d4"
+                                   TodayOutlineColor="#1173d4"
+                                   TodayTextColor="White"
+                                   SelectedTodayTextColor="White"
+                                   EventIndicatorColor="#1173d4"
+                                   EventIndicatorSelectedColor="#1173d4"
+                                   EventIndicatorTextColor="#1173d4"
+                                   EventIndicatorSelectedTextColor="White"
+                                   DaysTitleLabelStyle="{StaticResource CalendarDaysTitleStyle}"
+                                   WeekendTitleStyle="{StaticResource CalendarWeekendTitleStyle}" />
             </VerticalStackLayout>
         </ScrollView>
         <components:BottomNavigation Grid.Row="2" ActiveTab="Dashboard" />
