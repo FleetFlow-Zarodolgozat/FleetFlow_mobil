@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobil.LoginPage" Shell.NavBarIsVisible="False" BackgroundColor="{AppThemeBinding Light=#F6F7F8, Dark=#121212}">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto,*">
+            <!-- Header -->
+            <Grid Grid.Row="0" BackgroundColor="#2563EB" HeightRequest="200" VerticalOptions="Start">
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <Label Text="&#xf1b9;" FontFamily="FontAwesomeSolid" FontSize="60" TextColor="White" HorizontalOptions="Center"/>
+                    <Label Text="FleetFlow" FontSize="32" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center"/>
+                    <Label Text="Driver App" FontSize="16" TextColor="#BFDBFE" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Login Form -->
+            <Border Grid.Row="1" Margin="20,10,20,20" Padding="25" StrokeShape="RoundRectangle 16" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" StrokeThickness="0">
+                <Border.Shadow>
+                    <Shadow Brush="#25000000" Offset="0,4" Radius="12" />
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Welcome Back!" FontSize="24" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1F2937, Dark=#E8E8E8}" HorizontalOptions="Center"/>
+                    <Label Text="Sign in to continue" FontSize="14" TextColor="{AppThemeBinding Light=#6B7280, Dark=#8E8E8E}" HorizontalOptions="Center" Margin="0,-10,0,10"/>
+
+                    <!-- Error Message -->
+                    <Border IsVisible="{Binding HasError}" BackgroundColor="{AppThemeBinding Light=#FEE2E2, Dark=#2A1A1A}" Stroke="{AppThemeBinding Light=#EF4444, Dark=#6B2020}" StrokeThickness="1" Padding="12" StrokeShape="RoundRectangle 8">
+                        <Label Text="{Binding ErrorMessage}" TextColor="{AppThemeBinding Light=#DC2626, Dark=#FF6B6B}" FontSize="13"/>
+                    </Border>
+
+                    <!-- Email Entry -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Email" FontSize="14" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#374151, Dark=#B0B0B0}"/>
+                        <Border Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3A}" StrokeThickness="1" Padding="10,5" StrokeShape="RoundRectangle 8" BackgroundColor="{AppThemeBinding Light=#F9FAFB, Dark=#262626}">
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <Label Text="&#xf0e0;" FontFamily="FontAwesomeRegular" FontSize="16" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                    <Entry Grid.Column="1" Text="{Binding Email}" Placeholder="Enter your email" Keyboard="Email" BackgroundColor="Transparent"/>
+                                </Grid>
+                            </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Password Entry -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Password" FontSize="14" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#374151, Dark=#B0B0B0}"/>
+                        <Border Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3A}" StrokeThickness="1" Padding="10,5" StrokeShape="RoundRectangle 8" BackgroundColor="{AppThemeBinding Light=#F9FAFB, Dark=#262626}">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <Label Text="&#xf023;" FontFamily="FontAwesomeSolid" FontSize="16" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" VerticalOptions="Center" Margin="0,0,10,0"/>
+                                    <Entry Grid.Column="1" Text="{Binding Password}" Placeholder="Enter your password" IsPassword="{Binding IsPasswordVisible, Converter={StaticResource InverseBooleanConverter}}" BackgroundColor="Transparent"/>
+                                    <Button Grid.Column="2" Text="{Binding PasswordVisibilityIcon, Converter={StaticResource PasswordIconConverter}}" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="{AppThemeBinding Light=#6B7280, Dark=#8E8E8E}" BackgroundColor="Transparent" Padding="5" Command="{Binding TogglePasswordVisibilityCommand}"/>
+                                </Grid>
+                            </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Forgot Password -->
+                    <Button Text="Forgot Password?" TextColor="#2563EB" BackgroundColor="Transparent" HorizontalOptions="End" FontSize="13" Padding="0" Command="{Binding ForgotPasswordCommand}"/>
+
+                    <!-- Login Button -->
+                    <Button Text="Sign In" BackgroundColor="#2563EB" TextColor="White" FontAttributes="Bold" FontSize="16" CornerRadius="10" HeightRequest="50" Command="{Binding LoginCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}"/>
+
+                    <!-- Loading Indicator -->
+                    <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#2563EB" HeightRequest="30"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Footer -->
+            <Label Grid.Row="2" Text="&#169; 2025 FleetFlow. All rights reserved." FontSize="12" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

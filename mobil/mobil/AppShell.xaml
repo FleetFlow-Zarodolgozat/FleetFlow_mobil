@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="mobil.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:mobil"
+    xmlns:pages="clr-namespace:mobil"
+    xmlns:pagesNs="clr-namespace:mobil.Pages"
+    Title="FleetFlow mobile app">
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate pages:LoginPage}"
+        Route="LoginPage" />
+
+    <ShellContent
+        Title="Dashboard"
+        ContentTemplate="{DataTemplate pages:DashboardPage}"
+        Route="DashboardPage" />
+
+    <ShellContent
+        Title="Notifications"
+        ContentTemplate="{DataTemplate pagesNs:NotificationPage}"
+        Route="NotificationPage" />
+
+    <ShellContent
+        Title="Profile"
+        ContentTemplate="{DataTemplate pagesNs:ProfilePage}"
+        Route="ProfilePage" />
+
+    <ShellContent
+        Title="Trip"
+        ContentTemplate="{DataTemplate pagesNs:TripPage}"
+        Route="TripPage" />
+
+    <ShellContent
+        Title="Fuel"
+        ContentTemplate="{DataTemplate pagesNs:FuelPage}"
+        Route="FuelPage" />
+
+    <ShellContent
+        Title="Service"
+        ContentTemplate="{DataTemplate pagesNs:ServicePage}"
+        Route="ServicePage" />
+</Shell>
