@@ -1,8 +1,9 @@
+```markdown
 <div align="center">
   
 # 🚗 FleetFlow – Mobile Driver App
 
-A cross-platform mobile application built with **.NET MAUI** for fleet management. The app is designed for **drivers** and connects to the FleetFlow REST API backend. It allows drivers to manage trips, log fuel, submit service requests, view notifications, and keep their profiles up to date — all from a single, polished mobile app.
+Egy többplatformos mobilalkalmazás, amely **.NET MAUI**-val készült flottakezeléshez. Az alkalmazást **sofőrök** számára terveztük, és a FleetFlow REST API backendhez csatlakozik. Lehetővé teszi a sofőrök számára az utak kezelését, a tankolások rögzítését, szervizigények beküldését, értesítések megtekintését, valamint a profiljuk naprakészen tartását — mindezt egyetlen, igényesen kidolgozott mobilalkalmazásból.
 
 [![.NET CI](https://github.com/FleetFlow-Zarodolgozat/FleetFlow_mobil/actions/workflows/dotnet.yml/badge.svg)](https://github.com/FleetFlow-Zarodolgozat/FleetFlow_mobil/actions/workflows/dotnet.yml)
 
@@ -10,61 +11,61 @@ A cross-platform mobile application built with **.NET MAUI** for fleet managemen
 
 ---
 
-## Table of Contents
+## Tartalomjegyzék
 
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Architecture](#architecture)
-- [App Pages](#app-pages)
-  - [Login Page](#1-login-page)
-  - [Dashboard Page](#2-dashboard-page)
-  - [Trip Page](#3-trip-page)
-  - [Fuel Page](#4-fuel-page)
-  - [Service Page](#5-service-page)
-  - [Notification Page](#6-notification-page)
-  - [Profile Page](#7-profile-page)
-- [Popups](#popups)
-  - [Forgot Password Popup](#forgot-password-popup)
-  - [Service Details Popup](#service-details-popup)
-  - [Calendar Day Popup](#calendar-day-popup)
-- [Navigation](#navigation)
-- [Services](#services)
-- [Models](#models)
-- [Authentication & Session Management](#authentication--session-management)
-- [Theme Support](#theme-support)
-- [Dependencies](#dependencies)
+- [Technológiai stack](#technológiai-stack)
+- [Projektstruktúra](#projektstruktúra)
+- [Architektúra](#architektúra)
+- [Alkalmazás oldalak](#alkalmazás-oldalak)
+  - [Bejelentkezés oldal](#1-bejelentkezés-oldal)
+  - [Irányítópult oldal](#2-irányítópult-oldal)
+  - [Utak oldal](#3-utak-oldal)
+  - [Tankolás oldal](#4-tankolás-oldal)
+  - [Szerviz oldal](#5-szerviz-oldal)
+  - [Értesítések oldal](#6-értesítések-oldal)
+  - [Profil oldal](#7-profil-oldal)
+- [Felugró ablakok](#felugró-ablakok)
+  - [Elfelejtett jelszó felugró](#elfelejtett-jelszó-felugró)
+  - [Szerviz részletek felugró](#szerviz-részletek-felugró)
+  - [Naptár nap felugró](#naptár-nap-felugró)
+- [Navigáció](#navigáció)
+- [Szolgáltatások](#szolgáltatások)
+- [Modellek](#modellek)
+- [Hitelesítés és munkamenet-kezelés](#hitelesítés-és-munkamenet-kezelés)
+- [Téma támogatás](#téma-támogatás)
+- [Függőségek](#függőségek)
 
 ---
 
-## Technology Stack
+## Technológiai stack
 
 | Technology | Version | Purpose |
 |---|---|---|
-| .NET MAUI | net10.0 | Cross-platform UI framework |
-| C# | 12+ | Application logic |
-| XAML | — | UI layout definition |
-| CommunityToolkit.Maui | 14.0.1 | Popups, converters, extensions |
-| CommunityToolkit.Mvvm | 8.4.0 | MVVM source generators, commands |
-| Plugin.Maui.Calendar | 3.0.1 | Interactive calendar component |
-| SkiaSharp | 3.119.2 | 2D graphics rendering |
-| Microsoft.Extensions.Http | 10.0.4 | Typed HttpClient DI |
-| FontAwesome | — | Icon fonts (Solid & Regular) |
+| .NET MAUI | net10.0 | Többplatformos UI keretrendszer |
+| C# | 12+ | Alkalmazáslogika |
+| XAML | — | UI elrendezés definíció |
+| CommunityToolkit.Maui | 14.0.1 | Felugrók, konverterek, kiterjesztések |
+| CommunityToolkit.Mvvm | 8.4.0 | MVVM forrásgenerátorok, parancsok |
+| Plugin.Maui.Calendar | 3.0.1 | Interaktív naptár komponens |
+| SkiaSharp | 3.119.2 | 2D grafikai megjelenítés |
+| Microsoft.Extensions.Http | 10.0.4 | Típusos HttpClient DI |
+| FontAwesome | — | Ikon betűkészletek (Solid & Regular) |
 
-**Supported platforms:** Android (API 21+), iOS (15.0+), macOS Catalyst (15.0+), Windows (10.0.17763+)
+**Támogatott platformok:** Android (API 21+), iOS (15.0+), macOS Catalyst (15.0+), Windows (10.0.17763+)
 
 **Backend API:** `http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/`
 
 ---
 
-## Project Structure
+## Projektstruktúra
 
 ```
 FleetFlow_mobil/
 └── mobil/
     └── mobil/
-        ├── App.xaml / App.xaml.cs          # Application entry point
-        ├── AppShell.xaml / AppShell.xaml.cs # Shell navigation routes
-        ├── MauiProgram.cs                  # Dependency injection setup
+        ├── App.xaml / App.xaml.cs          # Alkalmazás belépési pont
+        ├── AppShell.xaml / AppShell.xaml.cs # Shell navigációs útvonalak
+        ├── MauiProgram.cs                  # Dependency injection beállítás
         ├── Pages/
         │   ├── LoginPage.xaml(.cs)
         │   ├── DashboardPage.xaml(.cs)
@@ -111,468 +112,468 @@ FleetFlow_mobil/
         │   ├── Calendarevent.cs
         │   └── PagedResponse.cs
         ├── Handlers/
-        │   └── AuthHttpHandler.cs  # Adds Bearer token to every request
-        └── Converters/             # Value converters for XAML bindings
+        │   └── AuthHttpHandler.cs  # Bearer token hozzáadása minden kéréshez
+        └── Converters/             # Érték-konverterek XAML kötésekhez
 ```
 
 ---
 
-## Architecture
+## Architektúra
 
-The app follows the **MVVM (Model-View-ViewModel)** pattern using `CommunityToolkit.Mvvm` source generators:
+Az alkalmazás a **MVVM (Model-View-ViewModel)** mintát követi a `CommunityToolkit.Mvvm` forrásgenerátorainak használatával:
 
-- **Models** – Plain C# classes representing API data (Driver, Trip, Fuel, etc.)
-- **Services** – Typed `HttpClient` wrappers that communicate with the REST API
-- **ViewModels** – Expose data and commands to the UI via `ObservableObject` and `[RelayCommand]`
-- **Views (Pages/Popups)** – XAML-based UI that binds to ViewModels
-- **Dependency Injection** – All services, ViewModels, and pages are registered in `MauiProgram.cs`
+- **Modellek** – Egyszerű C# osztályok, amelyek az API adatokat reprezentálják (Driver, Trip, Fuel, stb.)
+- **Szolgáltatások** – Típusos `HttpClient` burkolók, amelyek a REST API-val kommunikálnak
+- **ViewModel-ek** – Adatokat és parancsokat tesznek elérhetővé a UI számára `ObservableObject` és `[RelayCommand]` segítségével
+- **Nézetek (Pages/Popups)** – XAML-alapú UI, amely ViewModel-ekhez kötődik
+- **Dependency Injection** – Minden szolgáltatás, ViewModel és oldal regisztrálva van a `MauiProgram.cs` fájlban
 
-All authenticated API requests are intercepted by `AuthHttpHandler`, which automatically attaches the JWT Bearer token from `SessionService` (stored in `SecureStorage`).
-
----
-
-## App Pages
-
-### 1. Login Page
-
-**Route:** `LoginPage` (default / startup page)
-
-The entry point of the application. Drivers sign in using their email and password credentials.
-
-**UI Elements:**
-- Blue header with FleetFlow logo (car icon) and app title
-- Email entry field with email icon
-- Password entry field with lock icon and toggle show/hide button
-- Error message banner (visible on failed login)
-- "Forgot Password?" button — opens the **Forgot Password Popup**
-- "Sign In" button — triggers authentication
-- Loading indicator during login
-- Footer copyright label
-
-**Functionality:**
-- Sends a `POST /login-mobile` request with email and password
-- On success: saves the JWT token to `SecureStorage` and navigates to `DashboardPage`
-- On failure: displays a user-friendly error message
-- Password visibility toggle (eye icon)
-- Form disabled during loading to prevent duplicate submissions
+Minden hitelesített API kérésen áthalad az `AuthHttpHandler`, amely automatikusan hozzáfűzi a JWT Bearer tokent a `SessionService`-ből (ami `SecureStorage`-ban van tárolva).
 
 ---
 
-### 2. Dashboard Page
+## Alkalmazás oldalak
 
-**Route:** `DashboardPage`
+### 1. Bejelentkezés oldal
 
-The main home screen displayed after login. Provides a complete overview of the driver's status, assigned vehicle, personal statistics, and upcoming scheduled events.
+**Útvonal:** `LoginPage` (alapértelmezett / induló oldal)
 
-**UI Elements:**
-- Top bar with FleetFlow logo, notification bell (with unread badge), and profile avatar
-- Welcome message with driver's name
-- **Driver Profile Card**: name, role badge, email, phone, license number, license expiry date, edit shortcut
-- **Quick Action Buttons**: "New Trip" and "New Fuel Log" (shortcuts to create forms)
-- **My Vehicle Card**: brand/model, license plate, year, VIN, current mileage (km), status badge
-- **My Statistics** grid (6 stat cards):
+Az alkalmazás belépési pontja. A sofőrök az e-mail címükkel és jelszavukkal jelentkeznek be.
+
+**UI elemek:**
+- Kék fejléc FleetFlow logóval (autó ikon) és alkalmazás címmel
+- E-mail beviteli mező e-mail ikonnal
+- Jelszó beviteli mező lakat ikonnal és megjelenítés/elrejtés kapcsoló gombbal
+- Hibauzenet sáv (sikertelen bejelentkezéskor látható)
+- "Forgot Password?" gomb — megnyitja az **Elfelejtett jelszó felugrót**
+- "Sign In" gomb — elindítja a hitelesítést
+- Betöltésjelző bejelentkezés közben
+- Lábléc szerzői jogi felirat
+
+**Funkcionalitás:**
+- `POST /login-mobile` kérést küld e-maillel és jelszóval
+- Siker esetén: elmenti a JWT tokent `SecureStorage`-ba és navigál a `DashboardPage` oldalra
+- Sikertelenség esetén: felhasználóbarát hibaüzenetet jelenít meg
+- Jelszó láthatóság kapcsoló (szem ikon)
+- A űrlap letiltása betöltés alatt a dupla beküldések elkerülése érdekében
+
+---
+
+### 2. Irányítópult oldal
+
+**Útvonal:** `DashboardPage`
+
+A bejelentkezés után megjelenő fő kezdőképernyő. Teljes áttekintést ad a sofőr állapotáról, a hozzárendelt járműről, személyes statisztikákról és a közelgő ütemezett eseményekről.
+
+**UI elemek:**
+- Felső sáv FleetFlow logóval, értesítési csengővel (olvasatlan jelvénnyel) és profil avatarral
+- Üdvözlő üzenet a sofőr nevével
+- **Sofőr profil kártya**: név, szerepkör jelvény, e-mail, telefon, jogosítvány szám, jogosítvány lejárati dátum, szerkesztési gyorsgomb
+- **Gyors művelet gombok**: "New Trip" és "New Fuel Log" (gyors utak a létrehozó űrlapokhoz)
+- **Járművem kártya**: márka/modell, rendszám, évjárat, VIN, aktuális kilométeróra állás (km), státusz jelvény
+- **Statisztikáim** rács (6 stat kártya):
   - Total Trips
   - Total Distance (km)
   - Total Services
   - Total Service Cost (Ft)
   - Total Fuels
   - Total Fuel Cost (Ft)
-- **Interactive Calendar**: displays events (trips, services) as colored dots; tapping a day opens the **Calendar Day Popup**
-- Loading indicator and error state
+- **Interaktív naptár**: eseményeket (utak, szervizek) színes pontokkal jelenít meg; egy nap megérintése megnyitja a **Naptár nap felugrót**
+- Betöltésjelző és hibaállapot
 
-**Functionality:**
-- Loads driver profile, assigned vehicle, personal statistics, and calendar events from the API on page appear
-- Notification bell shows a red badge dot when there are unread notifications
-- Tapping the bell navigates to the Notification page
-- Tapping the avatar navigates to the Profile page
-- Tapping the edit icon (pencil) on the profile card navigates to Profile page in edit mode
-- "New Trip" shortcut navigates to Trip page with the create form pre-opened
-- "New Fuel Log" shortcut navigates to Fuel page with the create form pre-opened
-- Tapping a calendar day opens a popup listing that day's events
-
----
-
-### 3. Trip Page
-
-**Route:** `TripPage`
-
-Allows drivers to log, view, and delete their trips.
-
-**UI Elements:**
-- Top bar with truck icon, "Trip Log" title, and "+ New" button
-- Expandable **New Trip Form** (toggled by the "+ New" button):
-  - Start Date and Start Time pickers
-  - End Date and End Time pickers
-  - Start Location text entry
-  - End Location text entry
-  - Distance (km) numeric entry
-  - Start Odometer (km) numeric entry
-  - End Odometer (km) numeric entry
-  - Notes text area (optional)
-  - "Cancel" and "Create Trip" buttons
-- Success and error message banners
-- "MY TRIPS" section header
-- Empty state illustration and message (when no trips exist)
-- **Trip card list** — each card displays:
-  - Route: Start Location → End Location
-  - Date and duration
-  - Distance (km)
-  - License plate
-  - Notes (if any)
-  - Delete button (with confirmation dialog)
-- **Pagination controls** (Prev / Page X of Y / Next), showing total entry count
-
-**Functionality:**
-- Fetches paginated trips from the API (10 items per page)
-- Creates a new trip by submitting a form with start/end times, locations, distance, and odometer readings
-- Deletes a trip after user confirms via an alert dialog
-- Navigates between pages using Previous/Next buttons
-- Can be opened with the create form pre-expanded (e.g., from Dashboard quick action)
+**Funkcionalitás:**
+- A sofőr profilt, hozzárendelt járművet, személyes statisztikákat és naptár eseményeket az API-ból tölti be az oldal megjelenésekor
+- Az értesítési csengő piros jelvényt mutat, ha vannak olvasatlan értesítések
+- A csengő megérintése az Értesítések oldalra navigál
+- Az avatar megérintése a Profil oldalra navigál
+- A profilkártyán lévő szerkesztés ikon (ceruza) megérintése a Profil oldalra visz szerkesztő módban
+- A "New Trip" gyorsgomb az Utak oldalra navigál, előre megnyitott létrehozó űrlappal
+- A "New Fuel Log" gyorsgomb a Tankolás oldalra navigál, előre megnyitott létrehozó űrlappal
+- Egy naptárnap megérintése felugrót nyit, amely felsorolja az adott napi eseményeket
 
 ---
 
-### 4. Fuel Page
+### 3. Utak oldal
 
-**Route:** `FuelPage`
+**Útvonal:** `TripPage`
 
-Allows drivers to log, view, and delete fuel fill-ups, including optional receipt photo upload.
+Lehetővé teszi a sofőrök számára az utak rögzítését, megtekintését és törlését.
 
-**UI Elements:**
-- Top bar with gas pump icon, "Fuel Log" title, and "+ New" button
-- Expandable **New Fuel Entry Form**:
-  - Date and Time pickers
-  - Odometer reading (km) numeric entry
-  - Liters numeric entry
-  - Total Cost numeric entry
-  - Station Name text entry (optional)
-  - Location text entry (optional)
-  - Receipt photo section: "Pick from Gallery" and "Take Photo" buttons
-  - Receipt photo preview with confirmation indicator
-  - "Cancel" and "Log Fuel" buttons
-- Success and error message banners
-- "MY FUEL LOGS" section header
-- Empty state message (when no logs exist)
-- **Fuel card list** — each card displays:
-  - Date
-  - Fuel amount (liters) and total cost
-  - Station name (if provided)
-  - License plate
-  - Receipt photo thumbnail (if uploaded)
-  - Delete button (with confirmation dialog)
-- **Pagination controls** (Prev / Page X of Y / Next)
+**UI elemek:**
+- Felső sáv teherautó ikonnal, "Trip Log" címmel és "+ New" gombbal
+- Kinyitható **Új út űrlap** (a "+ New" gomb kapcsolja):
+  - Kezdő dátum és kezdő idő választók
+  - Befejező dátum és befejező idő választók
+  - Indulási hely szövegmező
+  - Érkezési hely szövegmező
+  - Távolság (km) numerikus mező
+  - Kezdő kilométeróra (km) numerikus mező
+  - Záró kilométeróra (km) numerikus mező
+  - Megjegyzések szövegmező (opcionális)
+  - "Cancel" és "Create Trip" gombok
+- Siker és hiba üzenetsávok
+- "MY TRIPS" szekció fejléc
+- Üres állapot illusztráció és üzenet (ha nincs út)
+- **Út kártya lista** — minden kártya megjeleníti:
+  - Útvonal: Indulási hely → Érkezési hely
+  - Dátum és időtartam
+  - Távolság (km)
+  - Rendszám
+  - Megjegyzések (ha van)
+  - Törlés gomb (megerősítő párbeszéddel)
+- **Lapozó vezérlők** (Prev / Page X of Y / Next), teljes elemszám megjelenítéssel
 
-**Functionality:**
-- Fetches paginated fuel logs from the API (10 items per page)
-- Creates a new fuel log; optionally attaches a receipt image (from gallery or camera)
-- Uploads receipt photo as multipart form data to the API
-- Deletes a fuel log after user confirmation
-- Can be opened with the create form pre-expanded (e.g., from Dashboard quick action)
-
----
-
-### 5. Service Page
-
-**Route:** `ServicePage`
-
-Enables drivers to submit, view, update details of, and delete vehicle service requests.
-
-**UI Elements:**
-- Top bar with wrench icon, "Service Requests" title, and purple "+ New" button
-- Expandable **New Service Request Form**:
-  - Title text entry (e.g., "Oil change needed")
-  - Description text area (optional, up to 500 characters)
-  - "Cancel" and "Create Request" buttons
-- Success and error message banners
-- "MY SERVICE REQUESTS" section header
-- Empty state message
-- **Service card list** — each card displays:
-  - Purple top accent bar
-  - Title and license plate
-  - Status badge (color-coded: Pending / In Progress / Completed / etc.)
-  - Description (truncated to 2 lines)
-  - Scheduled start date
-  - Driver-reported cost (Ft)
-  - "Details" button — opens the **Service Details Popup**
-  - Delete button (with confirmation dialog)
-- **Pagination controls** (Prev / Page X of Y / Next)
-
-**Functionality:**
-- Fetches paginated service requests from the API (10 items per page)
-- Creates a new service request with a title and optional description
-- Opens the Service Details Popup for editing cost, notes, and uploading an invoice photo
-- Deletes a service request after user confirmation
-- Status is displayed with appropriate icons and color coding
+**Funkcionalitás:**
+- Lapozott utakat kér le az API-ból (10 elem oldalanként)
+- Új utat hoz létre egy űrlap beküldésével (kezdő/záró idők, helyek, távolság, kilométeróra adatok)
+- Út törlése felhasználói megerősítés után riasztás párbeszédablakon keresztül
+- Oldalak közötti navigáció Previous/Next gombokkal
+- Megnyitható előre kinyitott létrehozó űrlappal (pl. az Irányítópult gyorsműveletből)
 
 ---
 
-### 6. Notification Page
+### 4. Tankolás oldal
 
-**Route:** `NotificationPage`
+**Útvonal:** `FuelPage`
 
-Shows all system notifications sent to the driver (e.g., trip updates, service status changes).
+Lehetővé teszi a sofőrök számára a tankolások rögzítését, megtekintését és törlését, opcionális blokk/fénykép feltöltéssel.
 
-**UI Elements:**
-- Top bar with "FleetFlow" title, "Notifications" subtitle, and "Mark all read" button
-- Loading indicator
-- "NOTIFICATIONS / Your latest updates" header
-- **Notification card list** — each card displays:
-  - Type icon (color-coded by notification type)
-  - Title (bold) with an unread blue dot indicator
-  - Message body (up to 2 lines)
-  - Type badge (color matches the icon)
-  - Timestamp (yyyy.MM.dd HH:mm)
-  - Delete button (red trash icon)
-- Empty state (bell icon + "No notifications / You're all caught up!")
+**UI elemek:**
+- Felső sáv benzinkút ikonnal, "Fuel Log" címmel és "+ New" gombbal
+- Kinyitható **Új tankolás űrlap**:
+  - Dátum és idő választók
+  - Kilométeróra állás (km) numerikus mező
+  - Liter numerikus mező
+  - Összköltség numerikus mező
+  - Kút neve szövegmező (opcionális)
+  - Helyszín szövegmező (opcionális)
+  - Blokk fotó szekció: "Pick from Gallery" és "Take Photo" gombok
+  - Blokk fotó előnézet megerősítő jelzéssel
+  - "Cancel" és "Log Fuel" gombok
+- Siker és hiba üzenetsávok
+- "MY FUEL LOGS" szekció fejléc
+- Üres állapot üzenet (ha nincs bejegyzés)
+- **Tankolás kártya lista** — minden kártya megjeleníti:
+  - Dátum
+  - Üzemanyag mennyiség (liter) és összköltség
+  - Kút neve (ha megadott)
+  - Rendszám
+  - Blokk fotó bélyegkép (ha feltöltött)
+  - Törlés gomb (megerősítő párbeszéddel)
+- **Lapozó vezérlők** (Prev / Page X of Y / Next)
 
-**Functionality:**
-- Loads all notifications from the API on page appear
-- Notifications are visually differentiated by type (different icon colors and badge labels)
-- Unread notifications show a blue dot next to the title
-- "Mark all read" button marks every notification as read
-- Individual notifications can be deleted with the trash icon button
-
----
-
-### 7. Profile Page
-
-**Route:** `ProfilePage`
-
-Displays the driver's personal profile and allows editing of personal data, password, and profile photo. Also provides theme settings and logout.
-
-**UI Elements:**
-- **View Mode:**
-  - Large circular profile avatar (photo or FA icon fallback)
-  - Full name
-  - Role badge
-  - Email, phone, license number, license expiry date info rows
-  - "Edit Profile" button
-- **Edit Mode** (toggled by Edit button):
-  - Full Name text entry
-  - Phone Number text entry
-  - New Password entry (optional)
-  - Confirm Password entry (optional)
-  - Profile photo section: "Pick from Gallery" and "Take Photo (Camera)" buttons
-  - Photo preview with confirmation indicator
-  - "Delete Photo" button (if a profile photo exists)
-  - "Cancel" and "Save Changes" buttons
-- **Appearance (Theme) Section:**
-  - Three radio-style buttons: "System", "Light", "Dark"
-  - Currently selected theme is highlighted
-- **Logout Button** (red, at the bottom)
-- Success and error message banners
-- Loading indicator
-
-**Functionality:**
-- Loads driver profile data and profile image thumbnail on page appear
-- Edits full name, phone number, and optionally changes the password
-- Uploads a new profile photo (from gallery or camera) via multipart form data
-- Deletes the existing profile photo
-- Switches app theme (Light / Dark / System default) — preference is persisted via `Preferences`
-- Logs out: clears the Bearer token from `SecureStorage` and navigates back to `LoginPage`
-- Can be opened directly in edit mode (e.g., via the Dashboard edit shortcut)
+**Funkcionalitás:**
+- Lapozott tankolás naplót kér le az API-ból (10 elem oldalanként)
+- Új tankolás naplót hoz létre; opcionálisan csatol blokk képet (galériából vagy kamerából)
+- A blokk fotót multipart form-data formátumban tölti fel az API felé
+- Tankolás bejegyzés törlése felhasználói megerősítés után
+- Megnyitható előre kinyitott létrehozó űrlappal (pl. az Irányítópult gyorsműveletből)
 
 ---
 
-## Popups
+### 5. Szerviz oldal
 
-### Forgot Password Popup
+**Útvonal:** `ServicePage`
 
-Opened from the Login page via the "Forgot Password?" button.
+Lehetővé teszi a sofőrök számára járműszerviz igények beküldését, megtekintését, részletek frissítését és törlését.
 
-- Email text entry
-- "Send" button — calls `POST /profile/forgot-password` with the email
-- "Cancel" button — closes the popup
-- Error message and loading indicator
+**UI elemek:**
+- Felső sáv villáskulcs ikonnal, "Service Requests" címmel és lila "+ New" gombbal
+- Kinyitható **Új szerviz igény űrlap**:
+  - Cím szövegmező (pl. "Oil change needed")
+  - Leírás szövegmező (opcionális, max. 500 karakter)
+  - "Cancel" és "Create Request" gombok
+- Siker és hiba üzenetsávok
+- "MY SERVICE REQUESTS" szekció fejléc
+- Üres állapot üzenet
+- **Szerviz kártya lista** — minden kártya megjeleníti:
+  - Lila felső kiemelő csík
+  - Cím és rendszám
+  - Státusz jelvény (színkódolt: Pending / In Progress / Completed / stb.)
+  - Leírás (2 sorra rövidítve)
+  - Tervezett kezdési dátum
+  - Sofőr által jelentett költség (Ft)
+  - "Details" gomb — megnyitja a **Szerviz részletek felugrót**
+  - Törlés gomb (megerősítő párbeszéddel)
+- **Lapozó vezérlők** (Prev / Page X of Y / Next)
 
-### Service Details Popup
-
-Opened from a service card's "Details" button on the Service page.
-
-- Displays service title and current status / license plate
-- **Driver Report Cost (Ft)** numeric entry
-- **Close Note** text area (optional, up to 500 characters)
-- **Invoice Photo** section:
-  - "Gallery" button — picks a photo from the device gallery
-  - "Camera" button — takes a new photo
-  - Photo preview with confirmation indicator
-- "Cancel" and "Save" buttons
-- Loading indicator and error/success banners
-- Submits the details via `PUT` / `PATCH` to the API, attaching the invoice file as multipart form data
-
-### Calendar Day Popup
-
-Opened by tapping a day on the Dashboard calendar.
-
-- Displays a list of events (trips, service appointments) for the selected date
-- Shows event title, type, start/end time
-- Allows quick viewing of what is scheduled for that day
-- Closes and refreshes the calendar on dismiss
+**Funkcionalitás:**
+- Lapozott szerviz igényeket kér le az API-ból (10 elem oldalanként)
+- Új szerviz igényt hoz létre címmel és opcionális leírással
+- Megnyitja a Szerviz részletek felugrót költség, megjegyzés szerkesztéséhez és számla fotó feltöltéséhez
+- Szerviz igény törlése felhasználói megerősítés után
+- A státusz megfelelő ikonokkal és színkódolással jelenik meg
 
 ---
 
-## Navigation
+### 6. Értesítések oldal
 
-The app uses **Shell navigation** with named routes. All routes are registered in `AppShell.xaml`:
+**Útvonal:** `NotificationPage`
+
+Az összes rendszerértesítést megjeleníti, amelyet a sofőr kap (pl. út frissítések, szerviz státusz változások).
+
+**UI elemek:**
+- Felső sáv "FleetFlow" címmel, "Notifications" alcímmel és "Mark all read" gombbal
+- Betöltésjelző
+- "NOTIFICATIONS / Your latest updates" fejléc
+- **Értesítés kártya lista** — minden kártya megjeleníti:
+  - Típus ikon (színkódolt az értesítés típusa szerint)
+  - Cím (félkövér) olvasatlan kék pont jelzővel
+  - Üzenet törzs (max. 2 sor)
+  - Típus jelvény (színe egyezik az ikonnal)
+  - Időbélyeg (yyyy.MM.dd HH:mm)
+  - Törlés gomb (piros kuka ikon)
+- Üres állapot (csengő ikon + "No notifications / You're all caught up!")
+
+**Funkcionalitás:**
+- Az oldalon megjelenéskor betölti az összes értesítést az API-ból
+- Az értesítések típus alapján vizuálisan elkülönülnek (különböző ikon színek és jelvény feliratok)
+- Az olvasatlan értesítések kék pontot mutatnak a cím mellett
+- A "Mark all read" gomb minden értesítést olvasottnak jelöl
+- Egyedi értesítések törölhetők a kuka ikon gombbal
+
+---
+
+### 7. Profil oldal
+
+**Útvonal:** `ProfilePage`
+
+Megjeleníti a sofőr személyes profilját és lehetővé teszi a személyes adatok, jelszó és profilkép szerkesztését. Emellett téma beállításokat és kijelentkezést is biztosít.
+
+**UI elemek:**
+- **Megtekintő mód:**
+  - Nagy, kör alakú profil avatar (fotó vagy FA ikon tartalék)
+  - Teljes név
+  - Szerepkör jelvény
+  - E-mail, telefon, jogosítvány szám, jogosítvány lejárat információ sorok
+  - "Edit Profile" gomb
+- **Szerkesztő mód** (Edit gombbal kapcsolható):
+  - Teljes név szövegmező
+  - Telefonszám szövegmező
+  - Új jelszó mező (opcionális)
+  - Jelszó megerősítése mező (opcionális)
+  - Profilkép szekció: "Pick from Gallery" és "Take Photo (Camera)" gombok
+  - Fotó előnézet megerősítő jelzéssel
+  - "Delete Photo" gomb (ha van profilkép)
+  - "Cancel" és "Save Changes" gombok
+- **Megjelenés (Téma) szekció:**
+  - Három rádió-stílusú gomb: "System", "Light", "Dark"
+  - Az aktuálisan kiválasztott téma kiemelve
+- **Kijelentkezés gomb** (piros, alul)
+- Siker és hiba üzenetsávok
+- Betöltésjelző
+
+**Funkcionalitás:**
+- Betölti a sofőr profil adatait és a profilkép bélyegképet az oldal megjelenésekor
+- Szerkeszti a teljes nevet, telefonszámot, és opcionálisan jelszót változtat
+- Új profilképet tölt fel (galériából vagy kamerából) multipart form-data segítségével
+- Törli a meglévő profilképet
+- Témát vált (Light / Dark / System default) — a beállítás `Preferences`-ben tárolódik
+- Kijelentkezés: törli a Bearer tokent a `SecureStorage`-ból és visszanavigál a `LoginPage` oldalra
+- Közvetlenül megnyitható szerkesztő módban (pl. az Irányítópult szerkesztési gyorsgombjával)
+
+---
+
+## Felugró ablakok
+
+### Elfelejtett jelszó felugró
+
+A Bejelentkezés oldalról nyílik meg a "Forgot Password?" gombbal.
+
+- E-mail beviteli mező
+- "Send" gomb — meghívja a `POST /profile/forgot-password` végpontot az e-maillel
+- "Cancel" gomb — bezárja a felugrót
+- Hibaüzenet és betöltésjelző
+
+### Szerviz részletek felugró
+
+A Szerviz oldalon, egy szerviz kártya "Details" gombjára kattintva nyílik meg.
+
+- Megjeleníti a szerviz címet és az aktuális státuszt / rendszámot
+- **Sofőr által jelentett költség (Ft)** numerikus mező
+- **Lezárási megjegyzés** szövegmező (opcionális, max. 500 karakter)
+- **Számla fotó** szekció:
+  - "Gallery" gomb — fotó kiválasztása a készülék galériájából
+  - "Camera" gomb — új fotó készítése
+  - Fotó előnézet megerősítő jelzéssel
+- "Cancel" és "Save" gombok
+- Betöltésjelző és hiba/siker üzenetsávok
+- A részleteket `PUT` / `PATCH` kéréssel küldi az API felé, a számla fájlt multipart form-data formátumban csatolva
+
+### Naptár nap felugró
+
+Az Irányítópult naptárán egy nap megérintésével nyílik meg.
+
+- Eseménylista megjelenítése (utak, szerviz időpontok) a kiválasztott dátumra
+- Mutatja az esemény címet, típust, kezdő/záró időt
+- Gyors áttekintést ad az adott nap ütemezéséről
+- Bezáráskor frissíti a naptárt
+
+---
+
+## Navigáció
+
+Az alkalmazisztrálva van az `AppShell.xaml` fájlban:
 
 | Route | Page | Description |
 |---|---|---|
-| `LoginPage` | `LoginPage` | Authentication (start page) |
-| `DashboardPage` | `DashboardPage` | Main home screen |
-| `NotificationPage` | `NotificationPage` | Notifications list |
-| `ProfilePage` | `ProfilePage` | Driver profile & settings |
-| `TripPage` | `TripPage` | Trip management |
-| `FuelPage` | `FuelPage` | Fuel log management |
-| `ServicePage` | `ServicePage` | Service request management |
+| `LoginPage` | `LoginPage` | Hitelesítés (kezdő oldal) |
+| `DashboardPage` | `DashboardPage` | Fő kezdőképernyő |
+| `NotificationPage` | `NotificationPage` | Értesítések lista |
+| `ProfilePage` | `ProfilePage` | Sofőr profil és beállítások |
+| `TripPage` | `TripPage` | Utak kezelése |
+| `FuelPage` | `FuelPage` | Tankolás napló kezelése |
+| `ServicePage` | `ServicePage` | Szerviz igény kezelés |
 
-Navigation is performed programmatically via `Shell.Current.GoToAsync("RouteName")`. Query parameters (e.g., `IsNewTrip`, `IsEditing`) can be passed to pre-configure a page's state.
+A navigáció programozottan történik a `Shell.Current.GoToAsync("RouteName")` használatával. Query paraméterek (pl. `IsNewTrip`, `IsEditing`) átadhatók egy oldal állapotának előkonfigurálásához.
 
-### Bottom Navigation Bar
+### Alsó navigációs sáv
 
-A custom `BottomNavigation` component is displayed on every main page (Dashboard, Trips, Fuel, Services, Notifications). It highlights the currently active tab and allows switching between sections.
+Egy egyedi `BottomNavigation` komponens jelenik meg minden fő oldalon (Irányítópult, Utak, Tankolás, Szervizek, Értesítések). Kiemeli az aktuálisan aktív fület, és lehetővé teszi a szekciók közötti váltást.
 
-Tabs:
-- 🏠 Dashboard
-- 🚗 Trips
-- ⛽ Fuel
-- 🔧 Services
-- 🔔 Notifications
+Fülek:
+- 🏠 Irányítópult
+- 🚗 Utak
+- ⛽ Tankolás
+- 🔧 Szervizek
+- 🔔 Értesítések
 
 ---
 
-## Services
+## Szolgáltatások
 
 | Service | Responsibilities |
 |---|---|
 | `AuthService` | `POST /login-mobile`, `POST /profile/forgot-password` |
-| `DashboardService` | Load driver profile, vehicle data, statistics, calendar events, unread notification status, profile image thumbnail |
-| `TripService` | List trips (paginated), create trip, delete trip |
-| `FuelService` | List fuel logs (paginated), create fuel log (with optional receipt file), delete fuel log |
-| `ServiceService` | List service requests (paginated), create service request, update service details (cost, note, invoice file), delete service request |
-| `NotificationService` | List notifications, mark all as read, delete a notification |
-| `ProfileService` | Update profile data (name, phone, password, photo), delete profile photo |
-| `SessionService` | Save/retrieve/remove JWT token using `SecureStorage` |
-| `ThemeService` | Get/set/apply theme preference (System/Light/Dark) using `Preferences` |
-| `AuthHttpHandler` | `DelegatingHandler` — attaches `Authorization: Bearer <token>` to every HTTP request |
+| `DashboardService` | Sofőr profil, jármű adatok, statisztikák, naptár események, olvasatlan értesítési állapot, profilkép bélyegkép betöltése |
+| `TripService` | Utak listázása (lapozott), út létrehozása, út törlése |
+| `FuelService` | Tankolások listázása (lapozott), tankolás létrehozása (opcionális blokk fájllal), tankolás törlése |
+| `ServiceService` | Szerviz igények listázása (lapozott), szerviz igény létrehozása, szerviz részletek frissítése (költség, megjegyzés, számla fájl), szerviz igény törlése |
+| `NotificationService` | Értesítések listázása, összes olvasottnak jelölése, értesítés törlése |
+| `ProfileService` | Profil adatok frissítése (név, telefon, jelszó, fotó), profilkép törlése |
+| `SessionService` | JWT token mentése/kiolvasása/törlése `SecureStorage` használatával |
+| `ThemeService` | Téma beállítás lekérdezése/beállítása/alkalmazása (System/Light/Dark) `Preferences` használatával |
+| `AuthHttpHandler` | `DelegatingHandler` — hozzáfűzi az `Authorization: Bearer <token>` fejlécet minden HTTP kéréshez |
 
 ---
 
-## Models
+## Modellek
 
 ### Driver
 
 | Property | Type | Description |
 |---|---|---|
-| `Id` | `ulong?` | Unique driver ID |
-| `FullName` | `string?` | Driver's full name |
-| `Email` | `string?` | Email address |
-| `Phone` | `string?` | Phone number |
-| `LicenseNumber` | `string?` | Driving license number |
-| `LicenseExpiryDate` | `DateTime` | License expiry date |
-| `ProfileImgFileId` | `ulong?` | ID of profile image file |
-| `Role` | `string?` | User role (e.g., Driver) |
+| `Id` | `ulong?` | Egyedi sofőr azonosító |
+| `FullName` | `string?` | Sofőr teljes neve |
+| `Email` | `string?` | E-mail cím |
+| `Phone` | `string?` | Telefonszám |
+| `LicenseNumber` | `string?` | Jogosítvány száma |
+| `LicenseExpiryDate` | `DateTime` | Jogosítvány lejárati dátuma |
+| `ProfileImgFileId` | `ulong?` | Profilkép fájl azonosítója |
+| `Role` | `string?` | Felhasználói szerepkör (pl. Driver) |
 
 ### Vehicle
 
 | Property | Type | Description |
 |---|---|---|
-| `BrandModel` | `string?` | Brand and model name |
-| `LicensePlate` | `string?` | Vehicle license plate |
-| `Year` | `int` | Manufacturing year |
-| `CurrentMileageKm` | `int` | Current odometer reading (km) |
-| `Vin` | `string?` | Vehicle Identification Number |
-| `Status` | `string?` | Vehicle status (e.g., Active) |
+| `BrandModel` | `string?` | Márka és modell neve |
+| `LicensePlate` | `string?` | Jármű rendszáma |
+| `Year` | `int` | Gyártási év |
+| `CurrentMileageKm` | `int` | Aktuális kilométeróra állás (km) |
+| `Vin` | `string?` | Alvázszám (VIN) |
+| `Status` | `string?` | Jármű státusz (pl. Active) |
 
 ### Stats
 
 | Property | Type | Description |
 |---|---|---|
-| `TotalTrips` | `int` | Number of trips logged |
-| `TotalDistance` | `decimal` | Total distance driven (km) |
-| `TotalServices` | `int` | Number of service requests |
-| `TotalServicesCost` | `decimal` | Total service costs (Ft) |
-| `TotalFuels` | `int` | Number of fuel logs |
-| `TotalFuelCost` | `decimal` | Total fuel costs (Ft) |
+| `TotalTrips` | `int` | Rögzített utak száma |
+| `TotalDistance` | `decimal` | Összes megtett távolság (km) |
+| `TotalServices` | `int` | Szerviz igények száma |
+| `TotalServicesCost` | `decimal` | Összes szerviz költség (Ft) |
+| `TotalFuels` | `int` | Tankolások száma |
+| `TotalFuelCost` | `decimal` | Összes üzemanyag költség (Ft) |
 
 ### Trip
 
 | Property | Type | Description |
 |---|---|---|
-| `Id` | `ulong` | Unique trip ID |
-| `StartTime` | `DateTime` | Trip start time |
-| `Long` | `TimeSpan?` | Trip duration (length of the trip) |
-| `StartLocation` | `string?` | Departure location |
-| `EndLocation` | `string?` | Destination location |
-| `DistanceKm` | `decimal?` | Distance in kilometres |
-| `Notes` | `string?` | Optional driver notes |
-| `LicensePlate` | `string?` | Associated vehicle plate |
+| `Id` | `ulong` | Egyedi út azonosító |
+| `StartTime` | `DateTime` | Út kezdési időpontja |
+| `Long` | `TimeSpan?` | Út időtartama (az út hossza) |
+| `StartLocation` | `string?` | Indulási hely |
+| `EndLocation` | `string?` | Érkezési hely |
+| `DistanceKm` | `decimal?` | Távolság kilométerben |
+| `Notes` | `string?` | Opcionális sofőr megjegyzések |
+| `LicensePlate` | `string?` | Kapcsolt jármű rendszáma |
 
 ### Fuel
 
 | Property | Type | Description |
 |---|---|---|
-| `Id` | `ulong` | Unique fuel log ID |
-| `Date` | `DateTime` | Fill-up date/time |
-| `Liters` | `decimal` | Amount of fuel (litres) |
-| `TotalCostCur` | `string?` | Formatted total cost |
-| `StationName` | `string?` | Fuel station name |
-| `ReceiptFileId` | `ulong?` | ID of receipt image file |
-| `LicensePlate` | `string?` | Associated vehicle plate |
+| `Id` | `ulong` | Egyedi tankolás azonosító |
+| `Date` | `DateTime` | Tankolás dátuma/ideje |
+| `Liters` | `decimal` | Üzemanyag mennyisége (liter) |
+| `TotalCostCur` | `string?` | Formázott végösszeg |
+| `StationName` | `string?` | Benzinkút neve |
+| `ReceiptFileId` | `ulong?` | Blokk kép fájl azonosító |
+| `LicensePlate` | `string?` | Kapcsolt jármű rendszáma |
 
 ### Service
 
 | Property | Type | Description |
 |---|---|---|
-| `Id` | `ulong` | Unique service request ID |
-| `Title` | `string?` | Request title |
-| `Description` | `string?` | Request description |
-| `Status` | `string?` | Current status (Pending, In Progress, Completed, etc.) |
-| `ScheduledStart` | `DateTime?` | Scheduled start date/time |
-| `DriverReportCost` | `decimal?` | Driver-reported cost (Ft) |
-| `InvoiceFileId` | `ulong?` | ID of invoice image file |
-| `LicensePlate` | `string?` | Associated vehicle plate |
-| `ClosedAt` | `DateTime?` | Completion date/time |
+| `Id` | `ulong` | Egyedi szerviz igény azonosító |
+| `Title` | `string?` | Igény címe |
+| `Description` | `string?` | Igény leírása |
+| `Status` | `string?` | Aktuális státusz (Pending, In Progress, Completed, stb.) |
+| `ScheduledStart` | `DateTime?` | Tervezett kezdés dátuma/ideje |
+| `DriverReportCost` | `decimal?` | Sofőr által jelentett költség (Ft) |
+| `InvoiceFileId` | `ulong?` | Számla kép fájl azonosító |
+| `LicensePlate` | `string?` | Kapcsolt jármű rendszáma |
+| `ClosedAt` | `DateTime?` | Befejezés dátuma/ideje |
 
 ### Notification
 
 | Property | Type | Description |
 |---|---|---|
-| `Id` | `ulong` | Unique notification ID |
-| `UserId` | `ulong` | Recipient user ID |
-| `Type` | `string?` | Notification type (determines icon/color) |
-| `Title` | `string?` | Notification title |
-| `Message` | `string?` | Notification body text |
-| `IsRead` | `bool` | Whether the notification has been read |
-| `RelatedServiceRequestId` | `ulong?` | Related service request (if any) |
-| `CreatedAt` | `DateTime` | Creation timestamp |
+| `Id` | `ulong` | Egyedi értesítés azonosító |
+| `UserId` | `ulong` | Címzett felhasználó azonosító |
+| `Type` | `string?` | Értesítés típusa (meghatározza az ikont/színt) |
+| `Title` | `string?` | Értesítés címe |
+| `Message` | `string?` | Értesítés szövege |
+| `IsRead` | `bool` | Olvasott-e az értesítés |
+| `RelatedServiceRequestId` | `ulong?` | Kapcsolt szerviz igény (ha van) |
+| `CreatedAt` | `DateTime` | Létrehozás időbélyeg |
 
 ---
 
-## Authentication & Session Management
+## Hitelesítés és munkamenet-kezelés
 
-1. The user enters email and password on the **Login Page**.
-2. `AuthService` sends a `POST /login-mobile` request to the API.
-3. On success, the API returns a JWT Bearer token.
-4. `SessionService.SaveToken()` stores the token securely using .NET MAUI's `SecureStorage`.
-5. `AuthHttpHandler` (a `DelegatingHandler`) reads the token via `SessionService.GetToken()` and attaches it as an `Authorization: Bearer <token>` header to every outgoing API request.
-6. On logout, `SessionService.Logout()` removes the token from `SecureStorage` and the app navigates back to the Login page.
+1. A felhasználó megadja az e-mailt és jelszót a **Bejelentkezés oldalon**.
+2. Az `AuthService` elküldi a `POST /login-mobile` kérést az API-nak.
+3. Siker esetén az API visszaad egy JWT Bearer tokent.
+4. A `SessionService.SaveToken()` biztonságosan eltárolja a tokent a .NET MAUI `SecureStorage` segítségével.
+5. Az `AuthHttpHandler` (egy `DelegatingHandler`) kiolvassa a tokent a `SessionService.GetToken()`-nel, és hozzáfűzi az `Authorization: Bearer <token>` fejlécet minden kimenő API kéréshez.
+6. Kijelentkezéskor a `SessionService.Logout()` eltávolítja a tokent a `SecureStorage`-ból, és az alkalmazás visszanavigál a Bejelentkezés oldalra.
 
 ---
 
-## Theme Support
+## Téma támogatás
 
-The app supports three appearance modes, selectable from the **Profile Page**:
+Az alkalmazás három megjelenési módot támogat, amelyek a **Profil oldalon** választhatók:
 
 | Mode | Behavior |
 |---|---|
-| **System** | Follows the device's system light/dark setting |
-| **Light** | Forces light theme |
-| **Dark** | Forces dark theme |
+| **System** | Követi az eszköz rendszer szintű világos/sötét beállítását |
+| **Light** | Világos témát kényszerít |
+| **Dark** | Sötét témát kényszerít |
 
-The selected preference is persisted using `Preferences` and applied immediately via `Application.Current.UserAppTheme`. All pages and components use `AppThemeBinding` for colors and styles, ensuring consistent rendering in all modes.
+A kiválasztott beállítás `Preferences` használatával kerül eltárolásra, és azonnal alkalmazódik az `Application.Current.UserAppTheme` segítségével. Minden oldal és komponens `AppThemeBinding`-et használ a színekhez és stílusokhoz, így minden módban konzisztens megjelenést biztosít.
 
 ---
 
-## Dependencies
+## Függőségek
 
 ```xml
 <PackageReference Include="CommunityToolkit.Maui"      Version="14.0.1" />
@@ -584,11 +585,12 @@ The selected preference is persisted using `Preferences` and applied immediately
 <PackageReference Include="SkiaSharp"                  Version="3.119.2" />
 ```
 
-**Custom fonts included:**
-- `OpenSans-Regular.ttf` / `OpenSans-Semibold.ttf` — body text
-- `fa-solid-900.ttf` (FontAwesomeSolid) — solid icons
-- `fa-regular-400.ttf` (FontAwesomeRegular) — outline icons
+**Egyedi betűkészletek:**
+- `OpenSans-Regular.ttf` / `OpenSans-Semibold.ttf` — törzsszöveg
+- `fa-solid-900.ttf` (FontAwesomeSolid) — kitöltött ikonok
+- `fa-regular-400.ttf` (FontAwesomeRegular) — körvonalas ikonok
 
 ---
 
-*© 2025 FleetFlow. All rights reserved.*
+*© 2025 FleetFlow. Minden jog fenntartva.*
+```
