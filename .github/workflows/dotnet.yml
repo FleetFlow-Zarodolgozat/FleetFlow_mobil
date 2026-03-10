@@ -20,6 +20,10 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 10.0.x
+    - name: Restore MAUI workloads
+      run: |
+        cd mobil/mobil
+        dotnet workload restore
     - name: Restore dependencies
       run: |
           cd mobil/mobil
