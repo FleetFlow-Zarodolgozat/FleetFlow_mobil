@@ -24,33 +24,34 @@ namespace mobil
                     fonts.AddFont("fa-solid-900.ttf", "FontAwesomeSolid");
                     fonts.AddFont("fa-regular-400.ttf", "FontAwesomeRegular");
                 });
+            var apiBaseAddress = new Uri("https://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
             builder.Services.AddHttpClient<AuthService>(client =>
             {
-                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+                client.BaseAddress = apiBaseAddress;
             }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddHttpClient<DashboardService>(client =>
             {
-                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+                client.BaseAddress = apiBaseAddress;
             }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddHttpClient<NotificationService>(client =>
             {
-                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+                client.BaseAddress = apiBaseAddress;
             }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddHttpClient<ProfileService>(client =>
             {
-                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+                client.BaseAddress = apiBaseAddress;
             }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddHttpClient<TripService>(client =>
             {
-                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+                client.BaseAddress = apiBaseAddress;
             }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddHttpClient<FuelService>(client =>
             {
-                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+                client.BaseAddress = apiBaseAddress;
             }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddHttpClient<ServiceService>(client =>
             {
-                client.BaseAddress = new Uri("http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/");
+                client.BaseAddress = apiBaseAddress;
             }).AddHttpMessageHandler<AuthHttpHandler>();
             builder.Services.AddTransient<AuthHttpHandler>();
             builder.Services.AddSingleton<SessionService>();
