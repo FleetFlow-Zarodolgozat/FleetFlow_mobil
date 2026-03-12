@@ -12,27 +12,27 @@ Egy többplatformos mobilalkalmazás, amely **.NET MAUI**-val készült flottake
 
 ## 📑 Tartalomjegyzék
 
-- [Technológiai stack](#technológiai-stack)
-- [Projektstruktúra](#projektstruktúra)
-- [Architektúra](#architektúra)
-- [Alkalmazás oldalak](#alkalmazás-oldalak)
-  - [Bejelentkezés oldal](#1-bejelentkezés-oldal)
-  - [Irányítópult oldal](#2-irányítópult-oldal)
-  - [Utak oldal](#3-utak-oldal)
-  - [Tankolás oldal](#4-tankolás-oldal)
-  - [Szerviz oldal](#5-szerviz-oldal)
-  - [Értesítések oldal](#6-értesítések-oldal)
-  - [Profil oldal](#7-profil-oldal)
-- [Felugró ablakok](#felugró-ablakok)
-  - [Elfelejtett jelszó felugró](#elfelejtett-jelszó-felugró)
-  - [Szerviz részletek felugró](#szerviz-részletek-felugró)
-  - [Naptár nap felugró](#naptár-nap-felugró)
-- [Navigáció](#navigáció)
-- [Szolgáltatások](#szolgáltatások)
-- [Modellek](#modellek)
-- [Hitelesítés és munkamenet-kezelés](#hitelesítés-és-munkamenet-kezelés)
-- [Téma támogatás](#téma-támogatás)
-- [Függőségek](#függőségek)
+- [Technológiai stack](#-technológiai-stack)
+- [Projektstruktúra](#-projektstruktúra)
+- [Architektúra](#-architektúra)
+- [Alkalmazás oldalak](#-alkalmazás-oldalak)
+  - [Bejelentkezés oldal](#-1-bejelentkezés-oldal)
+  - [Irányítópult oldal](#-2-irányítópult-oldal)
+  - [Utak oldal](#-3-utak-oldal)
+  - [Tankolás oldal](#-4-tankolás-oldal)
+  - [Szerviz oldal](#-5-szerviz-oldal)
+  - [Értesítések oldal](#-6-értesítések-oldal)
+  - [Profil oldal](#-7-profil-oldal)
+- [Felugró ablakok](#-felugró-ablakok)
+  - [Elfelejtett jelszó felugró](#-elfelejtett-jelszó-felugró)
+  - [Szerviz részletek felugró](#-szerviz-részletek-felugró)
+  - [Naptár nap felugró](#-naptár-nap-felugró)
+- [Navigáció](#-navigáció)
+- [Szolgáltatások](#-szolgáltatások)
+- [Modellek](#-modellek)
+- [Hitelesítés és munkamenet-kezelés](#-hitelesítés-és-munkamenet-kezelés)
+- [Téma támogatás](#-téma-támogatás)
+- [Függőségek](#-függőségek)
 
 ---
 
@@ -52,7 +52,7 @@ Egy többplatformos mobilalkalmazás, amely **.NET MAUI**-val készült flottake
 
 **Támogatott platformok:** Android (API 21+), iOS (15.0+), macOS Catalyst (15.0+), Windows (10.0.17763+)
 
-**Backend API:** `http://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/`
+**Backend API:** `https://fleetflow-zarodolgozat-backend-ressdominik.jcloud.jedlik.cloud/api/`
 
 ---
 
