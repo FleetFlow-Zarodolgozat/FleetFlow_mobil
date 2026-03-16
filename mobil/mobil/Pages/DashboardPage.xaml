@@ -267,20 +267,25 @@
                 </VerticalStackLayout>
 
                 <!-- Calendar section -->
-                <calendar:Calendar Events="{Binding CalendarEvents}"
-                                   DayTappedCommand="{Binding DayTappedCommand}"
-                                   DeselectedDayTextColor="{AppThemeBinding Light=Black, Dark=White}"
-                                   WeekendDayColor="{AppThemeBinding Light=#ef4444, Dark=#FF8080}"
-                                   TodayFillColor="#1173d4"
-                                   TodayOutlineColor="#1173d4"
-                                   TodayTextColor="White"
-                                   SelectedTodayTextColor="White"
-                                   EventIndicatorColor="#1173d4"
-                                   EventIndicatorSelectedColor="#1173d4"
-                                   EventIndicatorTextColor="#1173d4"
-                                   EventIndicatorSelectedTextColor="White"
-                                   DaysTitleLabelStyle="{StaticResource CalendarDaysTitleStyle}"
-                                   WeekendTitleStyle="{StaticResource CalendarWeekendTitleStyle}" />
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="MY CALENDAR" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" />
+                    <Border StrokeShape="RoundRectangle 14" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="16">
+                        <calendar:Calendar Events="{Binding CalendarEvents}"
+                                       DayTappedCommand="{Binding DayTappedCommand}"
+                                       DeselectedDayTextColor="{AppThemeBinding Light=Black, Dark=White}"
+                                       WeekendDayColor="{AppThemeBinding Light=#ef4444, Dark=#FF8080}"
+                                       TodayFillColor="#1173d4"
+                                       TodayOutlineColor="#1173d4"
+                                       TodayTextColor="White"
+                                       SelectedTodayTextColor="White"
+                                       EventIndicatorColor="#1173d4"
+                                       EventIndicatorSelectedColor="#1173d4"
+                                       EventIndicatorTextColor="#1173d4"
+                                       EventIndicatorSelectedTextColor="White"
+                                       DaysTitleLabelStyle="{StaticResource CalendarDaysTitleStyle}"
+                                       WeekendTitleStyle="{StaticResource CalendarWeekendTitleStyle}" />
+                    </Border>
+                </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
         <components:BottomNavigation Grid.Row="2" ActiveTab="Dashboard" />
