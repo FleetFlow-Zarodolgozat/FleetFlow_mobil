@@ -39,6 +39,9 @@ namespace mobil.ViewModels
             IsBusy = true;
             await _auth.ForgotPassword(new ForgotPassword { Email = Email });
             if (CloseAction != null) await CloseAction();
+            IsBusy = false;
+            Email = "";
+            ErrorMessage = "";
         }
 
         [RelayCommand]
