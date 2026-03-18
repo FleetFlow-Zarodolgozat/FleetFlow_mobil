@@ -2,6 +2,7 @@
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
@@ -117,7 +118,7 @@ namespace mobil.Services
         public async Task<string?> UploadServiceDetails(ulong serviceId, ServiceDetailUpload service)
         {
             using var content = new MultipartFormDataContent();
-            content.Add(new StringContent(service.DriverReportCost.ToString()), "driverReportCost");
+            content.Add(new StringContent(service.DriverReportCost.ToString(CultureInfo.InvariantCulture)), "driverReportCost");
             if (!string.IsNullOrWhiteSpace(service.DriverCloseNote))
                 content.Add(new StringContent(service.DriverCloseNote), "driverCloseNote");
             if (service.File != null)
@@ -154,7 +155,7 @@ namespace mobil.Services
         {
             using var content = new MultipartFormDataContent();
             if (service.DriverReportCost > 0)
-                content.Add(new StringContent(service.DriverReportCost.ToString()), "driverReportCost");
+                content.Add(new StringContent(service.DriverReportCost.ToString(CultureInfo.InvariantCulture)), "driverReportCost");
             if (!string.IsNullOrWhiteSpace(service.DriverCloseNote))
                 content.Add(new StringContent(service.DriverCloseNote), "driverCloseNote");
             if (service.File != null)

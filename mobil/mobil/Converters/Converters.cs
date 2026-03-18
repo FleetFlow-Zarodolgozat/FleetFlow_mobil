@@ -213,4 +213,30 @@ namespace mobil.Converters
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
             => throw new NotImplementedException();
     }
+
+    public class DecimalConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            if (value is decimal d)
+            {
+                if (d == 0)
+                    return string.Empty;
+                var formatted = d.ToString(CultureInfo.InvariantCulture);
+                if (formatted.Contains('.'))
+                    formatted = formatted.TrimEnd('0').TrimEnd('.');
+                return formatted;
+            }
+            return string.Empty;
+        }
+
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            if (string.IsNullOrWhiteSpace(value as string))
+                return 0m;
+            if (decimal.TryParse(value as string, NumberStyles.Number, CultureInfo.InvariantCulture, out var result))
+                return result;
+            return 0m;
+        }
+    }
 }

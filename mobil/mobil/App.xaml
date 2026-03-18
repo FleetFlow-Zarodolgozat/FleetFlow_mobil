@@ -26,6 +26,7 @@
             <converters:ServiceStatusToLightColorConverter x:Key="ServiceStatusToLightColor" />
             <converters:ServiceStatusToLabelConverter x:Key="ServiceStatusToLabel" />
             <converters:ServiceStatusToIconConverter x:Key="ServiceStatusToIcon" />
+            <converters:DecimalConverter x:Key="DecimalConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

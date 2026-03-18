@@ -61,7 +61,7 @@
                     <Border StrokeShape="RoundRectangle 8" Stroke="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3A}" StrokeThickness="1" BackgroundColor="{AppThemeBinding Light=#F9FAFB, Dark=#262626}" Padding="12,8">
                         <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
                             <Label Text="&#xf155;" FontFamily="FontAwesomeSolid" FontSize="14" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" VerticalOptions="Center" />
-                            <Entry Grid.Column="1" Text="{Binding DriverReportCost, StringFormat='{}{0:0}'}" Keyboard="Numeric" Placeholder="0" BackgroundColor="Transparent" FontSize="13" />
+                            <Entry Grid.Column="1" Text="{Binding DriverReportCost, Converter={StaticResource DecimalConverter}}" Keyboard="Numeric" Placeholder="0" BackgroundColor="Transparent" FontSize="13" />
                         </Grid>
                     </Border>
                 </VerticalStackLayout>
