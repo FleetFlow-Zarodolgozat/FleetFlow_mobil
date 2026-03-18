@@ -78,7 +78,7 @@ namespace mobil.Services
                     if (json.RootElement.TryGetProperty("message", out var message))
                         return message.GetString();
                 }
-                catch (Exception ex)
+                catch
                 { }
                 return body.Trim('"');
             }
@@ -99,7 +99,7 @@ namespace mobil.Services
                     if (json.RootElement.TryGetProperty("message", out var message))
                         return message.GetString();
                 }
-                catch (Exception ex)
+                catch
                 { }
                 return body.Trim('"');
             }

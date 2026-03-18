@@ -91,7 +91,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task DeleteEvent(Calendarevent ev)
         {
-            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Event", $"Delete '{ev.Title}'?", "Delete", "Cancel");
+            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlertAsync("Delete Event", $"Delete '{ev.Title}'?", "Delete", "Cancel");
             if (!confirm) return;
             var error = await _service.DeleteEvent(ev.Id);
             if (error != null)

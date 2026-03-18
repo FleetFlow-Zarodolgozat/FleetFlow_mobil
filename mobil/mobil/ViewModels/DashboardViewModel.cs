@@ -26,13 +26,13 @@ namespace mobil.ViewModels
         EventCollection calendarEvents = new();
 
         [ObservableProperty]
-        Driver driver;
+        Driver driver = new Driver();
 
         [ObservableProperty]
-        Vehicle vehicle;
+        Vehicle vehicle = new Vehicle();
 
         [ObservableProperty]
-        Stats stats;
+        Stats stats = new Stats();
 
         [ObservableProperty]
         bool haveUnreadMessage;
@@ -41,10 +41,10 @@ namespace mobil.ViewModels
         bool isBusy;
 
         [ObservableProperty]
-        string errorMessage;
+        string errorMessage = string.Empty;
 
         [ObservableProperty]
-        string welcomeMessage;
+        string welcomeMessage = string.Empty;
 
         [ObservableProperty]
         ImageSource? profileImage;
@@ -57,9 +57,9 @@ namespace mobil.ViewModels
             try
             {
                 IsBusy = true;
-                Driver = await _dashboardService.MyProfileData();
-                Vehicle = await _dashboardService.MyVehicle();
-                Stats = await _dashboardService.MyStats();
+                Driver = (await _dashboardService.MyProfileData())!;
+                Vehicle = (await _dashboardService.MyVehicle())!;
+                Stats = (await _dashboardService.MyStats())!;
                 var unreadStatus = await _dashboardService.HaveUnreadMessage();
                 if (unreadStatus.HasValue)
                     HaveUnreadMessage = unreadStatus.Value;

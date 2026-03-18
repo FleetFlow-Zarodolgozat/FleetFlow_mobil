@@ -88,7 +88,7 @@ namespace mobil.ViewModels
                     ErrorMessage = "Invalid email or password.";
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 HasError = true;
                 ErrorMessage = "An error occurred during login. Please try again.";

@@ -17,10 +17,10 @@ namespace mobil.ViewModels
         }
 
         [ObservableProperty]
-        string email;
+        string email = string.Empty;
 
         [ObservableProperty]
-        string errorMessage;
+        string errorMessage = string.Empty;
 
         [ObservableProperty]
         private bool isBusy;

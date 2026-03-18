@@ -52,7 +52,7 @@ namespace mobil.Services
                     if (json.RootElement.TryGetProperty("message", out var message))
                         return message.GetString();
                 }
-                catch (Exception ex)
+                catch
                 { }
                 return body.Trim('"');
             }
@@ -73,7 +73,8 @@ namespace mobil.Services
             int newHeight = bitmap.Height * maxWidth / bitmap.Width;
             var resizedBitmap = bitmap.Resize(
                 new SKImageInfo(newWidth, newHeight),
-                SKFilterQuality.Medium);
+                new SKSamplingOptions(SKFilterMode.Linear)
+            );
             using var image = SKImage.FromBitmap(resizedBitmap);
             using var data = image.Encode(SKEncodedImageFormat.Jpeg, 80);
             return new MemoryStream(data.ToArray());

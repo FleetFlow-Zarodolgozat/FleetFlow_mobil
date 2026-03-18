@@ -19,7 +19,7 @@ namespace mobil.ViewModels
         }
 
         [ObservableProperty]
-        Service service;
+        Service service = new Service();
 
         [ObservableProperty]
         decimal driverReportCost;
@@ -56,45 +56,36 @@ namespace mobil.ViewModels
 
         public Func<Task>? CloseAction { get; set; }
 
-        public async void Load(Service svc)
+        public async Task Load(Service svc)
         {
-            service = svc;
-            OnPropertyChanged(nameof(Service));
-            isEdit = svc.DriverReportCost is not null && svc.DriverReportCost > 0;
-            OnPropertyChanged(nameof(IsEdit));
-            if (isEdit)
+            Service = svc;
+            IsEdit = svc.DriverReportCost is not null && svc.DriverReportCost > 0;
+            if (IsEdit)
             {
-                popupTitle = "Edit Service Details";
-                driverReportCost = svc.DriverReportCost ?? 0;
+                PopupTitle = "Edit Service Details";
+                DriverReportCost = svc.DriverReportCost ?? 0;
             }
             else
             {
-                popupTitle = "Add Service Details";
-                driverReportCost = 0;
-                driverCloseNote = string.Empty;
+                PopupTitle = "Add Service Details";
+                DriverReportCost = 0;
+                DriverCloseNote = string.Empty;
             }
-            OnPropertyChanged(nameof(PopupTitle));
-            OnPropertyChanged(nameof(DriverReportCost));
-            OnPropertyChanged(nameof(DriverCloseNote));
-            hasNewPhoto = false;
-            previewImage = null;
+            HasNewPhoto = false;
+            PreviewImage = null;
             _selectedPhoto = null;
-            hasError = false;
-            hasSuccess = false;
+            HasError = false;
+            HasSuccess = false;
             if (svc.InvoiceFileId is not null)
             {
                 var file = await _serviceService.GetInvoiceFile(svc.InvoiceFileId!.Value);
                 if (file.Stream != null)
                 {
-                    hasNewPhoto = true;
+                    HasNewPhoto = true;
                     var image = ImageSource.FromStream(() => file.Stream);
-                    previewImage = image;
+                    PreviewImage = image;
                 }
             }
-            OnPropertyChanged(nameof(HasNewPhoto));
-            OnPropertyChanged(nameof(PreviewImage));
-            OnPropertyChanged(nameof(HasError));
-            OnPropertyChanged(nameof(HasSuccess));
         }
 
         [RelayCommand]
@@ -102,12 +93,12 @@ namespace mobil.ViewModels
         {
             try
             {
-                var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+                var results = await MediaPicker.Default.PickPhotosAsync(new MediaPickerOptions
                 {
                     Title = "Select invoice photo"
                 });
-                if (result is not null)
-                    await SetSelectedPhoto(result);
+                if (results is not null && results.Count > 0)
+                    await SetSelectedPhoto(results[0]);
             }
             catch (Exception ex)
             {
@@ -159,7 +150,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task Save()
         {
-            if (driverReportCost <= 0)
+            if (DriverReportCost <= 0)
             {
                 HasError = true;
                 ErrorMessage = "Please enter a valid cost amount.";
@@ -172,15 +163,15 @@ namespace mobil.ViewModels
                 HasSuccess = false;
                 var upload = new ServiceDetailUpload
                 {
-                    DriverReportCost = driverReportCost,
-                    DriverCloseNote = driverCloseNote,
+                    DriverReportCost = DriverReportCost,
+                    DriverCloseNote = DriverCloseNote,
                     File = _selectedPhoto
                 };
                 string? error;
-                if (isEdit)
-                    error = await _serviceService.EditUploadedDetails(service.Id, upload);
+                if (IsEdit)
+                    error = await _serviceService.EditUploadedDetails(Service.Id, upload);
                 else
-                    error = await _serviceService.UploadServiceDetails(service.Id, upload);
+                    error = await _serviceService.UploadServiceDetails(Service.Id, upload);
                 if (error is not null)
                 {
                     HasError = true;
@@ -188,7 +179,7 @@ namespace mobil.ViewModels
                     return;
                 }
                 HasSuccess = true;
-                SuccessMessage = isEdit ? "Details updated!" : "Details uploaded!";
+                SuccessMessage = IsEdit ? "Details updated!" : "Details uploaded!";
                 await Task.Delay(1000);
                 if (CloseAction is not null)
                     await CloseAction();

@@ -143,7 +143,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task DeleteService(Service service)
         {
-            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Service Request", $"Delete: '{service.Title}'?", "Delete", "Cancel");
+            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlertAsync("Delete Service Request", $"Delete: '{service.Title}'?", "Delete", "Cancel");
             if (!confirm) return;
             try
             {
@@ -209,7 +209,7 @@ namespace mobil.ViewModels
         async Task EditServiceDetails(Service service)
         {
             var detailsVm = IPlatformApplication.Current!.Services.GetRequiredService<ServiceDetailsViewModel>();
-            detailsVm.Load(service);
+            await detailsVm.Load(service);
             var popup = new ServiceDetailsPopup(detailsVm);
             await Shell.Current.ShowPopupAsync(popup);
             await FetchPage();
