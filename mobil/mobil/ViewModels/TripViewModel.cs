@@ -215,7 +215,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task DeleteTrip(Trip trip)
         {
-            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Trip", $"Delete trip from {trip.StartLocation} to {trip.EndLocation}?", "Delete", "Cancel");
+            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlertAsync("Delete Trip", $"Delete trip from {trip.StartLocation} to {trip.EndLocation}?", "Delete", "Cancel");
             if (!confirm) return;
             try
             {

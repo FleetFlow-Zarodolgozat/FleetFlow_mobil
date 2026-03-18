@@ -166,12 +166,12 @@ namespace mobil.ViewModels
         {
             try
             {
-                var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+                var results = await MediaPicker.Default.PickPhotosAsync(new MediaPickerOptions
                 {
                     Title = "Select fuel receipt"
                 });
-                if (result is not null)
-                    await SetSelectedPhoto(result);
+                if (results is not null && results.Count > 0)
+                    await SetSelectedPhoto(results[0]);
             }
             catch (Exception ex)
             {
@@ -216,7 +216,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task DeleteFuel(Fuel fuel)
         {
-            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlert("Delete Fuel Log", $"Delete fuel entry from {fuel.Date:yyyy.MM.dd}?", "Delete", "Cancel");
+            bool confirm = await Application.Current!.Windows[0].Page!.DisplayAlertAsync("Delete Fuel Log", $"Delete fuel entry from {fuel.Date:yyyy.MM.dd}?", "Delete", "Cancel");
             if (!confirm) return;
             try
             {

@@ -191,12 +191,12 @@ namespace mobil.ViewModels
         {
             try
             {
-                var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+                var results = await MediaPicker.Default.PickPhotosAsync(new MediaPickerOptions
                 {
                     Title = "Select profile photo"
                 });
-                if (result is not null)
-                    await SetSelectedPhoto(result);
+                if (results is not null && results.Count > 0)
+                    await SetSelectedPhoto(results[0]);
             }
             catch (Exception ex)
             {
