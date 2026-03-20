@@ -25,10 +25,10 @@ jobs:
         run: dotnet workload install maui
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore mobil/mobil/mobil.csproj
 
       - name: Build APK
-        run: dotnet publish -f net10.0-android -c Release /p:AndroidPackageFormat=apk
+        run: dotnet publish mobil/mobil/mobil.csproj -f net10.0-android -c Release /p:AndroidPackageFormat=apk
 
       - name: Find APK
         id: find_apk
