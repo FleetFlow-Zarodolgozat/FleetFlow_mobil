@@ -5,6 +5,7 @@
 Egy többplatformos mobilalkalmazás, amely **.NET MAUI**-val készült flottakezeléshez. Az alkalmazást **sofőrök** számára terveztük, és a FleetFlow REST API backendhez csatlakozik. Lehetővé teszi a sofőrök számára az utak kezelését, a tankolások rögzítését, szervizigények beküldését, értesítések megtekintését, valamint a profiljuk naprakészen tartását — mindezt egyetlen, igényesen kidolgozott mobilalkalmazásból.
 
 [![.NET CI](https://github.com/FleetFlow-Zarodolgozat/FleetFlow_mobil/actions/workflows/dotnet.yml/badge.svg)](https://github.com/FleetFlow-Zarodolgozat/FleetFlow_mobil/actions/workflows/dotnet.yml)
+[![Build & Release Android APK](https://github.com/FleetFlow-Zarodolgozat/FleetFlow_mobil/actions/workflows/android-build.yml/badge.svg)](https://github.com/FleetFlow-Zarodolgozat/FleetFlow_mobil/actions/workflows/android-build.yml)
 
 </div>
 
