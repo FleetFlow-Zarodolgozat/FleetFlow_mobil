@@ -1,0 +1,47 @@
+name: Build & Release Android APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build APK
+        run: dotnet publish -f net10.0-android -c Release /p:AndroidPackageFormat=apk
+
+      - name: Find APK
+        id: find_apk
+        run: |
+          $apk = Get-ChildItem -Recurse -Filter *.apk | Select-Object -First 1
+          echo "APK_PATH=$($apk.FullName)" >> $env:GITHUB_ENV
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: FleetFlow ${{ github.ref_name }}
+          body: Automatic build release
+          files: ${{ env.APK_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
