@@ -63,7 +63,10 @@
             </Border>
 
             <!-- Footer -->
-            <Label Grid.Row="2" Text="&#169; 2025 FleetFlow. All rights reserved." FontSize="12" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20"/>
+            <VerticalStackLayout Grid.Row="2" Spacing="2" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,20">
+                <Label Text="&#169; 2026 FleetFlow. All rights reserved." FontSize="12" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" />
+                <Label Text="{Binding AppVersion}" FontSize="12" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" HorizontalOptions="Center" />
+            </VerticalStackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

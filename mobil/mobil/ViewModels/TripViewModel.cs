@@ -60,17 +60,13 @@ namespace mobil.ViewModels
         [ObservableProperty]
         TimeSpan newEndTime = DateTime.Now.AddMinutes(30).TimeOfDay;
 
-        partial void OnNewStartDateChanged(DateTime value) =>
-            NewTrip.StartTime = value.Date + NewStartTime;
+        partial void OnNewStartDateChanged(DateTime value) => NewTrip.StartTime = value.Date + NewStartTime;
 
-        partial void OnNewStartTimeChanged(TimeSpan value) =>
-            NewTrip.StartTime = NewStartDate.Date + value;
+        partial void OnNewStartTimeChanged(TimeSpan value) => NewTrip.StartTime = NewStartDate.Date + value;
 
-        partial void OnNewEndDateChanged(DateTime value) =>
-            NewTrip.EndTime = value.Date + NewEndTime;
+        partial void OnNewEndDateChanged(DateTime value) => NewTrip.EndTime = value.Date + NewEndTime;
 
-        partial void OnNewEndTimeChanged(TimeSpan value) =>
-            NewTrip.EndTime = NewEndDate.Date + value;
+        partial void OnNewEndTimeChanged(TimeSpan value) => NewTrip.EndTime = NewEndDate.Date + value;
 
         [ObservableProperty]
         bool hasSuccess;

@@ -11,12 +11,9 @@
     <Grid RowDefinitions="Auto, *, Auto">
         <!-- Top bar -->
         <Border Grid.Row="0" Padding="15" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" StrokeShape="Rectangle" StrokeThickness="0">
-            <Border.Shadow>
-                <Shadow Brush="#15000000" Offset="0,2" Radius="6" />
-            </Border.Shadow>
             <Grid ColumnDefinitions="Auto, *, Auto">
-                <Label Grid.Column="0" Text="FleetFlow" FontAttributes="Bold" FontSize="18" TextColor="#1173d4" VerticalOptions="Center" />
-                <Label Grid.Column="1" Text="Notifications" FontSize="14" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Label Grid.Column="0" Text="&#xf0f3;" FontFamily="FontAwesomeSolid" FontSize="20" TextColor="#1173d4" VerticalOptions="Center" />
+                <Label Grid.Column="1" Text="Notifications" FontAttributes="Bold" FontSize="18" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" VerticalOptions="Center" Margin="10,0,0,0" />
                 <!-- Mark All Read button -->
                 <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#F0F7FF, Dark=#0D2440}" Padding="12,8">
                     <Border.GestureRecognizers>
@@ -38,10 +35,7 @@
                 <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#1173d4" HeightRequest="40" />
 
                 <!-- Section header -->
-                <VerticalStackLayout Spacing="2" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">
-                    <Label Text="NOTIFICATIONS" FontSize="12" FontAttributes="Bold" TextColor="#1173d4" />
-                    <Label Text="Your latest updates" FontSize="22" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" />
-                </VerticalStackLayout>
+                <Label Text="MY NOTIFICATIONS" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" />
 
                 <!-- Notification list -->
                 <CollectionView ItemsSource="{Binding Notifications}" SelectionMode="None" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBooleanConverter}}">

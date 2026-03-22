@@ -15,6 +15,7 @@ namespace mobil.ViewModels
     public partial class DashboardViewModel : ObservableObject
     {
         private readonly DashboardService _dashboardService;
+
         public DashboardViewModel(DashboardService dashboardService)
         {
             _dashboardService = dashboardService;
