@@ -53,11 +53,9 @@ namespace mobil.ViewModels
         [ObservableProperty]
         TimeSpan newFuelTime = DateTime.Now.TimeOfDay;
 
-        partial void OnNewFuelDateChanged(DateTime value) =>
-            NewFuel.Date = value.Date + NewFuelTime;
+        partial void OnNewFuelDateChanged(DateTime value) => NewFuel.Date = value.Date + NewFuelTime;
 
-        partial void OnNewFuelTimeChanged(TimeSpan value) =>
-            NewFuel.Date = NewFuelDate.Date + value;
+        partial void OnNewFuelTimeChanged(TimeSpan value) => NewFuel.Date = NewFuelDate.Date + value;
 
         [ObservableProperty]
         bool hasSuccess;

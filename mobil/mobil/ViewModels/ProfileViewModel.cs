@@ -83,6 +83,9 @@ namespace mobil.ViewModels
         [ObservableProperty]
         bool hasProfileImage;
 
+        [ObservableProperty]
+        string appVersion = $"FleetFlow v{AppInfo.Current.VersionString}";
+
         public string SelectedTheme
         {
             get => _selectedThemeValue;

@@ -11,6 +11,7 @@ namespace mobil.ViewModels
     public partial class ForgotPasswordViewModel : ObservableObject
     {
         private readonly AuthService _auth;
+
         public ForgotPasswordViewModel(AuthService auth)
         {
             _auth = auth;

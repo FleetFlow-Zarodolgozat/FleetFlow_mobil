@@ -9,6 +9,7 @@ namespace mobil.ViewModels
     public partial class NotificationViewModel : ObservableObject
     {
         private readonly NotificationService _notificationService;
+
         public NotificationViewModel(NotificationService notificationService)
         {
             _notificationService = notificationService;

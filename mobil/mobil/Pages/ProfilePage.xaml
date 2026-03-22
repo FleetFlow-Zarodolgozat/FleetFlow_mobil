@@ -322,6 +322,12 @@
                         <Label Text="Log Out" FontSize="14" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#dc2626, Dark=#FF6B6B}" VerticalOptions="Center" />
                     </HorizontalStackLayout>
                 </Border>
+
+                <!-- Footer -->
+                <VerticalStackLayout Grid.Row="2" Spacing="2" HorizontalOptions="Center" VerticalOptions="End" Margin="10,0,0,10">
+                    <Label Text="&#169; 2026 FleetFlow. All rights reserved." FontSize="12" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" />
+                    <Label Text="{Binding AppVersion}" FontSize="12" TextColor="{AppThemeBinding Light=#9CA3AF, Dark=#666666}" HorizontalOptions="Center" />
+                </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
 

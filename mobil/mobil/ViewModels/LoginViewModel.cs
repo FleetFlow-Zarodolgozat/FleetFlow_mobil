@@ -16,6 +16,7 @@ namespace mobil.ViewModels
         private readonly AuthService _authService;
         private readonly SessionService _session;
         private readonly ForgotPasswordPopup _popup;
+
         public LoginViewModel(AuthService authService, SessionService session, ForgotPasswordPopup popup)
         {
             _authService = authService;
@@ -24,25 +25,28 @@ namespace mobil.ViewModels
         }
 
         [ObservableProperty]
-        private string? email;
+        string? email;
 
         [ObservableProperty]
-        private string? password;
+        string? password;
 
         [ObservableProperty]
-        private bool isBusy;
+        bool isBusy;
 
         [ObservableProperty]
-        private bool hasError;
+        bool hasError;
 
         [ObservableProperty]
-        private string? errorMessage;
+        string? errorMessage;
 
         [ObservableProperty]
-        private bool isPasswordVisible;
+        bool isPasswordVisible;
 
         [ObservableProperty]
-        private bool passwordVisibilityIcon;
+        bool passwordVisibilityIcon;
+
+        [ObservableProperty]
+        string appVersion = $"FleetFlow v{AppInfo.Current.VersionString}";
 
         [RelayCommand]
         void TogglePasswordVisibility()
