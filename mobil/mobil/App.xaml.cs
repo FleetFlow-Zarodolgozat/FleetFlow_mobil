@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Networking;
 using mobil.Services;
 
 namespace mobil
@@ -24,6 +25,12 @@ namespace mobil
         protected override async void OnStart()
         {
             base.OnStart();
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            {
+                _sessionService.SetPendingLoginError("No internet connection. Please connect to the internet and try again.");
+                await Shell.Current.GoToAsync("//LoginPage");
+                return;
+            }
             var token = await _sessionService.GetToken();
             if (!string.IsNullOrEmpty(token))
                 await Shell.Current.GoToAsync("//DashboardPage");

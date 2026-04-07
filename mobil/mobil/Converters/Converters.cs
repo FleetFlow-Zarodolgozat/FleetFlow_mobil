@@ -214,6 +214,40 @@ namespace mobil.Converters
             => throw new NotImplementedException();
     }
 
+    public class VehicleStatusToBadgeBackgroundColorConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
+            var status = (value as string)?.ToUpperInvariant();
+            return status switch
+            {
+                "MAINTENANCE" => Color.FromArgb(isDark ? "#2A1E0D" : "#FFF5E5"),
+                "ACTIVE" => Color.FromArgb(isDark ? "#1A2A1E" : "#ecfdf5"),
+                _ => Color.FromArgb(isDark ? "#2E2E2E" : "#f1f5f9")
+            };
+        }
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+
+    public class VehicleStatusToBadgeTextColorConverter : IValueConverter
+    {
+        public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            var isDark = Application.Current?.RequestedTheme == AppTheme.Dark;
+            var status = (value as string)?.ToUpperInvariant();
+            return status switch
+            {
+                "MAINTENANCE" => Color.FromArgb(isDark ? "#FDBA74" : "#EA580C"),
+                "ACTIVE" => Color.FromArgb(isDark ? "#4ADE80" : "#059669"),
+                _ => Color.FromArgb(isDark ? "#B0B0B0" : "#64748b")
+            };
+        }
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+
     public class DecimalConverter : IValueConverter
     {
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
