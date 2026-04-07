@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Networking;
 using mobil.Models;
 using mobil.Popups;
 using mobil.Services;
@@ -22,6 +23,12 @@ namespace mobil.ViewModels
             _authService = authService;
             _session = session;
             _popup = popup;
+            var pendingError = _session.ConsumePendingLoginError();
+            if (!string.IsNullOrWhiteSpace(pendingError))
+            {
+                HasError = true;
+                ErrorMessage = pendingError;
+            }
         }
 
         [ObservableProperty]
@@ -64,6 +71,12 @@ namespace mobil.ViewModels
         [RelayCommand]
         async Task Login()
         {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            {
+                HasError = true;
+                ErrorMessage = "No internet connection. Please connect to the internet and try again.";
+                return;
+            }
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
                 HasError = true;

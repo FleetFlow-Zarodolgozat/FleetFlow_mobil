@@ -158,8 +158,8 @@
                                         <Label Text="{Binding Vehicle.Year}" FontSize="12" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" />
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>
-                                <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#ecfdf5, Dark=#1A2A1E}" Padding="10,5" VerticalOptions="Center">
-                                    <Label Text="{Binding Vehicle.Status}" FontSize="11" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#059669, Dark=#4ADE80}" />
+                                <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="{Binding Vehicle.Status, Converter={StaticResource VehicleStatusToBadgeBackgroundColor}}" Padding="10,5" VerticalOptions="Center">
+                                    <Label Text="{Binding Vehicle.Status}" FontSize="11" FontAttributes="Bold" TextColor="{Binding Vehicle.Status, Converter={StaticResource VehicleStatusToBadgeTextColor}}" />
                                 </Border>
                             </Grid>
 

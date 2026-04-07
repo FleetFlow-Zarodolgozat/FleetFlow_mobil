@@ -48,6 +48,7 @@ namespace mobil.ViewModels
         [RelayCommand]
         void ToggleForm()
         {
+            FormError = null;
             ShowForm = !ShowForm;
             if (!ShowForm)
             {

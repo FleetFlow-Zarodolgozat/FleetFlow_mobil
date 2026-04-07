@@ -6,6 +6,8 @@ namespace mobil.Services
 {
     public class SessionService
     {
+        private string? _pendingLoginError;
+
         public async Task SaveToken(string token)
         {
             await SecureStorage.SetAsync("bearer_token", token);
@@ -14,6 +16,18 @@ namespace mobil.Services
         public async Task<string?> GetToken()
         {
             return await SecureStorage.GetAsync("bearer_token");
+        }
+
+        public void SetPendingLoginError(string message)
+        {
+            _pendingLoginError = message;
+        }
+
+        public string? ConsumePendingLoginError()
+        {
+            var message = _pendingLoginError;
+            _pendingLoginError = null;
+            return message;
         }
 
         public void Logout()
