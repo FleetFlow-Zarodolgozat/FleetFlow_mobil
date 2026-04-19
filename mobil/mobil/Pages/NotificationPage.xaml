@@ -68,7 +68,7 @@
                                         </Grid>
 
                                         <!-- Message -->
-                                        <Label Text="{Binding Message}" FontSize="12" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" LineBreakMode="WordWrap" MaxLines="2" />
+                                        <Label Text="{Binding Message}" FontSize="12" TextColor="{AppThemeBinding Light=#64748b, Dark=#8E8E8E}" LineBreakMode="WordWrap" />
 
                                         <!-- Type badge + Date -->
                                         <Grid ColumnDefinitions="Auto, *" Margin="0,2,0,0">
