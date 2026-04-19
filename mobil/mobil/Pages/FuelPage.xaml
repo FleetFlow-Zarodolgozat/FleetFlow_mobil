@@ -205,6 +205,7 @@
                                                 <Label Text="&#xf073;" FontFamily="FontAwesomeSolid" FontSize="13" TextColor="#EA580C" VerticalOptions="Center" />
                                                 <Label Text="{Binding Date, StringFormat='{0:yyyy.MM.dd  HH:mm}'}" FontSize="15" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" VerticalOptions="Center" />
                                             </HorizontalStackLayout>
+                                            <!-- Delete button -->
                                             <Border Grid.Column="1" WidthRequest="34" HeightRequest="34" StrokeShape="RoundRectangle 17" BackgroundColor="{AppThemeBinding Light=#fef2f2, Dark=#2A1A1A}" StrokeThickness="0" VerticalOptions="Center">
                                                 <Border.GestureRecognizers>
                                                     <TapGestureRecognizer
@@ -248,8 +249,7 @@
                                         </Grid>
 
                                         <!-- Station name -->
-                                        <Border IsVisible="{Binding StationName, Converter={StaticResource IsNotNullConverter}}"
-                                                BackgroundColor="{AppThemeBinding Light=#FFF5E5, Dark=#2A1E0D}" Padding="10,8" StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                                        <Border IsVisible="{Binding StationName, Converter={StaticResource IsNotNullConverter}}" BackgroundColor="{AppThemeBinding Light=#FFF5E5, Dark=#2A1E0D}" Padding="10,8" StrokeThickness="0" StrokeShape="RoundRectangle 8">
                                             <HorizontalStackLayout Spacing="8">
                                                 <Label Text="&#xf5e4;" FontFamily="FontAwesomeSolid" FontSize="11" TextColor="#EA580C" VerticalOptions="Center" />
                                                 <Label Text="{Binding StationName}" FontSize="12" TextColor="#EA580C" FontAttributes="Bold" />
@@ -263,9 +263,9 @@
                 </CollectionView>
 
                 <!-- Pagination -->
-                <Border IsVisible="{Binding HasLoaded}" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="10,8"
-                        StrokeShape="RoundRectangle 12" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1">
+                <Border IsVisible="{Binding HasLoaded}" BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}" Padding="10,8" StrokeShape="RoundRectangle 12" Stroke="{AppThemeBinding Light=#e2e8f0, Dark=#2E2E2E}" StrokeThickness="1">
                     <Grid ColumnDefinitions="Auto, *, Auto">
+                        <!-- Previous -->
                         <Border Grid.Column="0" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="12,8" BackgroundColor="{Binding CanGoBack, Converter={StaticResource BoolToColorConverter}}">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PreviousPageCommand}" />
@@ -275,10 +275,14 @@
                                 <Label Text="Prev" FontSize="13" FontAttributes="Bold" TextColor="{Binding CanGoBack, Converter={StaticResource BoolToTextColorConverter}}" VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
+
+                        <!-- Page info -->
                         <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
                             <Label Text="{Binding PageLabel}" FontSize="13" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1a1a2e, Dark=#E8E8E8}" HorizontalOptions="Center" />
                             <Label Text="{Binding TotalCount, StringFormat='{0} total entries'}" FontSize="10" TextColor="{AppThemeBinding Light=#94a3b8, Dark=#666666}" HorizontalOptions="Center" />
                         </VerticalStackLayout>
+
+                        <!-- Next -->
                         <Border Grid.Column="2" StrokeShape="RoundRectangle 10" StrokeThickness="0" Padding="12,8" BackgroundColor="{Binding CanGoForward, Converter={StaticResource BoolToColorConverter}}">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding NextPageCommand}" />
